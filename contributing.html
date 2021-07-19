@@ -339,27 +339,22 @@ up into parts.  Tests:
 <td><p>TRAVIS</p></td>
 <td><p>Tests that flexible departure and arrival window penalties are working.</p></td>
 </tr>
-<tr class="row-odd"><td><p>Arrival Windows</p></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>Penalty Functions</p></td>
+<tr class="row-odd"><td><p>Penalty Functions</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">test_penalty_functions.py</span></code></p></td>
 <td><p>TRAVIS</p></td>
 <td><p>Tests that penalty functions for flexible departure and arrival windows work.</p></td>
 </tr>
-<tr class="row-odd"><td><p>Regional Network</p></td>
+<tr class="row-even"><td><p>Regional Network</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">test_psrc.py</span></code></p></td>
 <td><p>TRAVIS</p></td>
 <td><p>Tests that things work on a large, regional network</p></td>
 </tr>
-<tr class="row-even"><td><p>User Classes</p></td>
+<tr class="row-odd"><td><p>User Classes</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">test_user_classes.py</span></code></p></td>
 <td><p>Manual</p></td>
 <td><p>Uses multiple user classes as defined in <code class="docutils literal notranslate"><span class="pre">config_ft.py</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>Function Transformations</p></td>
+<tr class="row-even"><td><p>Function Transformations</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">test_weight_qualifiers.py</span></code></p></td>
 <td><p>TRAVIS</p></td>
 <td></td>
@@ -378,17 +373,19 @@ up into parts.  Tests:
 <a class="reference external" href="https://thomas-cokelaer.info/tutorials/sphinx/docstring_python.html">restructured text docstrings</a>
 to be compiled in SPHINX using autodoc functionality, doxygen for c++, and breathe to link them.</p>
 <p>An automatic CI workflow running on GitHub Actions compiles a new version of the documentation at each pull request an
-stores it on GitHub for up to 30 days. The resulting HTML is then manually pushed to the gh-pages branch.</p>
-<p>To rebuild the documentation, you must have sphinx, numpydoc, and the read-the-docs sphinx theme installed:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">sphinx</span> <span class="n">numpydoc</span> <span class="n">sphinx_rtd_theme</span> <span class="n">breathe</span>
+stores it on GitHub for up to 30 days.</p>
+<p>This CI workflow will fail if the documentation cannot be built. In that case, the documentation needs to be fixed
+before the new branch is merged.</p>
+<p>On merge to master, the GitHub Actions CI workflow also uploads the resulting documentation to the gh-pages branch,
+keeping the online documentation in perfect synchrony with the code.</p>
+<p>To rebuild the documentation, you must have sphinx, numpydoc, and the read-the-docs sphinx theme installed, as well as
+doxygen and the breathe to update the c++ documentation:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements_dev</span><span class="o">.</span><span class="n">txt</span>
 </pre></div>
 </div>
-<p>To update the c++ documentation (if needed), you will also need to install doxygen and the breathe python library:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">breathe</span>
-</pre></div>
-</div>
-<p>Follow directions on <a class="reference external" href="https://www.stack.nl/~dimitri/doxygen/manual/install.html">doxygen page</a> to install, or if you
-have brew installed on a mac, use the command:</p>
+<p>Building the C++ documentation also requires other software installation, and you can follow the directions provided on
+the <a class="reference external" href="https://www.doxygen.nl/manual/install.html">doxygen page</a> to install, or if you have brew
+installed on a mac, use the command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">doxygen</span>
 </pre></div>
 </div>
@@ -408,9 +405,8 @@ have brew installed on a mac, use the command:</p>
 </div>
 <div class="section" id="push-documentation-to-gh-pages-branch">
 <h3>Push documentation to gh-pages branch<a class="headerlink" href="#push-documentation-to-gh-pages-branch" title="Permalink to this headline">¶</a></h3>
-<p>The resulting files in the <code class="docutils literal notranslate"><span class="pre">doc/html</span></code> directory should be published to the gh-pages branch in the .git repository,
-making sure it is clean ahead of time.  This can be done via a GUI or by using the following commands from the root
-fast-trips directory:</p>
+<p>In case there is a need to manually upload the compiled documentation to GitHub, it can be done via a GUI or by using
+the following commands from the root fast-trips directory:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="n">czf</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">html</span><span class="o">.</span><span class="n">tgz</span> <span class="n">doc</span><span class="o">/</span><span class="n">build</span><span class="o">/**</span> <span class="c1">## zips and copies files to temp directory</span>
 <span class="n">git</span> <span class="n">checkout</span> <span class="n">gh</span><span class="o">-</span><span class="n">pages</span>              <span class="c1">## checks out github pages directory</span>
 <span class="n">git</span> <span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="o">.</span>                       <span class="c1">## clean out gh-pages branch...but not the .git folder!</span>
