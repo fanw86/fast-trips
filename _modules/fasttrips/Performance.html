@@ -1,40 +1,45 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>fasttrips.Performance &mdash; fasttrips Development Branch Commit 5e504cb3319b58faac3aca1310cb4ad08dc44ed8 documentation</title>
   
 
   
-  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+
   
   
 
   
-  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
 </head>
@@ -77,6 +82,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -99,6 +105,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -133,11 +140,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../index.html">Module code</a> &raquo;</li>
         
@@ -157,8 +166,8 @@
            <div itemprop="articleBody">
             
   <h1>Source code for fasttrips.Performance</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
-<span class="kn">from</span> <span class="nn">builtins</span> <span class="k">import</span> <span class="nb">object</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">object</span>
 
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;Copyright 2016 Contributing Entities&quot;</span>
 <span class="n">__license__</span>   <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
@@ -179,8 +188,8 @@
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="kn">from</span> <span class="nn">.Passenger</span> <span class="k">import</span> <span class="n">Passenger</span>
-<span class="kn">from</span> <span class="nn">.Util</span>      <span class="k">import</span> <span class="n">Util</span>
+<span class="kn">from</span> <span class="nn">.Passenger</span> <span class="kn">import</span> <span class="n">Passenger</span>
+<span class="kn">from</span> <span class="nn">.Util</span>      <span class="kn">import</span> <span class="n">Util</span>
 
 
 <div class="viewcode-block" id="Performance"><a class="viewcode-back" href="../../_generated/fasttrips.Performance.html#fasttrips.Performance">[docs]</a><span class="k">class</span> <span class="nc">Performance</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -246,7 +255,7 @@
     <span class="c1">#: File to write performance results</span>
     <span class="n">OUTPUT_PERFORMANCE_FILE</span>                <span class="o">=</span> <span class="s1">&#39;ft_output_performance.csv&#39;</span>
 
-<div class="viewcode-block" id="Performance.__init__"><a class="viewcode-back" href="../../_generated/fasttrips.Performance.html#fasttrips.Performance.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Performance.__init__"><a class="viewcode-back" href="../../_generated/fasttrips.Performance.html#fasttrips.Performance.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Constructor.  Initialize empty dataframe for performance info.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -286,7 +295,7 @@
         <span class="c1"># will map (iteration, pathfinding_iteration, simulation_iteration) =&gt; (step_name, start time (a datetime.datetime), starting mem usage in bytes)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">steps</span> <span class="o">=</span> <span class="p">{}</span></div>
 
-<div class="viewcode-block" id="Performance.add_info"><a class="viewcode-back" href="../../_generated/fasttrips.Performance.html#fasttrips.Performance.add_info">[docs]</a>    <span class="k">def</span> <span class="nf">add_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iteration</span><span class="p">,</span> <span class="n">pathfinding_iteration</span><span class="p">,</span> <span class="n">person_id</span><span class="p">,</span> <span class="n">person_trip_id</span><span class="p">,</span>  <span class="n">perf_dict</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">add_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iteration</span><span class="p">,</span> <span class="n">pathfinding_iteration</span><span class="p">,</span> <span class="n">person_id</span><span class="p">,</span> <span class="n">person_trip_id</span><span class="p">,</span>  <span class="n">perf_dict</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add this row to the performance dict of arrays.</span>
 <span class="sd">        Assumes time values are in milliseconds.</span>
@@ -311,9 +320,9 @@
 
         <span class="c1"># convert milliseconds time to timedeltas</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">performance_pf_dict</span><span class="p">[</span><span class="n">Performance</span><span class="o">.</span><span class="n">PERFORMANCE_PF_COL_TIME_LABELING</span>   <span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">milliseconds</span><span class="o">=</span><span class="n">perf_dict</span><span class="p">[</span><span class="n">Performance</span><span class="o">.</span><span class="n">PERFORMANCE_PF_COL_TIME_LABELING_MS</span>   <span class="p">]))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">performance_pf_dict</span><span class="p">[</span><span class="n">Performance</span><span class="o">.</span><span class="n">PERFORMANCE_PF_COL_TIME_ENUMERATING</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">milliseconds</span><span class="o">=</span><span class="n">perf_dict</span><span class="p">[</span><span class="n">Performance</span><span class="o">.</span><span class="n">PERFORMANCE_PF_COL_TIME_ENUMERATING_MS</span><span class="p">]))</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">performance_pf_dict</span><span class="p">[</span><span class="n">Performance</span><span class="o">.</span><span class="n">PERFORMANCE_PF_COL_TIME_ENUMERATING</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">milliseconds</span><span class="o">=</span><span class="n">perf_dict</span><span class="p">[</span><span class="n">Performance</span><span class="o">.</span><span class="n">PERFORMANCE_PF_COL_TIME_ENUMERATING_MS</span><span class="p">]))</span>
 
-<div class="viewcode-block" id="Performance.record_step_start"><a class="viewcode-back" href="../../_generated/fasttrips.Performance.html#fasttrips.Performance.record_step_start">[docs]</a>    <span class="k">def</span> <span class="nf">record_step_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iteration</span><span class="p">,</span> <span class="n">pathfinding_iteration</span><span class="p">,</span> <span class="n">simulation_iteration</span><span class="p">,</span> <span class="n">step_name</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">record_step_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iteration</span><span class="p">,</span> <span class="n">pathfinding_iteration</span><span class="p">,</span> <span class="n">simulation_iteration</span><span class="p">,</span> <span class="n">step_name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Records the step start.</span>
 <span class="sd">        If there was previously a step at this level, then ends that and saves the duration of that step.</span>
@@ -327,9 +336,9 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">record_step_end</span><span class="p">(</span><span class="n">iteration</span><span class="p">,</span> <span class="n">pathfinding_iteration</span><span class="p">,</span> <span class="n">simulation_iteration</span><span class="p">)</span>
 
         <span class="c1"># save the current step state</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">steps</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">step_name</span><span class="p">,</span> <span class="n">now</span><span class="p">,</span> <span class="n">mem_use</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">steps</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">step_name</span><span class="p">,</span> <span class="n">now</span><span class="p">,</span> <span class="n">mem_use</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Performance.record_step_end"><a class="viewcode-back" href="../../_generated/fasttrips.Performance.html#fasttrips.Performance.record_step_end">[docs]</a>    <span class="k">def</span> <span class="nf">record_step_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iteration</span><span class="p">,</span> <span class="n">pathfinding_iteration</span><span class="p">,</span> <span class="n">simulation_iteration</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">record_step_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iteration</span><span class="p">,</span> <span class="n">pathfinding_iteration</span><span class="p">,</span> <span class="n">simulation_iteration</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Explicitly ends whatever step was happening at this level.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -351,9 +360,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">step_record_dict</span><span class="p">[</span><span class="n">Performance</span><span class="o">.</span><span class="n">PERFORMANCE_COL_START_MEM_MB</span>         <span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">prev_step</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">step_record_dict</span><span class="p">[</span><span class="n">Performance</span><span class="o">.</span><span class="n">PERFORMANCE_COL_END_MEM_MB</span>           <span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mem_use</span><span class="p">)</span>
 
-        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">steps</span><span class="p">[</span><span class="n">key</span><span class="p">]</span></div>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">steps</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
 
-<div class="viewcode-block" id="Performance.write_pathfinding"><a class="viewcode-back" href="../../_generated/fasttrips.Performance.html#fasttrips.Performance.write_pathfinding">[docs]</a>    <span class="k">def</span> <span class="nf">write_pathfinding</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">append</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">write_pathfinding</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">append</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Writes the pathfinding results to OUTPUT_PERFORMANCE_PF_FILE as a csv.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -363,9 +372,9 @@
 
         <span class="c1"># reset dict to blank</span>
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">performance_pf_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">performance_pf_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">performance_pf_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
-<div class="viewcode-block" id="Performance.write"><a class="viewcode-back" href="../../_generated/fasttrips.Performance.html#fasttrips.Performance.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Writes the results to OUTPUT_PERFORMANCE_FILE as a csv.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -373,27 +382,32 @@
 
         <span class="n">performance_df</span><span class="p">[</span><span class="n">Performance</span><span class="o">.</span><span class="n">PERFORMANCE_COL_STEP_DURATION</span><span class="p">]</span> <span class="o">=</span> <span class="n">performance_df</span><span class="p">[</span><span class="n">Performance</span><span class="o">.</span><span class="n">PERFORMANCE_COL_END_TIME</span><span class="p">]</span> <span class="o">-</span> <span class="n">performance_df</span><span class="p">[</span><span class="n">Performance</span><span class="o">.</span><span class="n">PERFORMANCE_COL_START_TIME</span><span class="p">]</span>
 
-        <span class="n">Util</span><span class="o">.</span><span class="n">write_dataframe</span><span class="p">(</span><span class="n">performance_df</span><span class="p">,</span> <span class="s2">&quot;performance_df&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">Performance</span><span class="o">.</span><span class="n">OUTPUT_PERFORMANCE_FILE</span><span class="p">),</span> <span class="n">append</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div></div>
+        <span class="n">Util</span><span class="o">.</span><span class="n">write_dataframe</span><span class="p">(</span><span class="n">performance_df</span><span class="p">,</span> <span class="s2">&quot;performance_df&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">Performance</span><span class="o">.</span><span class="n">OUTPUT_PERFORMANCE_FILE</span><span class="p">),</span> <span class="n">append</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 </pre></div>
 
            </div>
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2015-2018, Lisa Zorn
+        &#169; Copyright 2015-2018, Lisa Zorn.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -401,7 +415,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

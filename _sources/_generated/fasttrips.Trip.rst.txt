@@ -1,4 +1,4 @@
-fasttrips.Trip
+﻿fasttrips.Trip
 ==============
 
 .. currentmodule:: fasttrips

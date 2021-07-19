@@ -1,4 +1,4 @@
-fasttrips.TAZ
+﻿fasttrips.TAZ
 =============
 
 .. currentmodule:: fasttrips
@@ -100,5 +100,7 @@ fasttrips.TAZ
       ~TAZ.WALK_ACCESS_COLUMN_TIME
       ~TAZ.WALK_ACCESS_COLUMN_TIME_MIN
       ~TAZ.WALK_MODE_NUMS
+      ~TAZ.walk_access_df
+      ~TAZ.drive_access_df
    
    

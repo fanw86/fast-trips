@@ -1,40 +1,45 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Welcome to the Fast-Trips developers documentation! &mdash; fasttrips Development Branch Commit 5e504cb3319b58faac3aca1310cb4ad08dc44ed8 documentation</title>
   
 
   
-  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Use Cases" href="usecases.html" /> 
@@ -78,6 +83,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -100,6 +106,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -134,18 +141,20 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="#">Docs</a> &raquo;</li>
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
         
       <li>Welcome to the Fast-Trips developers documentation!</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -161,43 +170,60 @@
             
   <div class="section" id="welcome-to-the-fast-trips-developers-documentation">
 <h1>Welcome to the Fast-Trips developers documentation!<a class="headerlink" href="#welcome-to-the-fast-trips-developers-documentation" title="Permalink to this headline">¶</a></h1>
-<p>This page organizes documentation that is useful for both software and model developers.  It is designed to be browsed through from top-to-bottom starting with the objectives, then going through theory and software design, and finishing with how to contribute.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This documentation is based on the master branch, and is current thru <a class="reference external" href="https://github.com/BayAreaMetro/fast-trips/commit/d3e82c26bdb167c22150fc57ffdb65f38440334e">commit #  d3e82c26bdb167c22150fc57ffdb65f38440334e</a></p>
-</div>
+<p>This page organizes documentation that is useful for both software and model developers.  It is designed to be browsed
+through from top-to-bottom starting with the objectives, then going through theory and software design, and finishing
+with how to contribute.</p>
+<p>This documentation correspond to software version:</p>
+<p><dl class="field-list simple">
+<dt class="field-odd">Commit</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://github.com/janzill/fast-trips/commit/d503cc6f95b50d3a8f22a79a47a19fb485a9ae32">d503cc6f95</a></p>
+</dd>
+</dl>
+</p>
 <div class="section" id="software-objectives">
 <h2>Software Objectives<a class="headerlink" href="#software-objectives" title="Permalink to this headline">¶</a></h2>
-<p>Objectives are driven by users and their use cases.  Generally speaking, Fast-Trips is a simulation of transit user experience, taking into account the interactions of every transit vehicle trip and every transit passenger.  It is capable of capturing phenomena such as bus bunching, transit overcrowding, and passenger heterogeneity.</p>
+<p>Objectives are driven by users and their use cases.  Generally speaking, Fast-Trips is a simulation of transit user
+experience, taking into account the interactions of every transit vehicle trip and every transit passenger.  It is
+capable of capturing phenomena such as bus bunching, transit overcrowding, and passenger heterogeneity.</p>
 </div>
 <div class="section" id="users">
 <h2>Users<a class="headerlink" href="#users" title="Permalink to this headline">¶</a></h2>
-<p>The team strives to keep several categories of users in mind. When possible, the functionality between these users is separated to be the simplest possible abstraction level for that user.  For example, an analyst who is just running fast-trips should touch the minimum number of files and parameters to run it and analyze the results.  User categories have been generally defined as:</p>
+<p>The team strives to keep several categories of users in mind. When possible, the functionality between these users is
+separated to be the simplest possible abstraction level for that user.  For example, an analyst who is just running
+fast-trips should touch the minimum number of files and parameters to run it and analyze the results.  User categories
+have been generally defined as:</p>
 <ul class="simple">
-<li><strong>Developers</strong>: Well-versed in the details of how Fast-Trips works, developers aim to make the user experience good for other users</li>
-<li><strong>Modelers</strong>: Modelers understand the algorithms and data structures that Fast-Trips uses and may edit them around the edges to achieve their goals.</li>
-<li><strong>Analysts</strong>: Analysts primarily interact with Fast-Trips in order to run a scenario and analyze the results.  They should be able to easily change parameters, inputs, and run configurations and verify that Fast-Trips provided valid results.</li>
+<li><p><strong>Developers</strong>: Well-versed in the details of how Fast-Trips works, developers aim to make the user experience good</p></li>
 </ul>
+<p>for other users
+* <strong>Modelers</strong>: Modelers understand the algorithms and data structures that Fast-Trips uses and may edit them around the
+edges to achieve their goals.
+* <strong>Analysts</strong>: Analysts primarily interact with Fast-Trips in order to run a scenario and analyze the results.  They
+should be able to easily change parameters, inputs, and run configurations and verify that Fast-Trips provided valid
+results.</p>
 </div>
 <div class="section" id="use-cases">
 <h2>Use Cases<a class="headerlink" href="#use-cases" title="Permalink to this headline">¶</a></h2>
-<p>Fast-trips can be used for analyzing short-term effects as well as long range planning when linked up with a <a class="reference external" href="https://zephyrtransport.github.io/zephyr-directory/project-groups/abm-platforms/">travel demand modeling</a> tool such as <a class="reference external" href="https://github.com/UDST/activitysim">ActivitySim</a>:</p>
+<p>Fast-trips can be used for analyzing short-term effects as well as long range planning when linked up with a
+<a class="reference external" href="https://zephyrtransport.github.io/zephyr-directory/project-groups/abm-platforms/">travel demand modeling</a> tool such
+as <a class="reference external" href="https://github.com/UDST/activitysim">ActivitySim</a>:</p>
 <ul class="simple">
-<li>An analyst who wants to study the effect of a schedule change on service reliability.</li>
-<li>An analyst who wants to evaluate a service plan for a special event.</li>
-<li>A modeler who wants to include capacity constraints and reliability as a performance metric for long-range planning investments as evaluated in a long range transportation plan.</li>
+<li><p>An analyst who wants to study the effect of a schedule change on service reliability.</p></li>
+<li><p>An analyst who wants to evaluate a service plan for a special event.</p></li>
+<li><p>A modeler who wants to include capacity constraints and reliability as a performance metric for long-range planning</p></li>
 </ul>
+<p>investments as evaluated in a long range transportation plan.</p>
 </div>
 <div class="section" id="assumptions-and-prerequisites">
 <h2>Assumptions and Prerequisites<a class="headerlink" href="#assumptions-and-prerequisites" title="Permalink to this headline">¶</a></h2>
 <p>This guide assumes that you are familiar with the following:</p>
 <ul class="simple">
-<li><a class="reference external" href="https://www.python.org/">Python</a> and the <a class="reference external" href="http://pandas.pydata.org/">pandas</a> library</li>
-<li><a class="reference external" href="https://en.wikipedia.org/wiki/C%2B%2B">C++</a> (if working in the c++ module)</li>
-<li><a class="reference external" href="https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control">Git version control</a></li>
-<li><a class="reference external" href="http://jupyter.org/">Jupyter notebooks</a></li>
-<li><a class="reference external" href="https://en.wikipedia.org/wiki/Pathfinding">Pathfinding algorithms</a></li>
-<li><a class="reference external" href="http://gtfs.org/">GTFS Transit Networks</a></li>
+<li><p><a class="reference external" href="https://www.python.org/">Python</a> and the <a class="reference external" href="http://pandas.pydata.org/">pandas</a> library</p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/C%2B%2B">C++</a> (if working in the c++ module)</p></li>
+<li><p><a class="reference external" href="https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control">Git version control</a></p></li>
+<li><p><a class="reference external" href="http://jupyter.org/">Jupyter notebooks</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Pathfinding">Pathfinding algorithms</a></p></li>
+<li><p><a class="reference external" href="http://gtfs.org/">GTFS Transit Networks</a></p></li>
 </ul>
 </div>
 <div class="section" id="contents">
@@ -217,8 +243,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="io.html">Input/Output Files</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="io.html#id1">Passenger Demand</a></li>
-<li class="toctree-l2"><a class="reference internal" href="io.html#id2">Transport Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="io.html#passenger-demand">Passenger Demand</a></li>
+<li class="toctree-l2"><a class="reference internal" href="io.html#transport-network">Transport Network</a></li>
 <li class="toctree-l2"><a class="reference internal" href="io.html#configuration-files">Configuration Files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="io.html#passenger-path-output">Passenger Path Output</a></li>
 <li class="toctree-l2"><a class="reference internal" href="io.html#vehicle-based-output">Vehicle Based Output</a></li>
@@ -229,7 +255,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Using Fast-Trips</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="usage.html#localization-process">Localization Process</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage.html#scenario-evaluation">Scenario Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#scenario-evaluation">Scenario evaluation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">Fast-Trips Classes and Functions</a><ul>
@@ -256,9 +282,9 @@
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
-<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
-<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
 </div>
 
@@ -267,27 +293,28 @@
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="usecases.html" class="btn btn-neutral float-right" title="Use Cases" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
+        <a href="usecases.html" class="btn btn-neutral float-right" title="Use Cases" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2015-2018, Lisa Zorn
+        &#169; Copyright 2015-2018, Lisa Zorn.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -295,7 +322,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

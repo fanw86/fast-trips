@@ -3,8 +3,10 @@ var DOCUMENTATION_OPTIONS = {
     VERSION: 'Development Branch Commit 5e504cb3319b58faac3aca1310cb4ad08dc44ed8',
     LANGUAGE: 'None',
     COLLAPSE_INDEX: false,
+    BUILDER: 'html',
     FILE_SUFFIX: '.html',
+    LINK_SUFFIX: '.html',
     HAS_SOURCE: true,
     SOURCELINK_SUFFIX: '.txt',
-    NAVIGATION_WITH_KEYS: false,
+    NAVIGATION_WITH_KEYS: false
 };

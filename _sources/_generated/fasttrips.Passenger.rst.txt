@@ -1,4 +1,4 @@
-fasttrips.Passenger
+﻿fasttrips.Passenger
 ===================
 
 .. currentmodule:: fasttrips
@@ -84,5 +84,6 @@ fasttrips.Passenger
       ~Passenger.TRIP_LIST_COLUMN_TRIP_LIST_ID_NUM
       ~Passenger.TRIP_LIST_COLUMN_USER_CLASS
       ~Passenger.TRIP_LIST_COLUMN_VOT
+      ~Passenger.id_to_pathset
    
    

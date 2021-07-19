@@ -1,4 +1,4 @@
-fasttrips.Stop
+﻿fasttrips.Stop
 ==============
 
 .. currentmodule:: fasttrips
@@ -52,5 +52,7 @@ fasttrips.Stop
       ~Stop.STOPS_COLUMN_STOP_NAME
       ~Stop.STOPS_COLUMN_ZONE_ID
       ~Stop.STOPS_COLUMN_ZONE_ID_NUM
+      ~Stop.max_stop_id_num
+      ~Stop.trip_times_df
    
    

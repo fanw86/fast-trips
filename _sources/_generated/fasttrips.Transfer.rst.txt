@@ -1,4 +1,4 @@
-fasttrips.Transfer
+﻿fasttrips.Transfer
 ==================
 
 .. currentmodule:: fasttrips

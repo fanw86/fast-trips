@@ -1,4 +1,4 @@
-fasttrips.FastTrips
+﻿fasttrips.FastTrips
 ===================
 
 .. currentmodule:: fasttrips
@@ -28,5 +28,10 @@ fasttrips.FastTrips
    
       ~FastTrips.DEBUG_LOG
       ~FastTrips.INFO_LOG
+      ~FastTrips.passengers
+      ~FastTrips.stops
+      ~FastTrips.routes
+      ~FastTrips.tazs
+      ~FastTrips.trips
    
    

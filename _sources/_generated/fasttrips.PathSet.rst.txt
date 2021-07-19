@@ -1,4 +1,4 @@
-fasttrips.PathSet
+﻿fasttrips.PathSet
 =================
 
 .. currentmodule:: fasttrips
@@ -108,5 +108,6 @@ fasttrips.PathSet
       ~PathSet.WEIGHT_NAME_DEPART_EARLY_MIN
       ~PathSet.WEIGHT_NAME_DEPART_LATE_MIN
       ~PathSet.WEIGHT_NAME_VALID_NAMES
+      ~PathSet.pathdict
    
    

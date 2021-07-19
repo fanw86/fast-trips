@@ -1,4 +1,4 @@
-fasttrips.Route
+﻿fasttrips.Route
 ===============
 
 .. currentmodule:: fasttrips
@@ -82,5 +82,6 @@ fasttrips.Route
       ~Route.TRANSFER_TYPE_TRANSFER_COST
       ~Route.TRANSFER_TYPE_TRANSFER_DISCOUNT
       ~Route.TRANSFER_TYPE_TRANSFER_FREE
+      ~Route.fare_by_class
    
    

@@ -1,40 +1,45 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>fasttrips.Passenger &mdash; fasttrips Development Branch Commit 5e504cb3319b58faac3aca1310cb4ad08dc44ed8 documentation</title>
   
 
   
-  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+
   
   
 
   
-  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
 </head>
@@ -77,6 +82,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -99,6 +105,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -133,11 +140,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../index.html">Module code</a> &raquo;</li>
         
@@ -157,10 +166,10 @@
            <div itemprop="articleBody">
             
   <h1>Source code for fasttrips.Passenger</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
-<span class="kn">from</span> <span class="nn">builtins</span> <span class="k">import</span> <span class="nb">str</span>
-<span class="kn">from</span> <span class="nn">builtins</span> <span class="k">import</span> <span class="nb">range</span>
-<span class="kn">from</span> <span class="nn">builtins</span> <span class="k">import</span> <span class="nb">object</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">str</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">range</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">object</span>
 
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;Copyright 2015 Contributing Entities&quot;</span>
 <span class="n">__license__</span>   <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
@@ -183,12 +192,12 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="kn">from</span> <span class="nn">.Error</span>  <span class="k">import</span> <span class="n">DemandInputError</span>
-<span class="kn">from</span> <span class="nn">.Logger</span> <span class="k">import</span> <span class="n">FastTripsLogger</span>
-<span class="kn">from</span> <span class="nn">.Route</span>  <span class="k">import</span> <span class="n">Route</span>
-<span class="kn">from</span> <span class="nn">.TAZ</span>    <span class="k">import</span> <span class="n">TAZ</span>
-<span class="kn">from</span> <span class="nn">.Trip</span>   <span class="k">import</span> <span class="n">Trip</span>
-<span class="kn">from</span> <span class="nn">.Util</span>   <span class="k">import</span> <span class="n">Util</span>
+<span class="kn">from</span> <span class="nn">.Error</span>  <span class="kn">import</span> <span class="n">DemandInputError</span>
+<span class="kn">from</span> <span class="nn">.Logger</span> <span class="kn">import</span> <span class="n">FastTripsLogger</span>
+<span class="kn">from</span> <span class="nn">.Route</span>  <span class="kn">import</span> <span class="n">Route</span>
+<span class="kn">from</span> <span class="nn">.TAZ</span>    <span class="kn">import</span> <span class="n">TAZ</span>
+<span class="kn">from</span> <span class="nn">.Trip</span>   <span class="kn">import</span> <span class="n">Trip</span>
+<span class="kn">from</span> <span class="nn">.Util</span>   <span class="kn">import</span> <span class="n">Util</span>
 
 
 <div class="viewcode-block" id="Passenger"><a class="viewcode-back" href="../../_generated/fasttrips.Passenger.html#fasttrips.Passenger">[docs]</a><span class="k">class</span> <span class="nc">Passenger</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -307,7 +316,7 @@
     <span class="n">PATHSET_PATHS_CSV</span>               <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;pathset_paths.csv&quot;</span>
     <span class="n">PATHSET_LINKS_CSV</span>               <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;pathset_links.csv&quot;</span>
 
-<div class="viewcode-block" id="Passenger.__init__"><a class="viewcode-back" href="../../_generated/fasttrips.Passenger.html#fasttrips.Passenger.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_dir</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">today</span><span class="p">,</span> <span class="n">stops</span><span class="p">,</span> <span class="n">routes</span><span class="p">,</span> <span class="n">capacity_constraint</span><span class="p">):</span>
+<div class="viewcode-block" id="Passenger.__init__"><a class="viewcode-back" href="../../_generated/fasttrips.Passenger.html#fasttrips.Passenger.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_dir</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">today</span><span class="p">,</span> <span class="n">stops</span><span class="p">,</span> <span class="n">routes</span><span class="p">,</span> <span class="n">capacity_constraint</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Constructor from dictionary mapping attribute to value.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -523,7 +532,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">trip_list_df</span><span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_OUTBOUND</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trip_list_df</span><span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TIME_TARGET</span><span class="p">]</span> <span class="o">==</span> <span class="n">Passenger</span><span class="o">.</span><span class="n">TIME_TARGET_ARRIVAL</span><span class="p">)</span>
 
         <span class="c1"># Set the user class for each trip</span>
-        <span class="kn">from</span> <span class="nn">.PathSet</span> <span class="k">import</span> <span class="n">PathSet</span>
+        <span class="kn">from</span> <span class="nn">.PathSet</span> <span class="kn">import</span> <span class="n">PathSet</span>
         <span class="n">PathSet</span><span class="o">.</span><span class="n">set_user_class</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trip_list_df</span><span class="p">,</span> <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_USER_CLASS</span><span class="p">)</span>
 
         <span class="c1"># Verify that PathSet has all the configuration for these user classes + transit modes + access modes + egress modes</span>
@@ -548,7 +557,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">trip_list_df</span> <span class="o">=</span> <span class="n">PathSet</span><span class="o">.</span><span class="n">verify_weight_config</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">modes_df</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">routes</span><span class="p">,</span> <span class="n">capacity_constraint</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">trip_list_df</span><span class="p">)</span>
 
         <span class="c1"># add column trace</span>
-        <span class="kn">from</span> <span class="nn">.Assignment</span> <span class="k">import</span> <span class="n">Assignment</span>
+        <span class="kn">from</span> <span class="nn">.Assignment</span> <span class="kn">import</span> <span class="n">Assignment</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">Assignment</span><span class="o">.</span><span class="n">TRACE_IDS</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">trace_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">Assignment</span><span class="o">.</span><span class="n">TRACE_IDS</span><span class="p">,</span>
                                                      <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_ID</span><span class="p">,</span> <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_TRIP_ID</span><span class="p">])</span>
@@ -573,25 +582,25 @@
         <span class="c1">#: in setup_passenger_pathsets()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">id_to_pathset</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Passenger.add_pathset"><a class="viewcode-back" href="../../_generated/fasttrips.Passenger.html#fasttrips.Passenger.add_pathset">[docs]</a>    <span class="k">def</span> <span class="nf">add_pathset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trip_list_id</span><span class="p">,</span> <span class="n">pathset</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">add_pathset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trip_list_id</span><span class="p">,</span> <span class="n">pathset</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Stores this path set for the trip_list_id.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">id_to_pathset</span><span class="p">[</span><span class="n">trip_list_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">pathset</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id_to_pathset</span><span class="p">[</span><span class="n">trip_list_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">pathset</span>
 
-<div class="viewcode-block" id="Passenger.get_pathset"><a class="viewcode-back" href="../../_generated/fasttrips.Passenger.html#fasttrips.Passenger.get_pathset">[docs]</a>    <span class="k">def</span> <span class="nf">get_pathset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trip_list_id</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_pathset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trip_list_id</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieves a stored path set for the given trip_list_id</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_to_pathset</span><span class="p">[</span><span class="n">trip_list_id</span><span class="p">]</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_to_pathset</span><span class="p">[</span><span class="n">trip_list_id</span><span class="p">]</span>
 
-<div class="viewcode-block" id="Passenger.get_person_id"><a class="viewcode-back" href="../../_generated/fasttrips.Passenger.html#fasttrips.Passenger.get_person_id">[docs]</a>    <span class="k">def</span> <span class="nf">get_person_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trip_list_id</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_person_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trip_list_id</span><span class="p">):</span>
         <span class="n">to_ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">trip_list_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">trip_list_df</span><span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TRIP_LIST_ID_NUM</span><span class="p">]</span><span class="o">==</span><span class="n">trip_list_id</span><span class="p">,</span>
                                         <span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_ID</span><span class="p">,</span>
                                          <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_TRIP_ID</span><span class="p">]]</span>
-        <span class="k">return</span><span class="p">(</span><span class="n">to_ret</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">to_ret</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span></div>
+        <span class="k">return</span><span class="p">(</span><span class="n">to_ret</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">to_ret</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
 
-<div class="viewcode-block" id="Passenger.read_passenger_pathsets"><a class="viewcode-back" href="../../_generated/fasttrips.Passenger.html#fasttrips.Passenger.read_passenger_pathsets">[docs]</a>    <span class="k">def</span> <span class="nf">read_passenger_pathsets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pathset_dir</span><span class="p">,</span> <span class="n">stops</span><span class="p">,</span> <span class="n">modes_df</span><span class="p">,</span> <span class="n">include_asgn</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">read_passenger_pathsets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pathset_dir</span><span class="p">,</span> <span class="n">stops</span><span class="p">,</span> <span class="n">modes_df</span><span class="p">,</span> <span class="n">include_asgn</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Reads the dataframes described in :py:meth:`Passenger.setup_passenger_pathsets` and returns them.</span>
 
@@ -613,7 +622,7 @@
         <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Read </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">paths_file</span><span class="p">)</span>
         <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;pathset_paths_df.dtypes=</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">pathset_paths_df</span><span class="o">.</span><span class="n">dtypes</span><span class="p">))</span>
 
-        <span class="kn">from</span> <span class="nn">.Assignment</span> <span class="k">import</span> <span class="n">Assignment</span>
+        <span class="kn">from</span> <span class="nn">.Assignment</span> <span class="kn">import</span> <span class="n">Assignment</span>
 
         <span class="n">date_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_PAX_A_TIME</span><span class="p">,</span> <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_PAX_B_TIME</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">include_asgn</span><span class="p">:</span>
@@ -701,10 +710,10 @@
         <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;pathset_links_df head=</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">pathset_links_df</span><span class="o">.</span><span class="n">head</span><span class="p">()))</span>
         <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;pathset_links_df.dtypes=</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">pathset_links_df</span><span class="o">.</span><span class="n">dtypes</span><span class="p">))</span>
 
-        <span class="k">return</span> <span class="p">(</span><span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">pathset_links_df</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="p">(</span><span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">pathset_links_df</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="Passenger.setup_passenger_pathsets"><a class="viewcode-back" href="../../_generated/fasttrips.Passenger.html#fasttrips.Passenger.setup_passenger_pathsets">[docs]</a>    <span class="k">def</span> <span class="nf">setup_passenger_pathsets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iteration</span><span class="p">,</span> <span class="n">pathfinding_iteration</span><span class="p">,</span> <span class="n">stops</span><span class="p">,</span> <span class="n">trip_id_df</span><span class="p">,</span> <span class="n">trips_df</span><span class="p">,</span> <span class="n">modes_df</span><span class="p">,</span>
+    <span class="k">def</span> <span class="nf">setup_passenger_pathsets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iteration</span><span class="p">,</span> <span class="n">pathfinding_iteration</span><span class="p">,</span> <span class="n">stops</span><span class="p">,</span> <span class="n">trip_id_df</span><span class="p">,</span> <span class="n">trips_df</span><span class="p">,</span> <span class="n">modes_df</span><span class="p">,</span>
                                  <span class="n">transfers</span><span class="p">,</span> <span class="n">tazs</span><span class="p">,</span> <span class="n">prepend_route_id_to_trip_id</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Converts pathfinding results (which is stored in each Passenger :py:class:`PathSet`) into two</span>
@@ -773,8 +782,8 @@
 <span class="sd">        ==================  ===============  =====================================================================================================</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">.Assignment</span> <span class="k">import</span> <span class="n">Assignment</span>
-        <span class="kn">from</span> <span class="nn">.PathSet</span> <span class="k">import</span> <span class="n">PathSet</span>
+        <span class="kn">from</span> <span class="nn">.Assignment</span> <span class="kn">import</span> <span class="n">Assignment</span>
+        <span class="kn">from</span> <span class="nn">.PathSet</span> <span class="kn">import</span> <span class="n">PathSet</span>
         <span class="n">pathlist</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">linklist</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -1012,9 +1021,9 @@
             <span class="n">pathset_paths_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">pathset_paths_df</span><span class="o">.</span><span class="n">dtypes</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">,</span>
                                                                                <span class="n">downcast</span><span class="o">=</span><span class="s1">&#39;integer&#39;</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="p">(</span><span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">pathset_links_df</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="p">(</span><span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">pathset_links_df</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Passenger.write_paths"><a class="viewcode-back" href="../../_generated/fasttrips.Passenger.html#fasttrips.Passenger.write_paths">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">write_paths</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">iteration</span><span class="p">,</span> <span class="n">pathfinding_iteration</span><span class="p">,</span> <span class="n">simulation_iteration</span><span class="p">,</span> <span class="n">pathset_df</span><span class="p">,</span> <span class="n">links</span><span class="p">,</span> <span class="n">output_pathset_per_sim_iter</span><span class="p">,</span> <span class="n">drop_debug_columns</span><span class="p">,</span> <span class="n">drop_pathfinding_columns</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Write either pathset paths (if links=False) or pathset links (if links=True) as the case may be</span>
@@ -1052,10 +1061,10 @@
                              <span class="n">append</span><span class="o">=</span><span class="n">do_append</span><span class="p">,</span>
                              <span class="n">drop_debug_columns</span><span class="o">=</span><span class="n">drop_debug_columns</span><span class="p">,</span>
                              <span class="n">drop_pathfinding_columns</span><span class="o">=</span><span class="n">drop_pathfinding_columns</span><span class="p">)</span>
-        <span class="n">pathset_df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;iteration&quot;</span><span class="p">,</span><span class="s2">&quot;pathfinding_iteration&quot;</span><span class="p">,</span><span class="s2">&quot;simulation_iteration&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+        <span class="n">pathset_df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;iteration&quot;</span><span class="p">,</span><span class="s2">&quot;pathfinding_iteration&quot;</span><span class="p">,</span><span class="s2">&quot;simulation_iteration&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="Passenger.choose_paths"><a class="viewcode-back" href="../../_generated/fasttrips.Passenger.html#fasttrips.Passenger.choose_paths">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">choose_paths</span><span class="p">(</span><span class="n">choose_for_everyone</span><span class="p">,</span> <span class="n">iteration</span><span class="p">,</span> <span class="n">pathfinding_iteration</span><span class="p">,</span> <span class="n">simulation_iteration</span><span class="p">,</span> <span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">pathset_links_df</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the same dataframes as input, but with a new/updated column,</span>
@@ -1070,8 +1079,8 @@
 
 <span class="sd">        Returns (TOTAL num passenger trips chosen, NEW num passenger trips chosen, updated pathset_paths_df, updated pathset_links_df)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">.Assignment</span> <span class="k">import</span> <span class="n">Assignment</span>
-        <span class="kn">from</span> <span class="nn">.PathSet</span>    <span class="k">import</span> <span class="n">PathSet</span>
+        <span class="kn">from</span> <span class="nn">.Assignment</span> <span class="kn">import</span> <span class="n">Assignment</span>
+        <span class="kn">from</span> <span class="nn">.PathSet</span>    <span class="kn">import</span> <span class="n">PathSet</span>
 
 
         <span class="c1"># If choose_for_everyone, we need to do all of them.</span>
@@ -1202,16 +1211,16 @@
         <span class="n">pathset_links_df</span><span class="p">[</span><span class="n">Assignment</span><span class="o">.</span><span class="n">SIM_COL_PAX_CHOSEN</span><span class="p">]</span> <span class="o">=</span> <span class="n">pathset_links_df</span><span class="p">[</span><span class="n">Assignment</span><span class="o">.</span><span class="n">SIM_COL_PAX_CHOSEN</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span>
         <span class="n">pathset_links_df</span><span class="p">[</span><span class="n">Assignment</span><span class="o">.</span><span class="n">SIM_COL_PAX_CHOSEN</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">set_categories</span><span class="p">(</span><span class="n">Assignment</span><span class="o">.</span><span class="n">CHOSEN_CATEGORIES</span><span class="p">,</span> <span class="n">ordered</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="p">(</span><span class="n">num_chosen</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">chosen_path_df</span><span class="p">),</span> <span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">pathset_links_df</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="p">(</span><span class="n">num_chosen</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">chosen_path_df</span><span class="p">),</span> <span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">pathset_links_df</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="Passenger.get_chosen_links"><a class="viewcode-back" href="../../_generated/fasttrips.Passenger.html#fasttrips.Passenger.get_chosen_links">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">get_chosen_links</span><span class="p">(</span><span class="n">pathset_links_df</span><span class="p">,</span> <span class="n">transit_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Given the pathset paths and pathset links, returns the pathset links for the ones marked as chosen.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># gather the links for the chosen paths</span>
-        <span class="kn">from</span> <span class="nn">.Assignment</span> <span class="k">import</span> <span class="n">Assignment</span>
+        <span class="kn">from</span> <span class="nn">.Assignment</span> <span class="kn">import</span> <span class="n">Assignment</span>
 
         <span class="c1"># set to ordered categories if needed</span>
         <span class="k">if</span> <span class="n">pathset_links_df</span><span class="p">[</span><span class="n">Assignment</span><span class="o">.</span><span class="n">SIM_COL_PAX_CHOSEN</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;category&quot;</span><span class="p">:</span>
@@ -1234,27 +1243,32 @@
         <span class="k">if</span> <span class="n">copy</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">pathset_links_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">slicer</span><span class="p">,]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
-        <span class="k">return</span> <span class="n">pathset_links_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">slicer</span><span class="p">,]</span></div></div>
+        <span class="k">return</span> <span class="n">pathset_links_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">slicer</span><span class="p">,]</span></div>
 </pre></div>
 
            </div>
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2015-2018, Lisa Zorn
+        &#169; Copyright 2015-2018, Lisa Zorn.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -1262,7 +1276,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

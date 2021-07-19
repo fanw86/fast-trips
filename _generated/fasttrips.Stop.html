@@ -1,40 +1,45 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>fasttrips.Stop &mdash; fasttrips Development Branch Commit 5e504cb3319b58faac3aca1310cb4ad08dc44ed8 documentation</title>
   
 
   
-  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+
   
   
 
   
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="fasttrips.TAZ" href="fasttrips.TAZ.html" />
@@ -79,6 +84,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -121,6 +127,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -155,11 +162,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../api.html">Fast-Trips Classes and Functions</a> &raquo;</li>
         
@@ -168,7 +177,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../_sources/_generated/fasttrips.Stop.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -184,363 +193,133 @@
             
   <div class="section" id="fasttrips-stop">
 <h1>fasttrips.Stop<a class="headerlink" href="#fasttrips-stop" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="fasttrips.Stop">
-<em class="property">class </em><code class="descclassname">fasttrips.</code><code class="descname">Stop</code><span class="sig-paren">(</span><em>input_archive</em>, <em>output_dir</em>, <em>gtfs</em>, <em>today</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fasttrips/Stop.html#Stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fasttrips.Stop" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Stop class.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="fasttrips.Stop">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">fasttrips.</span></span><span class="sig-name descname"><span class="pre">Stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_archive</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gtfs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">today</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fasttrips/Stop.html#Stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fasttrips.Stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop class.</p>
 <p>One instance represents all of the Stops as well as their transfer links.</p>
-<p>Stores stop information in <code class="xref py py-attr docutils literal notranslate"><span class="pre">Stop.stops_df</span></code>, an instance of <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.24.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>,</p>
-<dl class="method">
-<dt id="fasttrips.Stop.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>input_archive</em>, <em>output_dir</em>, <em>gtfs</em>, <em>today</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fasttrips/Stop.html#Stop.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fasttrips.Stop.__init__" title="Permalink to this definition">¶</a></dt>
+<p>Stores stop information in <code class="xref py py-attr docutils literal notranslate"><span class="pre">Stop.stops_df</span></code>, an instance of <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>,</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fasttrips.Stop.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_archive</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gtfs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">today</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fasttrips/Stop.html#Stop.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fasttrips.Stop.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor.  Reads the gtfs data from the transitfeed schedule, and the additional
 fast-trips stops data from the input files in <em>input_archive</em>.</p>
 </dd></dl>
 
 <p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code>(input_archive,&nbsp;output_dir,&nbsp;gtfs,&nbsp;today)</td>
-<td>Constructor.</td>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code>(input_archive, output_dir, gtfs, today)</p></td>
+<td><p>Constructor.</p></td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_daps_tazs_to_stops</span></code>(dap_df,&nbsp;…)</td>
-<td>Drive access points (PNR lots, KNR lots, etc) and TAZs are like stops.</td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_daps_tazs_to_stops</span></code>(dap_df, …)</p></td>
+<td><p>Drive access points (PNR lots, KNR lots, etc) and TAZs are like stops.</p></td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_numeric_stop_id</span></code>(input_df,&nbsp;id_colname,&nbsp;…)</td>
-<td>Passing a <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.24.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> with a stop ID column called <em>id_colname</em>, adds the numeric stop id as a column named <em>numeric_newcolname</em> and returns it.</td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_numeric_stop_id</span></code>(input_df, id_colname, …)</p></td>
+<td><p>Passing a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> with a stop ID column called <em>id_colname</em>, adds the numeric stop id as a column named <em>numeric_newcolname</em> and returns it.</p></td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_numeric_stop_zone_id</span></code>(input_df,&nbsp;…[,&nbsp;…])</td>
-<td>Passing a <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.24.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> with a stop zone ID column called <em>id_colname</em>, adds the numeric stop zone id as a column named <em>numeric_newcolname</em> and returns it.</td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_numeric_stop_zone_id</span></code>(input_df, …[, …])</p></td>
+<td><p>Passing a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> with a stop zone ID column called <em>id_colname</em>, adds the numeric stop zone id as a column named <em>numeric_newcolname</em> and returns it.</p></td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_stop_id_for_numeric_id</span></code>(input_df,&nbsp;…)</td>
-<td>Passing a <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.24.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> with a stop ID num column called <em>numeric_id</em>, adds the string stop id as a column named <em>id_colname</em> and returns it.</td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_stop_id_for_numeric_id</span></code>(input_df, …)</p></td>
+<td><p>Passing a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> with a stop ID num column called <em>numeric_id</em>, adds the string stop id as a column named <em>id_colname</em> and returns it.</p></td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_stop_lat_lon</span></code>(input_df,&nbsp;id_colname,&nbsp;…)</td>
-<td>Passing a <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.24.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> with a stop ID column called <em>id_colname</em>, adds the stop latitude and longitude as columns named <em>new_lat_colname</em> and <em>new_lon_colname</em> and returns it.</td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_stop_lat_lon</span></code>(input_df, id_colname, …)</p></td>
+<td><p>Passing a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> with a stop ID column called <em>id_colname</em>, adds the stop latitude and longitude as columns named <em>new_lat_colname</em> and <em>new_lon_colname</em> and returns it.</p></td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_stop_zone_id</span></code>(input_df,&nbsp;id_colname,&nbsp;…)</td>
-<td>Passing a <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.24.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> with a stop ID column called <em>id_colname</em>, adds the stop zone id as a column named <em>zone_colname</em> and returns it.</td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_stop_zone_id</span></code>(input_df, id_colname, …)</p></td>
+<td><p>Passing a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> with a stop ID column called <em>id_colname</em>, adds the stop zone id as a column named <em>zone_colname</em> and returns it.</p></td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_trips</span></code>(stop_times_df)</td>
-<td>Add myself to the given trip.</td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_trips</span></code>(stop_times_df)</p></td>
+<td><p>Add myself to the given trip.</p></td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_transfers</span></code>(stop_id,&nbsp;xfer_from)</td>
-<td></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_transfers</span></code>(stop_id, xfer_from)</p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_trips_arriving_within_time</span></code>(stop_id,&nbsp;…)</td>
-<td>Return list of [(trip_id, sequence, arrival_time)] where the arrival time is before <em>latest_arrival</em> but within <em>time_window</em>.</td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_trips_arriving_within_time</span></code>(stop_id, …)</p></td>
+<td><p>Return list of [(trip_id, sequence, arrival_time)] where the arrival time is before <em>latest_arrival</em> but within <em>time_window</em>.</p></td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_trips_departing_within_time</span></code>(stop_id,&nbsp;…)</td>
-<td>Return list of [(trip_id, sequence, departure_time)] where the departure time is after <em>earliest_departure</em> but within <em>time_window</em>.</td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_trips_departing_within_time</span></code>(stop_id, …)</p></td>
+<td><p>Return list of [(trip_id, sequence, departure_time)] where the departure time is after <em>earliest_departure</em> but within <em>time_window</em>.</p></td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_transfer</span></code>(stop_id,&nbsp;xfer_from)</td>
-<td>Returns true iff this is a transfer stop; e.g.</td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_transfer</span></code>(stop_id, xfer_from)</p></td>
+<td><p>Returns true iff this is a transfer stop; e.g.</p></td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">stop_min_max_lat_lon</span></code>()</td>
-<td>Returns (min_stop_lat, max_stop_lat,</td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">stop_min_max_lat_lon</span></code>()</p></td>
+<td><p>Returns (min_stop_lat, max_stop_lat,</p></td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Attributes</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">INPUT_STOPS_FILE</span></code></td>
-<td>File with fasttrips stop information (this extends the <a class="reference external" href="https://github.com/osplanning-data-standards/GTFS-PLUS/blob/master/files/stops.md">gtfs stops</a> file).See <a class="reference external" href="https://github.com/osplanning-data-standards/GTFS-PLUS/blob/master/files/stops_ft.md">stops_ft specification</a>..</td>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">INPUT_STOPS_FILE</span></code></p></td>
+<td><p>File with fasttrips stop information (this extends the <a class="reference external" href="https://github.com/osplanning-data-standards/GTFS-PLUS/blob/master/files/stops.md">gtfs stops</a> file).</p></td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">OUTPUT_STOP_ID_NUM_FILE</span></code></td>
-<td>File with stop ID, stop ID number correspondence</td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">OUTPUT_STOP_ID_NUM_FILE</span></code></p></td>
+<td><p>File with stop ID, stop ID number correspondence</p></td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">STOPS_COLUMN_BIKE_PARKING</span></code></td>
-<td>fasttrips Stops column name: Bike Parking</td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">STOPS_COLUMN_BIKE_PARKING</span></code></p></td>
+<td><p>fasttrips Stops column name: Bike Parking</p></td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">STOPS_COLUMN_BIKE_SHARE_STATION</span></code></td>
-<td>fasttrips Stops column name: Bike Share Station</td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">STOPS_COLUMN_BIKE_SHARE_STATION</span></code></p></td>
+<td><p>fasttrips Stops column name: Bike Share Station</p></td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">STOPS_COLUMN_LEVEL</span></code></td>
-<td>fasttrips Stops column name: Level</td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">STOPS_COLUMN_LEVEL</span></code></p></td>
+<td><p>fasttrips Stops column name: Level</p></td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">STOPS_COLUMN_LIGHTING</span></code></td>
-<td>fasttrips Stops column name: Lighting</td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">STOPS_COLUMN_LIGHTING</span></code></p></td>
+<td><p>fasttrips Stops column name: Lighting</p></td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">STOPS_COLUMN_OFF_BOARD_PAYMENT</span></code></td>
-<td>fasttrips Stops column name: Off-Board Payment</td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">STOPS_COLUMN_OFF_BOARD_PAYMENT</span></code></p></td>
+<td><p>fasttrips Stops column name: Off-Board Payment</p></td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">STOPS_COLUMN_PLATFORM_HEIGHT</span></code></td>
-<td>fasttrips Stops column name: Platform Height</td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">STOPS_COLUMN_PLATFORM_HEIGHT</span></code></p></td>
+<td><p>fasttrips Stops column name: Platform Height</p></td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">STOPS_COLUMN_SEATING</span></code></td>
-<td>fasttrips Stops column name: Seating</td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">STOPS_COLUMN_SEATING</span></code></p></td>
+<td><p>fasttrips Stops column name: Seating</p></td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">STOPS_COLUMN_SHELTER</span></code></td>
-<td>fasttrips Stops column name: Shelter</td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">STOPS_COLUMN_SHELTER</span></code></p></td>
+<td><p>fasttrips Stops column name: Shelter</p></td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">STOPS_COLUMN_STOP_ID</span></code></td>
-<td>gtfs Stops column name: Unique identifier (object)</td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">STOPS_COLUMN_STOP_ID</span></code></p></td>
+<td><p>gtfs Stops column name: Unique identifier (object)</p></td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">STOPS_COLUMN_STOP_ID_NUM</span></code></td>
-<td>fasttrips Stops column name: Stop Numerical Identifier.</td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">STOPS_COLUMN_STOP_ID_NUM</span></code></p></td>
+<td><p>fasttrips Stops column name: Stop Numerical Identifier.</p></td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">STOPS_COLUMN_STOP_LATITUDE</span></code></td>
-<td>gtfs Stops column name: Latitude</td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">STOPS_COLUMN_STOP_LATITUDE</span></code></p></td>
+<td><p>gtfs Stops column name: Latitude</p></td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">STOPS_COLUMN_STOP_LONGITUDE</span></code></td>
-<td>gtfs Stops column name: Longitude</td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">STOPS_COLUMN_STOP_LONGITUDE</span></code></p></td>
+<td><p>gtfs Stops column name: Longitude</p></td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">STOPS_COLUMN_STOP_NAME</span></code></td>
-<td>gtfs Stops column name: Stop name (string)</td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">STOPS_COLUMN_STOP_NAME</span></code></p></td>
+<td><p>gtfs Stops column name: Stop name (string)</p></td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">STOPS_COLUMN_ZONE_ID</span></code></td>
-<td>gtfs Stops column name: Zone ID</td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">STOPS_COLUMN_ZONE_ID</span></code></p></td>
+<td><p>gtfs Stops column name: Zone ID</p></td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">STOPS_COLUMN_ZONE_ID_NUM</span></code></td>
-<td>fasttrips Stops column name: Zone Numerical Identifier.</td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">STOPS_COLUMN_ZONE_ID_NUM</span></code></p></td>
+<td><p>fasttrips Stops column name: Zone Numerical Identifier.</p></td>
 </tr>
-</tbody>
-</table>
-<dl class="method">
-<dt id="fasttrips.Stop.add_daps_tazs_to_stops">
-<code class="descname">add_daps_tazs_to_stops</code><span class="sig-paren">(</span><em>dap_df</em>, <em>dap_id_colname</em>, <em>taz_df</em>, <em>taz_id_colname</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fasttrips/Stop.html#Stop.add_daps_tazs_to_stops"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fasttrips.Stop.add_daps_tazs_to_stops" title="Permalink to this definition">¶</a></dt>
-<dd><p>Drive access points (PNR lots, KNR lots, etc) and TAZs are like stops.
-Add the DAPs and TAZs to our stop list and their numbering in the
-<code class="xref py py-attr docutils literal notranslate"><span class="pre">Stop.stop_id_df</span></code>.</p>
-<p>Pass in dataframes with JUST an ID column.</p>
-<p>This method will also update the <code class="xref py py-attr docutils literal notranslate"><span class="pre">Stop.transfers_df</span></code> with Stop IDs since this is
-now possible since DAPs needed to be numbered for this to work.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="fasttrips.Stop.add_numeric_stop_id">
-<code class="descname">add_numeric_stop_id</code><span class="sig-paren">(</span><em>input_df</em>, <em>id_colname</em>, <em>numeric_newcolname</em>, <em>warn=False</em>, <em>warn_msg=None</em>, <em>drop_failures=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fasttrips/Stop.html#Stop.add_numeric_stop_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fasttrips.Stop.add_numeric_stop_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Passing a <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.24.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> with a stop ID column called <em>id_colname</em>,
-adds the numeric stop id as a column named <em>numeric_newcolname</em> and returns it.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="fasttrips.Stop.add_numeric_stop_zone_id">
-<code class="descname">add_numeric_stop_zone_id</code><span class="sig-paren">(</span><em>input_df</em>, <em>id_colname</em>, <em>numeric_newcolname</em>, <em>warn=False</em>, <em>warn_msg=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fasttrips/Stop.html#Stop.add_numeric_stop_zone_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fasttrips.Stop.add_numeric_stop_zone_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Passing a <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.24.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> with a stop zone ID column called <em>id_colname</em>,
-adds the numeric stop zone id as a column named <em>numeric_newcolname</em> and returns it.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="fasttrips.Stop.add_stop_id_for_numeric_id">
-<code class="descname">add_stop_id_for_numeric_id</code><span class="sig-paren">(</span><em>input_df</em>, <em>numeric_id</em>, <em>id_colname</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fasttrips/Stop.html#Stop.add_stop_id_for_numeric_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fasttrips.Stop.add_stop_id_for_numeric_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Passing a <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.24.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> with a stop ID num column called <em>numeric_id</em>,
-adds the string stop id as a column named <em>id_colname</em> and returns it.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="fasttrips.Stop.add_stop_lat_lon">
-<code class="descname">add_stop_lat_lon</code><span class="sig-paren">(</span><em>input_df</em>, <em>id_colname</em>, <em>new_lat_colname</em>, <em>new_lon_colname</em>, <em>new_stop_name_colname=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fasttrips/Stop.html#Stop.add_stop_lat_lon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fasttrips.Stop.add_stop_lat_lon" title="Permalink to this definition">¶</a></dt>
-<dd><p>Passing a <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.24.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> with a stop ID column called <em>id_colname</em>,
-adds the stop latitude and longitude as columns named <em>new_lat_colname</em> and <em>new_lon_colname</em>
-and returns it.</p>
-<p>Pass <em>new_stop_name_colname</em> to also get the stop name.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="fasttrips.Stop.add_stop_zone_id">
-<code class="descname">add_stop_zone_id</code><span class="sig-paren">(</span><em>input_df</em>, <em>id_colname</em>, <em>zone_colname</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fasttrips/Stop.html#Stop.add_stop_zone_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fasttrips.Stop.add_stop_zone_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Passing a <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.24.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> with a stop ID column called <em>id_colname</em>,
-adds the stop zone id as a column named <em>zone_colname</em> and returns it.</p>
-<p>If no zone_ids specified, this is a no-op.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="fasttrips.Stop.add_trips">
-<code class="descname">add_trips</code><span class="sig-paren">(</span><em>stop_times_df</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fasttrips/Stop.html#Stop.add_trips"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fasttrips.Stop.add_trips" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add myself to the given trip.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>stop_times_df</strong> (a <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.24.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> instance) – The <code class="xref py py-attr docutils literal notranslate"><span class="pre">Trip.stop_times_df</span></code> table</td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_stop_id_num</span></code></p></td>
+<td><p>Note the max stop ID num in <code class="xref py py-attr docutils literal notranslate"><span class="pre">Stop.max_stop_id_num</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">trip_times_df</span></code></p></td>
+<td><p>Trips table.</p></td>
 </tr>
 </tbody>
 </table>
-</dd></dl>
-
-<dl class="method">
-<dt id="fasttrips.Stop.get_transfers">
-<code class="descname">get_transfers</code><span class="sig-paren">(</span><em>stop_id</em>, <em>xfer_from</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fasttrips/Stop.html#Stop.get_transfers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fasttrips.Stop.get_transfers" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="fasttrips.Stop.get_trips_arriving_within_time">
-<code class="descname">get_trips_arriving_within_time</code><span class="sig-paren">(</span><em>stop_id</em>, <em>latest_arrival</em>, <em>time_window</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fasttrips/Stop.html#Stop.get_trips_arriving_within_time"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fasttrips.Stop.get_trips_arriving_within_time" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return list of [(trip_id, sequence, arrival_time)] where the arrival time is before <em>latest_arrival</em> but within <em>time_window</em>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>latest_arrival</strong> (a <code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.time</span></code> instance) – The latest time the transit vehicle can arrive.</li>
-<li><strong>time_window</strong> (a <code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.timedelta</span></code> instance) – The time window extending before <em>latest_arrival</em> within which an arrival is valid.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="fasttrips.Stop.get_trips_departing_within_time">
-<code class="descname">get_trips_departing_within_time</code><span class="sig-paren">(</span><em>stop_id</em>, <em>earliest_departure</em>, <em>time_window</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fasttrips/Stop.html#Stop.get_trips_departing_within_time"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fasttrips.Stop.get_trips_departing_within_time" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return list of [(trip_id, sequence, departure_time)] where the departure time is after <em>earliest_departure</em> but within <em>time_window</em>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>earliest_departure</strong> (a <code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.time</span></code> instance) – The earliest time the transit vehicle can depart.</li>
-<li><strong>time_window</strong> (a <code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.timedelta</span></code> instance) – The time window extending after <em>earliest_departure</em> within which a departure is valid.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="fasttrips.Stop.is_transfer">
-<code class="descname">is_transfer</code><span class="sig-paren">(</span><em>stop_id</em>, <em>xfer_from</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fasttrips/Stop.html#Stop.is_transfer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fasttrips.Stop.is_transfer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns true iff this is a transfer stop; e.g. if it’s served by multiple routes or has a transfer link.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="fasttrips.Stop.stop_min_max_lat_lon">
-<code class="descname">stop_min_max_lat_lon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fasttrips/Stop.html#Stop.stop_min_max_lat_lon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fasttrips.Stop.stop_min_max_lat_lon" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="docutils">
-<dt>Returns (min_stop_lat, max_stop_lat,</dt>
-<dd>min_stop_lon, max_stop_lon)</dd>
-</dl>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="fasttrips.Stop.INPUT_STOPS_FILE">
-<code class="descname">INPUT_STOPS_FILE</code><em class="property"> = 'stops_ft.txt'</em><a class="headerlink" href="#fasttrips.Stop.INPUT_STOPS_FILE" title="Permalink to this definition">¶</a></dt>
-<dd><p>File with fasttrips stop information (this extends the
-<a class="reference external" href="https://github.com/osplanning-data-standards/GTFS-PLUS/blob/master/files/stops.md">gtfs stops</a> file).
-See <a class="reference external" href="https://github.com/osplanning-data-standards/GTFS-PLUS/blob/master/files/stops_ft.md">stops_ft specification</a>.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="fasttrips.Stop.OUTPUT_STOP_ID_NUM_FILE">
-<code class="descname">OUTPUT_STOP_ID_NUM_FILE</code><em class="property"> = 'ft_intermediate_stop_id.txt'</em><a class="headerlink" href="#fasttrips.Stop.OUTPUT_STOP_ID_NUM_FILE" title="Permalink to this definition">¶</a></dt>
-<dd><p>File with stop ID, stop ID number correspondence</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="fasttrips.Stop.STOPS_COLUMN_BIKE_PARKING">
-<code class="descname">STOPS_COLUMN_BIKE_PARKING</code><em class="property"> = 'bike_parking'</em><a class="headerlink" href="#fasttrips.Stop.STOPS_COLUMN_BIKE_PARKING" title="Permalink to this definition">¶</a></dt>
-<dd><p>fasttrips Stops column name: Bike Parking</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="fasttrips.Stop.STOPS_COLUMN_BIKE_SHARE_STATION">
-<code class="descname">STOPS_COLUMN_BIKE_SHARE_STATION</code><em class="property"> = 'bike_share_station'</em><a class="headerlink" href="#fasttrips.Stop.STOPS_COLUMN_BIKE_SHARE_STATION" title="Permalink to this definition">¶</a></dt>
-<dd><p>fasttrips Stops column name: Bike Share Station</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="fasttrips.Stop.STOPS_COLUMN_LEVEL">
-<code class="descname">STOPS_COLUMN_LEVEL</code><em class="property"> = 'level'</em><a class="headerlink" href="#fasttrips.Stop.STOPS_COLUMN_LEVEL" title="Permalink to this definition">¶</a></dt>
-<dd><p>fasttrips Stops column name: Level</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="fasttrips.Stop.STOPS_COLUMN_LIGHTING">
-<code class="descname">STOPS_COLUMN_LIGHTING</code><em class="property"> = 'lighting'</em><a class="headerlink" href="#fasttrips.Stop.STOPS_COLUMN_LIGHTING" title="Permalink to this definition">¶</a></dt>
-<dd><p>fasttrips Stops column name: Lighting</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="fasttrips.Stop.STOPS_COLUMN_OFF_BOARD_PAYMENT">
-<code class="descname">STOPS_COLUMN_OFF_BOARD_PAYMENT</code><em class="property"> = 'off_board_payment'</em><a class="headerlink" href="#fasttrips.Stop.STOPS_COLUMN_OFF_BOARD_PAYMENT" title="Permalink to this definition">¶</a></dt>
-<dd><p>fasttrips Stops column name: Off-Board Payment</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="fasttrips.Stop.STOPS_COLUMN_PLATFORM_HEIGHT">
-<code class="descname">STOPS_COLUMN_PLATFORM_HEIGHT</code><em class="property"> = 'platform_height'</em><a class="headerlink" href="#fasttrips.Stop.STOPS_COLUMN_PLATFORM_HEIGHT" title="Permalink to this definition">¶</a></dt>
-<dd><p>fasttrips Stops column name: Platform Height</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="fasttrips.Stop.STOPS_COLUMN_SEATING">
-<code class="descname">STOPS_COLUMN_SEATING</code><em class="property"> = 'seating'</em><a class="headerlink" href="#fasttrips.Stop.STOPS_COLUMN_SEATING" title="Permalink to this definition">¶</a></dt>
-<dd><p>fasttrips Stops column name: Seating</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="fasttrips.Stop.STOPS_COLUMN_SHELTER">
-<code class="descname">STOPS_COLUMN_SHELTER</code><em class="property"> = 'shelter'</em><a class="headerlink" href="#fasttrips.Stop.STOPS_COLUMN_SHELTER" title="Permalink to this definition">¶</a></dt>
-<dd><p>fasttrips Stops column name: Shelter</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="fasttrips.Stop.STOPS_COLUMN_STOP_ID">
-<code class="descname">STOPS_COLUMN_STOP_ID</code><em class="property"> = 'stop_id'</em><a class="headerlink" href="#fasttrips.Stop.STOPS_COLUMN_STOP_ID" title="Permalink to this definition">¶</a></dt>
-<dd><p>gtfs Stops column name: Unique identifier (object)</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="fasttrips.Stop.STOPS_COLUMN_STOP_ID_NUM">
-<code class="descname">STOPS_COLUMN_STOP_ID_NUM</code><em class="property"> = 'stop_id_num'</em><a class="headerlink" href="#fasttrips.Stop.STOPS_COLUMN_STOP_ID_NUM" title="Permalink to this definition">¶</a></dt>
-<dd><p>fasttrips Stops column name: Stop Numerical Identifier. Int.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="fasttrips.Stop.STOPS_COLUMN_STOP_LATITUDE">
-<code class="descname">STOPS_COLUMN_STOP_LATITUDE</code><em class="property"> = 'stop_lat'</em><a class="headerlink" href="#fasttrips.Stop.STOPS_COLUMN_STOP_LATITUDE" title="Permalink to this definition">¶</a></dt>
-<dd><p>gtfs Stops column name: Latitude</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="fasttrips.Stop.STOPS_COLUMN_STOP_LONGITUDE">
-<code class="descname">STOPS_COLUMN_STOP_LONGITUDE</code><em class="property"> = 'stop_lon'</em><a class="headerlink" href="#fasttrips.Stop.STOPS_COLUMN_STOP_LONGITUDE" title="Permalink to this definition">¶</a></dt>
-<dd><p>gtfs Stops column name: Longitude</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="fasttrips.Stop.STOPS_COLUMN_STOP_NAME">
-<code class="descname">STOPS_COLUMN_STOP_NAME</code><em class="property"> = 'stop_name'</em><a class="headerlink" href="#fasttrips.Stop.STOPS_COLUMN_STOP_NAME" title="Permalink to this definition">¶</a></dt>
-<dd><p>gtfs Stops column name: Stop name (string)</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="fasttrips.Stop.STOPS_COLUMN_ZONE_ID">
-<code class="descname">STOPS_COLUMN_ZONE_ID</code><em class="property"> = 'zone_id'</em><a class="headerlink" href="#fasttrips.Stop.STOPS_COLUMN_ZONE_ID" title="Permalink to this definition">¶</a></dt>
-<dd><p>gtfs Stops column name: Zone ID</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="fasttrips.Stop.STOPS_COLUMN_ZONE_ID_NUM">
-<code class="descname">STOPS_COLUMN_ZONE_ID_NUM</code><em class="property"> = 'zone_id_num'</em><a class="headerlink" href="#fasttrips.Stop.STOPS_COLUMN_ZONE_ID_NUM" title="Permalink to this definition">¶</a></dt>
-<dd><p>fasttrips Stops column name: Zone Numerical Identifier. Int.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="fasttrips.Stop.max_stop_id_num">
-<code class="descname">max_stop_id_num</code><em class="property"> = None</em><a class="headerlink" href="#fasttrips.Stop.max_stop_id_num" title="Permalink to this definition">¶</a></dt>
-<dd><p>Note the max stop ID num in <a class="reference internal" href="#fasttrips.Stop.max_stop_id_num" title="fasttrips.Stop.max_stop_id_num"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Stop.max_stop_id_num</span></code></a>.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="fasttrips.Stop.trip_times_df">
-<code class="descname">trip_times_df</code><em class="property"> = None</em><a class="headerlink" href="#fasttrips.Stop.trip_times_df" title="Permalink to this definition">¶</a></dt>
-<dd><p>Trips table.</p>
-</dd></dl>
-
 </dd></dl>
 
 </div>
@@ -550,29 +329,29 @@ See <a class="reference external" href="https://github.com/osplanning-data-stand
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="fasttrips.TAZ.html" class="btn btn-neutral float-right" title="fasttrips.TAZ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="fasttrips.Run.html" class="btn btn-neutral float-left" title="fasttrips.Run" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="fasttrips.TAZ.html" class="btn btn-neutral float-right" title="fasttrips.TAZ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="fasttrips.Run.html" class="btn btn-neutral float-left" title="fasttrips.Run" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2015-2018, Lisa Zorn
+        &#169; Copyright 2015-2018, Lisa Zorn.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -580,7 +359,6 @@ See <a class="reference external" href="https://github.com/osplanning-data-stand
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

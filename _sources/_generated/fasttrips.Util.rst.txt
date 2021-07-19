@@ -1,4 +1,4 @@
-fasttrips.Util
+﻿fasttrips.Util
 ==============
 
 .. currentmodule:: fasttrips
@@ -13,6 +13,7 @@ fasttrips.Util
 
    .. autosummary::
    
+      ~Util.__init__
       ~Util.add_new_id
       ~Util.add_numeric_column
       ~Util.calculate_distance_miles

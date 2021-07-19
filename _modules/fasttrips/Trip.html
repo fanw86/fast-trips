@@ -1,40 +1,45 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>fasttrips.Trip &mdash; fasttrips Development Branch Commit 5e504cb3319b58faac3aca1310cb4ad08dc44ed8 documentation</title>
   
 
   
-  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+
   
   
 
   
-  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
 </head>
@@ -77,6 +82,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -99,6 +105,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -133,11 +140,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../index.html">Module code</a> &raquo;</li>
         
@@ -157,9 +166,9 @@
            <div itemprop="articleBody">
             
   <h1>Source code for fasttrips.Trip</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
-<span class="kn">from</span> <span class="nn">builtins</span> <span class="k">import</span> <span class="nb">str</span>
-<span class="kn">from</span> <span class="nn">builtins</span> <span class="k">import</span> <span class="nb">object</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">str</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">object</span>
 
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;Copyright 2015 Contributing Entities&quot;</span>
 <span class="n">__license__</span>   <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
@@ -181,10 +190,10 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="kn">from</span> <span class="nn">.Error</span>  <span class="k">import</span> <span class="n">NetworkInputError</span>
-<span class="kn">from</span> <span class="nn">.Logger</span> <span class="k">import</span> <span class="n">FastTripsLogger</span>
-<span class="kn">from</span> <span class="nn">.Route</span>  <span class="k">import</span> <span class="n">Route</span>
-<span class="kn">from</span> <span class="nn">.Util</span>   <span class="k">import</span> <span class="n">Util</span>
+<span class="kn">from</span> <span class="nn">.Error</span>  <span class="kn">import</span> <span class="n">NetworkInputError</span>
+<span class="kn">from</span> <span class="nn">.Logger</span> <span class="kn">import</span> <span class="n">FastTripsLogger</span>
+<span class="kn">from</span> <span class="nn">.Route</span>  <span class="kn">import</span> <span class="n">Route</span>
+<span class="kn">from</span> <span class="nn">.Util</span>   <span class="kn">import</span> <span class="n">Util</span>
 
 
 <div class="viewcode-block" id="Trip"><a class="viewcode-back" href="../../_generated/fasttrips.Trip.html#fasttrips.Trip">[docs]</a><span class="k">class</span> <span class="nc">Trip</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -368,7 +377,7 @@
     <span class="c1">#: Result column name: Number of MSA onboard passengers minus capacity. Float.</span>
     <span class="n">SIM_COL_VEH_MSA_OVERCAP</span>                     <span class="o">=</span> <span class="s1">&#39;msa_overcap&#39;</span>
 
-<div class="viewcode-block" id="Trip.__init__"><a class="viewcode-back" href="../../_generated/fasttrips.Trip.html#fasttrips.Trip.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_archive</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">gtfs_feed</span><span class="p">,</span> <span class="n">today</span><span class="p">,</span> <span class="n">stops</span><span class="p">,</span> <span class="n">routes</span><span class="p">,</span> <span class="n">prepend_route_id_to_trip_id</span><span class="p">):</span>
+<div class="viewcode-block" id="Trip.__init__"><a class="viewcode-back" href="../../_generated/fasttrips.Trip.html#fasttrips.Trip.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_archive</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">gtfs_feed</span><span class="p">,</span> <span class="n">today</span><span class="p">,</span> <span class="n">stops</span><span class="p">,</span> <span class="n">routes</span><span class="p">,</span> <span class="n">prepend_route_id_to_trip_id</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Constructor. Read the gtfs data from the transitfeed schedule, and the additional</span>
 <span class="sd">        fast-trips stops data from the input files in *input_archive*.</span>
@@ -391,7 +400,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">capacity_configured</span> <span class="o">=</span> <span class="kc">False</span>
 
             <span class="c1"># error if capacity constraints are on</span>
-            <span class="kn">from</span> <span class="nn">.Assignment</span> <span class="k">import</span> <span class="n">Assignment</span>
+            <span class="kn">from</span> <span class="nn">.Assignment</span> <span class="kn">import</span> <span class="n">Assignment</span>
             <span class="k">if</span> <span class="n">Assignment</span><span class="o">.</span><span class="n">CAPACITY_CONSTRAINT</span><span class="p">:</span>
                 <span class="n">error_str</span> <span class="o">=</span> <span class="s2">&quot;capacity_constraint is configured to be True but either </span><span class="si">%s</span><span class="s2"> or </span><span class="si">%s</span><span class="s2"> is missing from vehicle information&quot;</span> <span class="o">%</span> \
                     <span class="p">(</span><span class="n">Trip</span><span class="o">.</span><span class="n">VEHICLES_COLUMN_SEATED_CAPACITY</span><span class="p">,</span> <span class="n">Trip</span><span class="o">.</span><span class="n">VEHICLES_COLUMN_STANDING_CAPACITY</span><span class="p">)</span>
@@ -522,13 +531,13 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">write_trips_for_extension</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Trip.has_capacity_configured"><a class="viewcode-back" href="../../_generated/fasttrips.Trip.html#fasttrips.Trip.has_capacity_configured">[docs]</a>    <span class="k">def</span> <span class="nf">has_capacity_configured</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">has_capacity_configured</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns true if seated capacity and standing capacity are columns included in the vehicles input.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">capacity_configured</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">capacity_configured</span>
 
-<div class="viewcode-block" id="Trip.add_numeric_trip_id"><a class="viewcode-back" href="../../_generated/fasttrips.Trip.html#fasttrips.Trip.add_numeric_trip_id">[docs]</a>    <span class="k">def</span> <span class="nf">add_numeric_trip_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_df</span><span class="p">,</span> <span class="n">id_colname</span><span class="p">,</span> <span class="n">numeric_newcolname</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">add_numeric_trip_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_df</span><span class="p">,</span> <span class="n">id_colname</span><span class="p">,</span> <span class="n">numeric_newcolname</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Passing a :py:class:`pandas.DataFrame` with a trip ID column called *id_colname*,</span>
 <span class="sd">        adds the numeric trip id as a column named *numeric_newcolname* and returns it.</span>
@@ -536,23 +545,23 @@
         <span class="k">return</span> <span class="n">Util</span><span class="o">.</span><span class="n">add_new_id</span><span class="p">(</span><span class="n">input_df</span><span class="p">,</span> <span class="n">id_colname</span><span class="p">,</span> <span class="n">numeric_newcolname</span><span class="p">,</span>
                                    <span class="n">mapping_df</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">trip_id_df</span><span class="p">,</span>
                                    <span class="n">mapping_id_colname</span><span class="o">=</span><span class="n">Trip</span><span class="o">.</span><span class="n">TRIPS_COLUMN_TRIP_ID</span><span class="p">,</span>
-                                   <span class="n">mapping_newid_colname</span><span class="o">=</span><span class="n">Trip</span><span class="o">.</span><span class="n">TRIPS_COLUMN_TRIP_ID_NUM</span><span class="p">)</span></div>
+                                   <span class="n">mapping_newid_colname</span><span class="o">=</span><span class="n">Trip</span><span class="o">.</span><span class="n">TRIPS_COLUMN_TRIP_ID_NUM</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Trip.get_stop_times"><a class="viewcode-back" href="../../_generated/fasttrips.Trip.html#fasttrips.Trip.get_stop_times">[docs]</a>    <span class="k">def</span> <span class="nf">get_stop_times</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trip_id</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_stop_times</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trip_id</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns :py:class:`pandas.DataFrame` with stop times for the given trip id.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop_times_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">stop_times_df</span><span class="p">[</span><span class="n">Trip</span><span class="o">.</span><span class="n">STOPTIMES_COLUMN_TRIP_ID</span><span class="p">]</span> <span class="o">==</span> <span class="n">trip_id</span>
-        <span class="p">]</span></div>
+        <span class="p">]</span>
 
-<div class="viewcode-block" id="Trip.number_of_stops"><a class="viewcode-back" href="../../_generated/fasttrips.Trip.html#fasttrips.Trip.number_of_stops">[docs]</a>    <span class="k">def</span> <span class="nf">number_of_stops</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trip_id</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">number_of_stops</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trip_id</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the number of stops in this trip.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stop_times_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">trip_id</span><span class="p">]))</span></div>
+        <span class="k">return</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stop_times_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">trip_id</span><span class="p">]))</span>
 
-<div class="viewcode-block" id="Trip.get_scheduled_departure"><a class="viewcode-back" href="../../_generated/fasttrips.Trip.html#fasttrips.Trip.get_scheduled_departure">[docs]</a>    <span class="k">def</span> <span class="nf">get_scheduled_departure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trip_id</span><span class="p">,</span> <span class="n">stop_id</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_scheduled_departure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trip_id</span><span class="p">,</span> <span class="n">stop_id</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the scheduled departure time for the given stop as a datetime.datetime</span>
 
@@ -561,9 +570,9 @@
         <span class="k">for</span> <span class="n">seq</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop_times_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">trip_id</span><span class="p">]</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="n">Trip</span><span class="o">.</span><span class="n">STOPTIMES_COLUMN_STOP_ID</span><span class="p">]</span> <span class="o">==</span> <span class="n">stop_id</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">row</span><span class="p">[</span><span class="n">Trip</span><span class="o">.</span><span class="n">STOPTIMES_COLUMN_DEPARTURE_TIME</span><span class="p">]</span>
-        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;get_scheduled_departure: stop </span><span class="si">%s</span><span class="s2"> not find for trip </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">stop_id</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">trip_id</span><span class="p">)))</span></div>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;get_scheduled_departure: stop </span><span class="si">%s</span><span class="s2"> not find for trip </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">stop_id</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">trip_id</span><span class="p">)))</span>
 
-<div class="viewcode-block" id="Trip.add_original_travel_time_and_dwell"><a class="viewcode-back" href="../../_generated/fasttrips.Trip.html#fasttrips.Trip.add_original_travel_time_and_dwell">[docs]</a>    <span class="k">def</span> <span class="nf">add_original_travel_time_and_dwell</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">add_original_travel_time_and_dwell</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add original travel time to the :py:attr:`Trip.stop_times_df` as the</span>
 <span class="sd">        column named :py:attr:`Trip.STOPTIMES_COLUMN_ORIGINAL_TRAVEL_TIME`</span>
@@ -603,9 +612,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">stop_times_df</span><span class="p">[</span><span class="n">Trip</span><span class="o">.</span><span class="n">STOPTIMES_COLUMN_DWELL_TIME</span><span class="p">]</span> <span class="o">=</span> \
             <span class="bp">self</span><span class="o">.</span><span class="n">stop_times_df</span><span class="p">[</span><span class="n">Trip</span><span class="o">.</span><span class="n">STOPTIMES_COLUMN_DEPARTURE_TIME</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop_times_df</span><span class="p">[</span><span class="n">Trip</span><span class="o">.</span><span class="n">STOPTIMES_COLUMN_ARRIVAL_TIME</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stop_times_df</span><span class="p">[</span><span class="n">Trip</span><span class="o">.</span><span class="n">STOPTIMES_COLUMN_DWELL_TIME_SEC</span><span class="p">]</span> <span class="o">=</span> \
-            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stop_times_df</span><span class="p">[</span><span class="n">Trip</span><span class="o">.</span><span class="n">STOPTIMES_COLUMN_DWELL_TIME</span><span class="p">]</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">))</span></div>
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stop_times_df</span><span class="p">[</span><span class="n">Trip</span><span class="o">.</span><span class="n">STOPTIMES_COLUMN_DWELL_TIME</span><span class="p">]</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">))</span>
 
-<div class="viewcode-block" id="Trip.add_trip_attrs_from_stoptimes"><a class="viewcode-back" href="../../_generated/fasttrips.Trip.html#fasttrips.Trip.add_trip_attrs_from_stoptimes">[docs]</a>    <span class="k">def</span> <span class="nf">add_trip_attrs_from_stoptimes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">add_trip_attrs_from_stoptimes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds the columns :py:attr:`Trip.TRIPS_COLUMN_MAX_STOP_SEQUENCE` and :py:attr:`Trip.TRIPS_COLUMN_TRIP_DEPARTURE_TIME`</span>
 <span class="sd">        to the :py:attr:`Trip.trips_df` datatable to facilitate stop time updates in :py:meth:`Trip.update_trip_times`</span>
@@ -622,9 +631,9 @@
         <span class="c1"># add it to trips</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">trips_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">trips_df</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="n">stops_by_trip</span><span class="p">)</span>
         <span class="c1"># make sure we didn&#39;t change the length</span>
-        <span class="k">assert</span><span class="p">(</span><span class="n">trips_len</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trips_df</span><span class="p">))</span></div>
+        <span class="k">assert</span><span class="p">(</span><span class="n">trips_len</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trips_df</span><span class="p">))</span>
 
-<div class="viewcode-block" id="Trip.add_shape_dist_traveled"><a class="viewcode-back" href="../../_generated/fasttrips.Trip.html#fasttrips.Trip.add_shape_dist_traveled">[docs]</a>    <span class="k">def</span> <span class="nf">add_shape_dist_traveled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stops</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">add_shape_dist_traveled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stops</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        For any trips in :py:attr:`Trip.stop_times_df` with rows that are missing column `shape_dist_traveled`,</span>
 <span class="sd">        this method will fill in the column from the stop longitude &amp; latitude.  *stops* is a :py:class:`Stop` instance.</span>
@@ -692,9 +701,9 @@
                                  <span class="s2">&quot;stop_lat&quot;</span><span class="p">,</span> <span class="s2">&quot;stop_lon&quot;</span><span class="p">,</span>
                                  <span class="s2">&quot;stop_seq_prev&quot;</span><span class="p">,</span> <span class="s2">&quot;stop_sequence_prev&quot;</span><span class="p">,</span>
                                  <span class="s2">&quot;stop_lat_prev&quot;</span><span class="p">,</span> <span class="s2">&quot;stop_lon_prev&quot;</span><span class="p">,</span> <span class="s2">&quot;calc shape_dist_traveled&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;add_shape_dist_traveled() stop_times_df</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stop_times_df</span><span class="o">.</span><span class="n">head</span><span class="p">()))</span></div>
+        <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;add_shape_dist_traveled() stop_times_df</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stop_times_df</span><span class="o">.</span><span class="n">head</span><span class="p">()))</span>
 
-<div class="viewcode-block" id="Trip.get_full_trips"><a class="viewcode-back" href="../../_generated/fasttrips.Trip.html#fasttrips.Trip.get_full_trips">[docs]</a>    <span class="k">def</span> <span class="nf">get_full_trips</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_full_trips</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Returns the fullest dataframe of trip + stop information.</span>
@@ -720,9 +729,9 @@
         <span class="n">df</span><span class="p">[</span><span class="n">Trip</span><span class="o">.</span><span class="n">SIM_COL_VEH_MSA_FRICTION</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
         <span class="n">df</span><span class="p">[</span><span class="n">Trip</span><span class="o">.</span><span class="n">SIM_COL_VEH_MSA_STANDEES</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
         <span class="n">df</span><span class="p">[</span><span class="n">Trip</span><span class="o">.</span><span class="n">SIM_COL_VEH_MSA_OVERCAP</span> <span class="p">]</span> <span class="o">=-</span><span class="mf">1.0</span> <span class="c1"># assume there&#39;s room</span>
-        <span class="k">return</span> <span class="n">df</span></div>
+        <span class="k">return</span> <span class="n">df</span>
 
-<div class="viewcode-block" id="Trip.write_trips_for_extension"><a class="viewcode-back" href="../../_generated/fasttrips.Trip.html#fasttrips.Trip.write_trips_for_extension">[docs]</a>    <span class="k">def</span> <span class="nf">write_trips_for_extension</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">write_trips_for_extension</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This writes to an intermediate file a formatted file for the C++ extension.</span>
 <span class="sd">        Since there are strings involved, it&#39;s easier than passing it to the extension.</span>
@@ -768,9 +777,9 @@
 
         <span class="n">trips_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">Trip</span><span class="o">.</span><span class="n">OUTPUT_TRIPINFO_FILE</span><span class="p">),</span>
                         <span class="n">sep</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Wrote </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">Trip</span><span class="o">.</span><span class="n">OUTPUT_TRIPINFO_FILE</span><span class="p">))</span></div>
+        <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Wrote </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">Trip</span><span class="o">.</span><span class="n">OUTPUT_TRIPINFO_FILE</span><span class="p">))</span>
 
-<div class="viewcode-block" id="Trip.reset_onboard"><a class="viewcode-back" href="../../_generated/fasttrips.Trip.html#fasttrips.Trip.reset_onboard">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">reset_onboard</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Resets the onboard fields for the given vehicle trip table.</span>
@@ -787,9 +796,9 @@
         <span class="n">df</span><span class="p">[</span><span class="n">Trip</span><span class="o">.</span><span class="n">SIM_COL_VEH_MSA_ONBOARD</span> <span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
         <span class="n">df</span><span class="p">[</span><span class="n">Trip</span><span class="o">.</span><span class="n">SIM_COL_VEH_MSA_FRICTION</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
         <span class="n">df</span><span class="p">[</span><span class="n">Trip</span><span class="o">.</span><span class="n">SIM_COL_VEH_MSA_STANDEES</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
-        <span class="n">df</span><span class="p">[</span><span class="n">Trip</span><span class="o">.</span><span class="n">SIM_COL_VEH_MSA_OVERCAP</span> <span class="p">]</span> <span class="o">=-</span><span class="mf">1.0</span> <span class="c1"># assume there&#39;s room</span></div>
+        <span class="n">df</span><span class="p">[</span><span class="n">Trip</span><span class="o">.</span><span class="n">SIM_COL_VEH_MSA_OVERCAP</span> <span class="p">]</span> <span class="o">=-</span><span class="mf">1.0</span> <span class="c1"># assume there&#39;s room</span>
 
-<div class="viewcode-block" id="Trip.update_trip_times"><a class="viewcode-back" href="../../_generated/fasttrips.Trip.html#fasttrips.Trip.update_trip_times">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">update_trip_times</span><span class="p">(</span><span class="n">trips_df</span><span class="p">,</span> <span class="n">MSA_RESULTS</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Updates trip times for stops with boards and/or alights.</span>
@@ -976,18 +985,18 @@
             <span class="n">trips_df</span><span class="p">[</span><span class="n">Trip</span><span class="o">.</span><span class="n">STOPTIMES_COLUMN_DEPARTURE_TIME</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> \
                 <span class="mi">60</span><span class="o">*</span><span class="n">x</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">.</span><span class="n">hour</span> <span class="o">+</span> <span class="n">x</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">.</span><span class="n">minute</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">.</span><span class="n">second</span> <span class="o">/</span> <span class="mf">60.0</span><span class="p">)</span> <span class="p">)</span>
 
-        <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Trips:update_trip_times() trips_df:</span><span class="se">\n</span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> \
-            <span class="n">trips_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">trips_df</span><span class="p">[</span><span class="n">Trip</span><span class="o">.</span><span class="n">TRIPS_COLUMN_MAX_STOP_SEQUENCE</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">,[</span><span class="n">Trip</span><span class="o">.</span><span class="n">STOPTIMES_COLUMN_TRIP_ID</span><span class="p">,</span> <span class="n">Trip</span><span class="o">.</span><span class="n">STOPTIMES_COLUMN_TRIP_ID_NUM</span><span class="p">,</span>
-                      <span class="n">Trip</span><span class="o">.</span><span class="n">STOPTIMES_COLUMN_STOP_SEQUENCE</span><span class="p">,</span>
-                      <span class="n">Trip</span><span class="o">.</span><span class="n">STOPTIMES_COLUMN_ARRIVAL_TIME</span><span class="p">,</span> <span class="n">Trip</span><span class="o">.</span><span class="n">STOPTIMES_COLUMN_DEPARTURE_TIME</span><span class="p">,</span>
-                      <span class="n">Trip</span><span class="o">.</span><span class="n">VEHICLES_COLUMN_MAXIMUM_SPEED_FPS</span><span class="p">,</span> <span class="n">Trip</span><span class="o">.</span><span class="n">VEHICLES_COLUMN_ACCELERATION</span><span class="p">,</span> <span class="n">Trip</span><span class="o">.</span><span class="n">VEHICLES_COLUMN_DECELERATION</span><span class="p">,</span>
-                      <span class="n">Trip</span><span class="o">.</span> <span class="n">VEHICLES_COLUMN_SEATED_CAPACITY</span><span class="p">,</span>
-                      <span class="n">Trip</span><span class="o">.</span><span class="n">SIM_COL_VEH_BOARDS</span><span class="p">,</span> <span class="n">Trip</span><span class="o">.</span><span class="n">SIM_COL_VEH_ALIGHTS</span><span class="p">,</span> <span class="n">Trip</span><span class="o">.</span><span class="n">SIM_COL_VEH_ONBOARD</span><span class="p">,</span> <span class="n">Trip</span><span class="o">.</span><span class="n">SIM_COL_VEH_STANDEES</span><span class="p">,</span> <span class="n">Trip</span><span class="o">.</span><span class="n">SIM_COL_VEH_FRICTION</span><span class="p">,</span>
-                      <span class="s2">&quot;does_stop&quot;</span><span class="p">,</span><span class="s2">&quot;next_does_stop&quot;</span><span class="p">,</span><span class="s2">&quot;next_is_last_stop&quot;</span><span class="p">,</span>
-                      <span class="s2">&quot;accel_secs&quot;</span><span class="p">,</span><span class="s2">&quot;decel_secs&quot;</span><span class="p">,</span>
-                      <span class="n">Trip</span><span class="o">.</span><span class="n">STOPTIMES_COLUMN_DWELL_TIME_SEC</span><span class="p">,</span>
-                      <span class="s2">&quot;travel_dwell_sec&quot;</span><span class="p">,</span><span class="s2">&quot;travel_dwell_sec_cum&quot;</span><span class="p">,</span><span class="s2">&quot;new_arrival_time&quot;</span>
-                      <span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+        <span class="c1"># FastTripsLogger.debug(&quot;Trips:update_trip_times() trips_df:\n%s\n&quot; % \</span>
+        <span class="c1">#     trips_df.loc[trips_df[Trip.TRIPS_COLUMN_MAX_STOP_SEQUENCE]&gt;1,[Trip.STOPTIMES_COLUMN_TRIP_ID, Trip.STOPTIMES_COLUMN_TRIP_ID_NUM,</span>
+        <span class="c1">#               Trip.STOPTIMES_COLUMN_STOP_SEQUENCE,</span>
+        <span class="c1">#               Trip.STOPTIMES_COLUMN_ARRIVAL_TIME, Trip.STOPTIMES_COLUMN_DEPARTURE_TIME,</span>
+        <span class="c1">#               Trip.VEHICLES_COLUMN_MAXIMUM_SPEED_FPS, Trip.VEHICLES_COLUMN_ACCELERATION, Trip.VEHICLES_COLUMN_DECELERATION,</span>
+        <span class="c1">#               Trip. VEHICLES_COLUMN_SEATED_CAPACITY,</span>
+        <span class="c1">#               Trip.SIM_COL_VEH_BOARDS, Trip.SIM_COL_VEH_ALIGHTS, Trip.SIM_COL_VEH_ONBOARD, Trip.SIM_COL_VEH_STANDEES, Trip.SIM_COL_VEH_FRICTION,</span>
+        <span class="c1">#               &quot;does_stop&quot;,&quot;next_does_stop&quot;,&quot;next_is_last_stop&quot;,</span>
+        <span class="c1">#               &quot;accel_secs&quot;,&quot;decel_secs&quot;,</span>
+        <span class="c1">#               Trip.STOPTIMES_COLUMN_DWELL_TIME_SEC,</span>
+        <span class="c1">#               &quot;travel_dwell_sec&quot;,&quot;travel_dwell_sec_cum&quot;,&quot;new_arrival_time&quot;</span>
+        <span class="c1">#               ]].head(15).to_string())</span>
 
 
         <span class="k">assert</span><span class="p">(</span><span class="n">trips_df_len</span><span class="o">==</span><span class="nb">len</span><span class="p">(</span><span class="n">trips_df</span><span class="p">))</span>
@@ -998,9 +1007,9 @@
                       <span class="s2">&quot;new_arrival_time&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;trips_df.dtypes=</span><span class="se">\n</span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">trips_df</span><span class="o">.</span><span class="n">dtypes</span><span class="p">))</span>
 
-        <span class="k">return</span> <span class="n">trips_df</span></div>
+        <span class="k">return</span> <span class="n">trips_df</span>
 
-<div class="viewcode-block" id="Trip.linkify_vehicle_trips"><a class="viewcode-back" href="../../_generated/fasttrips.Trip.html#fasttrips.Trip.linkify_vehicle_trips">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">linkify_vehicle_trips</span><span class="p">(</span><span class="n">veh_trips_df</span><span class="p">,</span> <span class="n">stops</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Given a vehicle trips table with columns:</span>
@@ -1067,9 +1076,9 @@
 
         <span class="c1"># FastTripsLogger.debug(&quot;linkify_vehicle_trips: veh_temp_df (%d)\n%s\n%s&quot; % (len(veh_temp_df), veh_temp_df.head(30), str(veh_temp_df.dtypes)))</span>
 
-        <span class="k">return</span> <span class="n">veh_temp_df</span></div>
+        <span class="k">return</span> <span class="n">veh_temp_df</span>
 
-<div class="viewcode-block" id="Trip.calculate_headways"><a class="viewcode-back" href="../../_generated/fasttrips.Trip.html#fasttrips.Trip.calculate_headways">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">calculate_headways</span><span class="p">(</span><span class="n">trips_df</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculates headways and sets them into the given</span>
@@ -1121,27 +1130,32 @@
                                          <span class="n">Trip</span><span class="o">.</span><span class="n">STOPTIMES_COLUMN_STOP_ID</span><span class="p">,</span>
                                          <span class="n">Trip</span><span class="o">.</span><span class="n">STOPTIMES_COLUMN_STOP_SEQUENCE</span><span class="p">])</span>
         <span class="k">assert</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">trips_df</span><span class="p">)</span><span class="o">==</span><span class="n">trips_df_len</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">trips_df</span></div></div>
+        <span class="k">return</span> <span class="n">trips_df</span></div>
 </pre></div>
 
            </div>
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2015-2018, Lisa Zorn
+        &#169; Copyright 2015-2018, Lisa Zorn.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -1149,7 +1163,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

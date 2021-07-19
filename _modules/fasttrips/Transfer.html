@@ -1,40 +1,45 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>fasttrips.Transfer &mdash; fasttrips Development Branch Commit 5e504cb3319b58faac3aca1310cb4ad08dc44ed8 documentation</title>
   
 
   
-  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+
   
   
 
   
-  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
 </head>
@@ -77,6 +82,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -99,6 +105,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -133,11 +140,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../index.html">Module code</a> &raquo;</li>
         
@@ -157,9 +166,9 @@
            <div itemprop="articleBody">
             
   <h1>Source code for fasttrips.Transfer</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
-<span class="kn">from</span> <span class="nn">builtins</span> <span class="k">import</span> <span class="nb">str</span>
-<span class="kn">from</span> <span class="nn">builtins</span> <span class="k">import</span> <span class="nb">object</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">str</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">object</span>
 
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;Copyright 2015 Contributing Entities&quot;</span>
 <span class="n">__license__</span>   <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
@@ -180,8 +189,8 @@
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="kn">from</span> <span class="nn">.Error</span>  <span class="k">import</span> <span class="n">NetworkInputError</span>
-<span class="kn">from</span> <span class="nn">.Logger</span> <span class="k">import</span> <span class="n">FastTripsLogger</span>
+<span class="kn">from</span> <span class="nn">.Error</span>  <span class="kn">import</span> <span class="n">NetworkInputError</span>
+<span class="kn">from</span> <span class="nn">.Logger</span> <span class="kn">import</span> <span class="n">FastTripsLogger</span>
 
 
 <div class="viewcode-block" id="Transfer"><a class="viewcode-back" href="../../_generated/fasttrips.Transfer.html#fasttrips.Transfer">[docs]</a><span class="k">class</span> <span class="nc">Transfer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -256,7 +265,7 @@
     <span class="c1">#: initialize_fasttrips_extension() because of the strings involved</span>
     <span class="n">OUTPUT_TRANSFERS_FILE</span>       <span class="o">=</span> <span class="s2">&quot;ft_intermediate_transfers.txt&quot;</span>
 
-<div class="viewcode-block" id="Transfer.__init__"><a class="viewcode-back" href="../../_generated/fasttrips.Transfer.html#fasttrips.Transfer.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_archive</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">gtfs_feed</span><span class="p">):</span>
+<div class="viewcode-block" id="Transfer.__init__"><a class="viewcode-back" href="../../_generated/fasttrips.Transfer.html#fasttrips.Transfer.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_archive</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">gtfs_feed</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Constructor.  Reads the gtfs data from the transitfeed schedule, and the additional</span>
 <span class="sd">        fast-trips transfers data from the input files in *input_archive*.</span>
@@ -359,7 +368,7 @@
         <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Read </span><span class="si">%7d</span><span class="s2"> </span><span class="si">%15s</span><span class="s2"> from </span><span class="si">%25s</span><span class="s2">, </span><span class="si">%25s</span><span class="s2">&quot;</span> <span class="o">%</span>
                              <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transfers_df</span><span class="p">),</span> <span class="s2">&quot;transfers&quot;</span><span class="p">,</span> <span class="s2">&quot;transfers.txt&quot;</span><span class="p">,</span> <span class="n">Transfer</span><span class="o">.</span><span class="n">INPUT_TRANSFERS_FILE</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="Transfer.add_numeric_stop_id"><a class="viewcode-back" href="../../_generated/fasttrips.Transfer.html#fasttrips.Transfer.add_numeric_stop_id">[docs]</a>    <span class="k">def</span> <span class="nf">add_numeric_stop_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stops</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">add_numeric_stop_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stops</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Stops are now equipped to add numeric ID (DAPs are in) so grab them</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -377,15 +386,15 @@
                                                          <span class="n">warn</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                                                          <span class="n">warn_msg</span><span class="o">=</span><span class="s2">&quot;Numeric stop id not found for transfer to_stop_id&quot;</span><span class="p">)</span>
             <span class="c1"># We&#39;re ready to write it</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">write_transfers_for_extension</span><span class="p">()</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">write_transfers_for_extension</span><span class="p">()</span>
 
-<div class="viewcode-block" id="Transfer.add_transfer_attributes"><a class="viewcode-back" href="../../_generated/fasttrips.Transfer.html#fasttrips.Transfer.add_transfer_attributes">[docs]</a>    <span class="k">def</span> <span class="nf">add_transfer_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transfer_links_df</span><span class="p">,</span> <span class="n">all_links_df</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">add_transfer_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transfer_links_df</span><span class="p">,</span> <span class="n">all_links_df</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds transfer attributes for transfer links and returns those transfer links with the additional columns.</span>
 
 <span class="sd">        Pass all_links_df in order to get the from_route_id and to_route_id for the transfers.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">.Passenger</span> <span class="k">import</span> <span class="n">Passenger</span>
+        <span class="kn">from</span> <span class="nn">.Passenger</span> <span class="kn">import</span> <span class="n">Passenger</span>
 
         <span class="n">len_transfer_links_df</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">transfer_links_df</span><span class="p">)</span>
         <span class="n">transfer_links_cols</span>   <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">transfer_links_df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
@@ -508,9 +517,9 @@
         <span class="c1"># make sure we didn&#39;t lose anything</span>
         <span class="k">assert</span><span class="p">(</span><span class="n">len_transfer_links_df</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">transfer_links_df</span><span class="p">))</span>
 
-        <span class="k">return</span> <span class="n">transfer_links_df</span></div>
+        <span class="k">return</span> <span class="n">transfer_links_df</span>
 
-<div class="viewcode-block" id="Transfer.write_transfers_for_extension"><a class="viewcode-back" href="../../_generated/fasttrips.Transfer.html#fasttrips.Transfer.write_transfers_for_extension">[docs]</a>    <span class="k">def</span> <span class="nf">write_transfers_for_extension</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">write_transfers_for_extension</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This writes to an intermediate file a formatted file for the C++ extension.</span>
 <span class="sd">        Since there are strings involved, it&#39;s easier than passing it to the extension.</span>
@@ -549,27 +558,32 @@
 
         <span class="n">transfers_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">Transfer</span><span class="o">.</span><span class="n">OUTPUT_TRANSFERS_FILE</span><span class="p">),</span>
                             <span class="n">sep</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Wrote </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">Transfer</span><span class="o">.</span><span class="n">OUTPUT_TRANSFERS_FILE</span><span class="p">))</span></div></div>
+        <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Wrote </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">Transfer</span><span class="o">.</span><span class="n">OUTPUT_TRANSFERS_FILE</span><span class="p">))</span></div>
 </pre></div>
 
            </div>
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2015-2018, Lisa Zorn
+        &#169; Copyright 2015-2018, Lisa Zorn.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -577,7 +591,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

@@ -1,4 +1,4 @@
-fasttrips.Assignment
+﻿fasttrips.Assignment
 ====================
 
 .. currentmodule:: fasttrips

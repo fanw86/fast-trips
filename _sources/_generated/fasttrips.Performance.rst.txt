@@ -1,4 +1,4 @@
-fasttrips.Performance
+﻿fasttrips.Performance
 =====================
 
 .. currentmodule:: fasttrips

@@ -1,40 +1,45 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>fasttrips.Assignment &mdash; fasttrips Development Branch Commit 5e504cb3319b58faac3aca1310cb4ad08dc44ed8 documentation</title>
   
 
   
-  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+
   
   
 
   
-  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
 </head>
@@ -77,6 +82,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -99,6 +105,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -133,11 +140,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../index.html">Module code</a> &raquo;</li>
         
@@ -157,15 +166,15 @@
            <div itemprop="articleBody">
             
   <h1>Source code for fasttrips.Assignment</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
-<span class="kn">from</span> <span class="nn">past.builtins</span> <span class="k">import</span> <span class="n">execfile</span>
-<span class="kn">from</span> <span class="nn">future</span> <span class="k">import</span> <span class="n">standard_library</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">past.builtins</span> <span class="kn">import</span> <span class="n">execfile</span>
+<span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
 <span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
-<span class="kn">from</span> <span class="nn">builtins</span> <span class="k">import</span> <span class="nb">zip</span>
-<span class="kn">from</span> <span class="nn">builtins</span> <span class="k">import</span> <span class="nb">str</span>
-<span class="kn">from</span> <span class="nn">builtins</span> <span class="k">import</span> <span class="nb">range</span>
-<span class="kn">from</span> <span class="nn">builtins</span> <span class="k">import</span> <span class="nb">object</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">zip</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">str</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">range</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">object</span>
 
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;Copyright 2015-2017 Contributing Entities&quot;</span>
 <span class="n">__license__</span>   <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
@@ -194,13 +203,13 @@
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="kn">import</span> <span class="nn">_fasttrips</span>
-<span class="kn">from</span> <span class="nn">.Error</span> <span class="k">import</span> <span class="n">ConfigurationError</span>
-<span class="kn">from</span> <span class="nn">.Logger</span> <span class="k">import</span> <span class="n">FastTripsLogger</span><span class="p">,</span> <span class="n">setupLogging</span>
-<span class="kn">from</span> <span class="nn">.Passenger</span> <span class="k">import</span> <span class="n">Passenger</span>
-<span class="kn">from</span> <span class="nn">.PathSet</span> <span class="k">import</span> <span class="n">PathSet</span>
-<span class="kn">from</span> <span class="nn">.Performance</span> <span class="k">import</span> <span class="n">Performance</span>
-<span class="kn">from</span> <span class="nn">.Trip</span> <span class="k">import</span> <span class="n">Trip</span>
-<span class="kn">from</span> <span class="nn">.Util</span> <span class="k">import</span> <span class="n">Util</span>
+<span class="kn">from</span> <span class="nn">.Error</span> <span class="kn">import</span> <span class="n">ConfigurationError</span>
+<span class="kn">from</span> <span class="nn">.Logger</span> <span class="kn">import</span> <span class="n">FastTripsLogger</span><span class="p">,</span> <span class="n">setupLogging</span>
+<span class="kn">from</span> <span class="nn">.Passenger</span> <span class="kn">import</span> <span class="n">Passenger</span>
+<span class="kn">from</span> <span class="nn">.PathSet</span> <span class="kn">import</span> <span class="n">PathSet</span>
+<span class="kn">from</span> <span class="nn">.Performance</span> <span class="kn">import</span> <span class="n">Performance</span>
+<span class="kn">from</span> <span class="nn">.Trip</span> <span class="kn">import</span> <span class="n">Trip</span>
+<span class="kn">from</span> <span class="nn">.Util</span> <span class="kn">import</span> <span class="n">Util</span>
 
 
 <div class="viewcode-block" id="Assignment"><a class="viewcode-back" href="../../_generated/fasttrips.Assignment.html#fasttrips.Assignment">[docs]</a><span class="k">class</span> <span class="nc">Assignment</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -421,13 +430,13 @@
     <span class="c1">#: These will be ordered, so to select chosen, choose those &gt; CHOSEN_NOT_CHOSEN_YET</span>
     <span class="n">CHOSEN_CATEGORIES</span>               <span class="o">=</span> <span class="p">[</span><span class="n">CHOSEN_REJECTED</span><span class="p">,</span><span class="n">CHOSEN_NOT_CHOSEN_YET</span><span class="p">]</span>
 
-<div class="viewcode-block" id="Assignment.__init__"><a class="viewcode-back" href="../../_generated/fasttrips.Assignment.html#fasttrips.Assignment.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Assignment.__init__"><a class="viewcode-back" href="../../_generated/fasttrips.Assignment.html#fasttrips.Assignment.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This does nothing.  Assignment methods are static methods for now.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="Assignment.read_functions"><a class="viewcode-back" href="../../_generated/fasttrips.Assignment.html#fasttrips.Assignment.read_functions">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">read_functions</span><span class="p">(</span><span class="n">func_file</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Read the functions from :py:attr:`Assignment.CONFIGURATION_FUNCTIONS_FILE</span>
@@ -437,9 +446,9 @@
             <span class="n">my_globals</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Reading </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">func_file</span><span class="p">)</span>
             <span class="n">execfile</span><span class="p">(</span><span class="n">func_file</span><span class="p">,</span> <span class="n">my_globals</span><span class="p">,</span> <span class="n">PathSet</span><span class="o">.</span><span class="n">CONFIGURED_FUNCTIONS</span><span class="p">)</span>
-            <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;PathSet.CONFIGURED_FUNCTIONS = </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">PathSet</span><span class="o">.</span><span class="n">CONFIGURED_FUNCTIONS</span><span class="p">))</span></div>
+            <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;PathSet.CONFIGURED_FUNCTIONS = </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">PathSet</span><span class="o">.</span><span class="n">CONFIGURED_FUNCTIONS</span><span class="p">))</span>
 
-<div class="viewcode-block" id="Assignment.read_configuration"><a class="viewcode-back" href="../../_generated/fasttrips.Assignment.html#fasttrips.Assignment.read_configuration">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">read_configuration</span><span class="p">(</span><span class="n">config_fullpath</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Read the configuration parameters from :py:attr:`Assignment.CONFIGURATION_FILE`</span>
@@ -574,10 +583,10 @@
         <span class="k">if</span> <span class="n">PathSet</span><span class="o">.</span><span class="n">USER_CLASS_FUNCTION</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">PathSet</span><span class="o">.</span><span class="n">CONFIGURED_FUNCTIONS</span><span class="p">:</span>
             <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;User class function [</span><span class="si">%s</span><span class="s2">] not defined.  Please check your function file [</span><span class="si">%s</span><span class="s2">]&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">PathSet</span><span class="o">.</span><span class="n">USER_CLASS_FUNCTION</span><span class="p">,</span> <span class="n">Assignment</span><span class="o">.</span><span class="n">CONFIGURATION_FUNCTIONS_FILE</span><span class="p">)</span>
             <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-            <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="n">config_fullpath</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span></div>
+            <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="n">config_fullpath</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="Assignment.read_weights"><a class="viewcode-back" href="../../_generated/fasttrips.Assignment.html#fasttrips.Assignment.read_weights">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">read_weights</span><span class="p">(</span><span class="n">weights_file</span> <span class="o">=</span> <span class="n">INPUT_WEIGHTS</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Read the weights from :py:attr:`Assignment.INPUT_WEIGHTS</span>
@@ -597,10 +606,10 @@
         <span class="n">PathSet</span><span class="o">.</span><span class="n">WEIGHTS_DF</span> <span class="o">=</span> <span class="n">Assignment</span><span class="o">.</span><span class="n">process_weight_qualifiers</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
 
         <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Weights =</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">PathSet</span><span class="o">.</span><span class="n">WEIGHTS_DF</span><span class="p">))</span>
-        <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Weight types = </span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">PathSet</span><span class="o">.</span><span class="n">WEIGHTS_DF</span><span class="o">.</span><span class="n">dtypes</span><span class="p">))</span></div>
+        <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Weight types = </span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">PathSet</span><span class="o">.</span><span class="n">WEIGHTS_DF</span><span class="o">.</span><span class="n">dtypes</span><span class="p">))</span>
 
 
-<div class="viewcode-block" id="Assignment.process_weight_qualifiers"><a class="viewcode-back" href="../../_generated/fasttrips.Assignment.html#fasttrips.Assignment.process_weight_qualifiers">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">process_weight_qualifiers</span><span class="p">(</span><span class="n">weights</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Qualifiers are used to change the default behavior of weight_names. Qualifiers</span>
@@ -677,10 +686,10 @@
                     <span class="p">(</span><span class="n">weights_df</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">WEIGHTS_GROWTH_LOGISTIC_MID</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span>
                 <span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">weights_df</span></div>
+        <span class="k">return</span> <span class="n">weights_df</span>
 
 
-<div class="viewcode-block" id="Assignment.write_configuration"><a class="viewcode-back" href="../../_generated/fasttrips.Assignment.html#fasttrips.Assignment.write_configuration">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">write_configuration</span><span class="p">(</span><span class="n">output_dir</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Write the configuration parameters to function as a record with the output.</span>
@@ -743,9 +752,9 @@
 
         <span class="n">output_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">Assignment</span><span class="o">.</span><span class="n">CONFIGURATION_OUTPUT_FILE</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
         <span class="n">parser</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">output_file</span><span class="p">)</span>
-        <span class="n">output_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+        <span class="n">output_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
-<div class="viewcode-block" id="Assignment.initialize_fasttrips_extension"><a class="viewcode-back" href="../../_generated/fasttrips.Assignment.html#fasttrips.Assignment.initialize_fasttrips_extension">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">initialize_fasttrips_extension</span><span class="p">(</span><span class="n">process_number</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">stop_times_df</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the C++ fasttrips extension by passing it the network supply.</span>
@@ -767,11 +776,11 @@
         <span class="n">_fasttrips</span><span class="o">.</span><span class="n">initialize_supply</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">process_number</span><span class="p">,</span>
                                      <span class="n">stop_times_df</span><span class="p">[[</span><span class="n">Trip</span><span class="o">.</span><span class="n">STOPTIMES_COLUMN_TRIP_ID_NUM</span><span class="p">,</span>
                                                     <span class="n">Trip</span><span class="o">.</span><span class="n">STOPTIMES_COLUMN_STOP_SEQUENCE</span><span class="p">,</span>
-                                                    <span class="n">Trip</span><span class="o">.</span><span class="n">STOPTIMES_COLUMN_STOP_ID_NUM</span><span class="p">]]</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int32&#39;</span><span class="p">),</span>
+                                                    <span class="n">Trip</span><span class="o">.</span><span class="n">STOPTIMES_COLUMN_STOP_ID_NUM</span><span class="p">]]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int32&#39;</span><span class="p">),</span>
                                      <span class="n">stop_times_df</span><span class="p">[[</span><span class="n">Trip</span><span class="o">.</span><span class="n">STOPTIMES_COLUMN_ARRIVAL_TIME_MIN</span><span class="p">,</span>
                                                     <span class="n">Trip</span><span class="o">.</span><span class="n">STOPTIMES_COLUMN_DEPARTURE_TIME_MIN</span><span class="p">,</span>
                                                     <span class="n">Trip</span><span class="o">.</span><span class="n">STOPTIMES_COLUMN_SHAPE_DIST_TRAVELED</span><span class="p">,</span>
-                                                    <span class="n">overcap_col</span><span class="p">]]</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float64&#39;</span><span class="p">))</span>
+                                                    <span class="n">overcap_col</span><span class="p">]]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float64&#39;</span><span class="p">))</span>
 
         <span class="n">_fasttrips</span><span class="o">.</span><span class="n">initialize_parameters</span><span class="p">(</span><span class="n">Assignment</span><span class="o">.</span><span class="n">TIME_WINDOW</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span><span class="o">/</span> <span class="mf">60.0</span><span class="p">,</span>
                                          <span class="n">Assignment</span><span class="o">.</span><span class="n">BUMP_BUFFER</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span><span class="o">/</span> <span class="mf">60.0</span><span class="p">,</span>
@@ -784,9 +793,9 @@
                                          <span class="mi">1</span> <span class="k">if</span> <span class="n">Assignment</span><span class="o">.</span><span class="n">TRANSFER_FARE_IGNORE_PATHFINDING</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span>
                                          <span class="mi">1</span> <span class="k">if</span> <span class="n">Assignment</span><span class="o">.</span><span class="n">TRANSFER_FARE_IGNORE_PATHENUM</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span>
                                          <span class="n">Assignment</span><span class="o">.</span><span class="n">MAX_NUM_PATHS</span><span class="p">,</span>
-                                         <span class="n">Assignment</span><span class="o">.</span><span class="n">MIN_PATH_PROBABILITY</span><span class="p">)</span></div>
+                                         <span class="n">Assignment</span><span class="o">.</span><span class="n">MIN_PATH_PROBABILITY</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Assignment.set_fasttrips_bump_wait"><a class="viewcode-back" href="../../_generated/fasttrips.Assignment.html#fasttrips.Assignment.set_fasttrips_bump_wait">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">set_fasttrips_bump_wait</span><span class="p">(</span><span class="n">bump_wait_df</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sends the bump wait information to the fasttrips extension</span>
@@ -798,9 +807,9 @@
 
         <span class="n">_fasttrips</span><span class="o">.</span><span class="n">set_bump_wait</span><span class="p">(</span><span class="n">bump_wait_df</span><span class="p">[[</span><span class="n">Trip</span><span class="o">.</span><span class="n">STOPTIMES_COLUMN_TRIP_ID_NUM</span><span class="p">,</span>
                                                <span class="n">Trip</span><span class="o">.</span><span class="n">STOPTIMES_COLUMN_STOP_SEQUENCE</span><span class="p">,</span>
-                                               <span class="n">Trip</span><span class="o">.</span><span class="n">STOPTIMES_COLUMN_STOP_ID_NUM</span><span class="p">]]</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int32&#39;</span><span class="p">),</span>
-                                 <span class="n">bump_wait_df</span><span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_PAX_A_TIME_MIN</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float64&#39;</span><span class="p">))</span></div>
-<div class="viewcode-block" id="Assignment.write_vehicle_trips"><a class="viewcode-back" href="../../_generated/fasttrips.Assignment.html#fasttrips.Assignment.write_vehicle_trips">[docs]</a>    <span class="nd">@staticmethod</span>
+                                               <span class="n">Trip</span><span class="o">.</span><span class="n">STOPTIMES_COLUMN_STOP_ID_NUM</span><span class="p">]]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span>
+                                 <span class="n">bump_wait_df</span><span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_PAX_A_TIME_MIN</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">))</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">write_vehicle_trips</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">iteration</span><span class="p">,</span> <span class="n">pathfinding_iteration</span><span class="p">,</span> <span class="n">simulation_iteration</span><span class="p">,</span> <span class="n">veh_trips_df</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -845,9 +854,9 @@
         <span class="n">veh_trips_df</span><span class="p">[</span> <span class="s2">&quot;simulation_iteration&quot;</span><span class="p">]</span> <span class="o">=</span>  <span class="n">simulation_iteration</span>
         <span class="n">Util</span><span class="o">.</span><span class="n">write_dataframe</span><span class="p">(</span><span class="n">veh_trips_df</span><span class="p">[</span><span class="n">columns</span><span class="p">],</span> <span class="s2">&quot;veh_trips_df&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="s2">&quot;veh_trips.csv&quot;</span><span class="p">),</span>
                              <span class="n">append</span><span class="o">=</span><span class="p">(</span><span class="n">iteration</span><span class="o">&gt;</span><span class="mi">0</span> <span class="ow">or</span> <span class="n">pathfinding_iteration</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">))</span>
-        <span class="n">veh_trips_df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;iteration&quot;</span><span class="p">,</span><span class="s2">&quot;pathfinding_iteration&quot;</span><span class="p">,</span><span class="s2">&quot;simulation_iteration&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+        <span class="n">veh_trips_df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;iteration&quot;</span><span class="p">,</span><span class="s2">&quot;pathfinding_iteration&quot;</span><span class="p">,</span><span class="s2">&quot;simulation_iteration&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Assignment.merge_pathsets"><a class="viewcode-back" href="../../_generated/fasttrips.Assignment.html#fasttrips.Assignment.merge_pathsets">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">merge_pathsets</span><span class="p">(</span><span class="n">pathfind_trip_list_df</span><span class="p">,</span> <span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">pathset_links_df</span><span class="p">,</span> <span class="n">new_pathset_paths_df</span><span class="p">,</span> <span class="n">new_pathset_links_df</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Merge the given new pathset paths and links into the existing</span>
@@ -895,16 +904,16 @@
         <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;merge_pathsets():     pathset_links_df len=</span><span class="si">%d</span><span class="s2"> head=</span><span class="se">\n</span><span class="si">%s</span><span class="se">\n</span><span class="s2">tail=</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pathset_links_df</span><span class="p">),</span> <span class="n">pathset_links_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">to_string</span><span class="p">(),</span><span class="n">pathset_links_df</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span><span class="o">.</span><span class="n">to_string</span><span class="p">()))</span>
 
         <span class="c1"># done with this</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">pathset_links_df</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="p">(</span><span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">pathset_links_df</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Assignment.number_of_pathsets"><a class="viewcode-back" href="../../_generated/fasttrips.Assignment.html#fasttrips.Assignment.number_of_pathsets">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">number_of_pathsets</span><span class="p">(</span><span class="n">pathset_paths_df</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Counts the number of passenger trips with pathsets and returns it.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">pathset_paths_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="n">Passenger</span><span class="o">.</span><span class="n">PERSONS_COLUMN_PERSON_ID</span><span class="p">,</span><span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_TRIP_ID</span><span class="p">]))</span></div>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">pathset_paths_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="n">Passenger</span><span class="o">.</span><span class="n">PERSONS_COLUMN_PERSON_ID</span><span class="p">,</span><span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_TRIP_ID</span><span class="p">]))</span>
 
-<div class="viewcode-block" id="Assignment.assign_paths"><a class="viewcode-back" href="../../_generated/fasttrips.Assignment.html#fasttrips.Assignment.assign_paths">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">assign_paths</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">FT</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Finds the paths for the passengers.</span>
@@ -1070,10 +1079,10 @@
                 <span class="s2">&quot;paths_found&quot;</span><span class="p">:</span> <span class="n">num_paths_found</span><span class="p">,</span>
                 <span class="s2">&quot;passengers_arrived&quot;</span><span class="p">:</span> <span class="n">num_passengers_arrived</span><span class="p">,</span>
                 <span class="s2">&quot;passengers_missed&quot;</span><span class="p">:</span> <span class="n">num_bumped_passengers</span><span class="p">,</span>
-                <span class="s2">&quot;passengers_demand&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">FT</span><span class="o">.</span><span class="n">passengers</span><span class="o">.</span><span class="n">trip_list_df</span><span class="p">)</span> <span class="p">}</span></div>
+                <span class="s2">&quot;passengers_demand&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">FT</span><span class="o">.</span><span class="n">passengers</span><span class="o">.</span><span class="n">trip_list_df</span><span class="p">)</span> <span class="p">}</span>
 
 
-<div class="viewcode-block" id="Assignment.compare_choices"><a class="viewcode-back" href="../../_generated/fasttrips.Assignment.html#fasttrips.Assignment.compare_choices">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">compare_choices</span><span class="p">(</span><span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">prior_choice</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Reads in a pathset_path_df and the pathset_path_df of a prior iteration</span>
@@ -1100,10 +1109,10 @@
 
         <span class="n">new_choices_count</span> <span class="o">=</span> <span class="n">chosen</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">match_choices</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-        <span class="k">return</span> <span class="n">new_choices_count</span><span class="p">,</span> <span class="n">chosen</span></div>
+        <span class="k">return</span> <span class="n">new_choices_count</span><span class="p">,</span> <span class="n">chosen</span>
 
 
-<div class="viewcode-block" id="Assignment.save_choices"><a class="viewcode-back" href="../../_generated/fasttrips.Assignment.html#fasttrips.Assignment.save_choices">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">save_choices</span><span class="p">(</span><span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">success_df</span><span class="p">,</span> <span class="n">bump_df</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns an updated count of successfully chosen paths and</span>
@@ -1141,10 +1150,10 @@
                                               <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_DESCRIPTION</span><span class="p">]</span>
                                              <span class="p">)[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">SUCCESS_FLAG_COLUMN</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 
-        <span class="k">return</span> <span class="n">success_df</span><span class="p">,</span> <span class="n">bump_df</span></div>
+        <span class="k">return</span> <span class="n">success_df</span><span class="p">,</span> <span class="n">bump_df</span>
 
 
-<div class="viewcode-block" id="Assignment.merge_prior_choices"><a class="viewcode-back" href="../../_generated/fasttrips.Assignment.html#fasttrips.Assignment.merge_prior_choices">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">merge_prior_choices</span><span class="p">(</span><span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">pathset_links_df</span><span class="p">,</span> <span class="n">flag_df</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Join success or bump flag count information onto a pathset_paths_df and pathset_links_df</span>
@@ -1175,9 +1184,9 @@
             <span class="p">[</span><span class="s1">&#39;trip_list_id_num&#39;</span><span class="p">,</span> <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_PATH_NUM</span><span class="p">,</span> <span class="n">flag_col</span><span class="p">,</span> <span class="p">]],</span>
                                     <span class="n">on</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;trip_list_id_num&#39;</span><span class="p">,</span> <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_PATH_NUM</span><span class="p">],</span> <span class="n">how</span> <span class="o">=</span> <span class="s1">&#39;left&#39;</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">pathset_links_df</span></div>
+        <span class="k">return</span> <span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">pathset_links_df</span>
 
-<div class="viewcode-block" id="Assignment.filter_trip_list_to_not_arrived"><a class="viewcode-back" href="../../_generated/fasttrips.Assignment.html#fasttrips.Assignment.filter_trip_list_to_not_arrived">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">filter_trip_list_to_not_arrived</span><span class="p">(</span><span class="n">trip_list_df</span><span class="p">,</span> <span class="n">pathset_paths_df</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Filter the given trip list to only those that have not arrived according to *pathset_paths_df*.</span>
@@ -1200,9 +1209,9 @@
         <span class="n">trip_list_df_to_return</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="n">Assignment</span><span class="o">.</span><span class="n">SIM_COL_PAX_CHOSEN</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;filter_trip_list_to_not_arrived(): trip_list_df_to_return len=</span><span class="si">%d</span><span class="s2"> head()=</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span>  <span class="o">%</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">trip_list_df_to_return</span><span class="p">),</span> <span class="n">trip_list_df_to_return</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">to_string</span><span class="p">()))</span>
-        <span class="k">return</span> <span class="n">trip_list_df_to_return</span></div>
+        <span class="k">return</span> <span class="n">trip_list_df_to_return</span>
 
-<div class="viewcode-block" id="Assignment.generate_pathsets"><a class="viewcode-back" href="../../_generated/fasttrips.Assignment.html#fasttrips.Assignment.generate_pathsets">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">generate_pathsets</span><span class="p">(</span><span class="n">FT</span><span class="p">,</span> <span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">veh_trips_df</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">iteration</span><span class="p">,</span> <span class="n">pathfinding_iteration</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Figures out which person trips for whom to generate_pathsets, stored in :py:attr:`Passenger.pathfind_trip_list_df`</span>
@@ -1429,10 +1438,10 @@
                                  <span class="nb">int</span><span class="p">(</span> <span class="p">(</span><span class="n">time_elapsed</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">%</span> <span class="mi">3600</span><span class="p">)</span><span class="o">/</span> <span class="mi">60</span><span class="p">),</span>
                                  <span class="n">time_elapsed</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">%</span> <span class="mi">60</span><span class="p">))</span>
 
-        <span class="k">return</span> <span class="n">num_paths_found_now</span> <span class="o">+</span> <span class="n">num_paths_found_prev</span></div>
+        <span class="k">return</span> <span class="n">num_paths_found_now</span> <span class="o">+</span> <span class="n">num_paths_found_prev</span>
 
 
-<div class="viewcode-block" id="Assignment.find_trip_based_pathset"><a class="viewcode-back" href="../../_generated/fasttrips.Assignment.html#fasttrips.Assignment.find_trip_based_pathset">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">find_trip_based_pathset</span><span class="p">(</span><span class="n">iteration</span><span class="p">,</span> <span class="n">pathfinding_iteration</span><span class="p">,</span> <span class="n">pathset</span><span class="p">,</span> <span class="n">hyperpath</span><span class="p">,</span> <span class="n">trace</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Perform trip-based path set search.</span>
@@ -1552,10 +1561,10 @@
             <span class="n">Performance</span><span class="o">.</span><span class="n">PERFORMANCE_PF_COL_PRIVATE_USAGE_BYTES</span>   <span class="p">:</span> <span class="n">bytes_privateusage</span><span class="p">,</span>
             <span class="n">Performance</span><span class="o">.</span><span class="n">PERFORMANCE_PF_COL_MEM_TIMESTAMP</span>         <span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">mem_timestamp</span><span class="p">)</span>
         <span class="p">}</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">pathdict</span><span class="p">,</span> <span class="n">perf_dict</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="p">(</span><span class="n">pathdict</span><span class="p">,</span> <span class="n">perf_dict</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="Assignment.find_passenger_vehicle_times"><a class="viewcode-back" href="../../_generated/fasttrips.Assignment.html#fasttrips.Assignment.find_passenger_vehicle_times">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">find_passenger_vehicle_times</span><span class="p">(</span><span class="n">pathset_links_df</span><span class="p">,</span> <span class="n">veh_trips_df</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Given a dataframe of passenger links and a dataframe of vehicle trip links, adds two new columns to the passenger links for board and alight time.</span>
@@ -1641,10 +1650,10 @@
         <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">pathset_links_df</span><span class="p">,</span> <span class="n">intermediate</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">PERSONS_COLUMN_PERSON_ID</span><span class="p">,</span>
                                                             <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_TRIP_ID</span><span class="p">,</span>
                                                             <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_PATH_NUM</span><span class="p">,</span>
-                                                            <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_LINK_NUM</span><span class="p">,],</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span></div>
+                                                            <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_LINK_NUM</span><span class="p">,],</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="Assignment.put_passengers_on_vehicles"><a class="viewcode-back" href="../../_generated/fasttrips.Assignment.html#fasttrips.Assignment.put_passengers_on_vehicles">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">put_passengers_on_vehicles</span><span class="p">(</span><span class="n">pathset_links_df</span><span class="p">,</span> <span class="n">veh_trips_df</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Puts the chosen passenger trips specified in pathset_links_df onto the transit vehicle trips specified by veh_trip_df.</span>
@@ -1705,12 +1714,22 @@
                                     <span class="n">right_index</span>  <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
                                     <span class="n">how</span>          <span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
         <span class="n">veh_loaded_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TRIP_LIST_ID_NUM</span><span class="p">:</span><span class="n">Trip</span><span class="o">.</span><span class="n">SIM_COL_VEH_ALIGHTS</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">veh_loaded_df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># replace has weird behaviour as of now, so we need a hack to take care of the new behaviour of fill in</span>
+        <span class="c1"># TimeDelta columns --&gt; https://github.com/pandas-dev/pandas/issues/29024</span>
+        <span class="n">tdelta_cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">veh_loaded_df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;timedelta&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">tdelta_cols</span><span class="p">:</span>
+            <span class="n">veh_loaded_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">veh_loaded_df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">tdelta_cols</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">veh_loaded_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
         <span class="k">assert</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">veh_loaded_df</span><span class="p">)</span><span class="o">==</span><span class="n">veh_trips_df_len</span><span class="p">)</span>
 
         <span class="c1"># these are ints, not floats</span>
-        <span class="n">veh_loaded_df</span><span class="p">[[</span><span class="n">Trip</span><span class="o">.</span><span class="n">SIM_COL_VEH_BOARDS</span><span class="p">,</span> <span class="n">Trip</span><span class="o">.</span><span class="n">SIM_COL_VEH_ALIGHTS</span><span class="p">]]</span> <span class="o">=</span> \
-            <span class="n">veh_loaded_df</span><span class="p">[[</span><span class="n">Trip</span><span class="o">.</span><span class="n">SIM_COL_VEH_BOARDS</span><span class="p">,</span> <span class="n">Trip</span><span class="o">.</span><span class="n">SIM_COL_VEH_ALIGHTS</span><span class="p">]]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="p">[</span><span class="n">Trip</span><span class="o">.</span><span class="n">SIM_COL_VEH_BOARDS</span><span class="p">,</span> <span class="n">Trip</span><span class="o">.</span><span class="n">SIM_COL_VEH_ALIGHTS</span><span class="p">]:</span>
+            <span class="n">veh_loaded_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">veh_loaded_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 
         <span class="n">veh_loaded_df</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="n">Trip</span><span class="o">.</span><span class="n">TRIPS_COLUMN_TRIP_ID_NUM</span><span class="p">,</span><span class="n">Trip</span><span class="o">.</span><span class="n">STOPTIMES_COLUMN_STOP_SEQUENCE</span><span class="p">],</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">veh_loaded_df</span><span class="p">[</span><span class="n">Trip</span><span class="o">.</span><span class="n">SIM_COL_VEH_ONBOARD</span>    <span class="p">]</span> <span class="o">=</span> <span class="n">veh_loaded_df</span><span class="p">[</span><span class="n">Trip</span><span class="o">.</span><span class="n">SIM_COL_VEH_BOARDS</span>    <span class="p">]</span> <span class="o">-</span> <span class="n">veh_loaded_df</span><span class="p">[</span><span class="n">Trip</span><span class="o">.</span><span class="n">SIM_COL_VEH_ALIGHTS</span>    <span class="p">]</span>
@@ -1737,9 +1756,9 @@
         <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;veh_loaded_df with onboard&gt;0: (showing head)</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
                               <span class="n">veh_loaded_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">veh_loaded_df</span><span class="p">[</span><span class="n">Trip</span><span class="o">.</span><span class="n">SIM_COL_VEH_ONBOARD</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
 
-        <span class="k">return</span> <span class="n">veh_loaded_df</span></div>
+        <span class="k">return</span> <span class="n">veh_loaded_df</span>
 
-<div class="viewcode-block" id="Assignment.flag_missed_transfers"><a class="viewcode-back" href="../../_generated/fasttrips.Assignment.html#fasttrips.Assignment.flag_missed_transfers">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">flag_missed_transfers</span><span class="p">(</span><span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">pathset_links_df</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Given passenger pathset links with the vehicle board_time and alight_time attached to trip links,</span>
@@ -1887,9 +1906,9 @@
                                         <span class="n">how</span>   <span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
         <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;flag_missed_transfers() pathset_paths_df (</span><span class="si">%d</span><span class="s2">):</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pathset_paths_df</span><span class="p">),</span> <span class="n">pathset_paths_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">()))</span>
 
-        <span class="k">return</span> <span class="p">(</span><span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">pathset_links_df</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="p">(</span><span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">pathset_links_df</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Assignment.load_passengers_on_vehicles_with_cap"><a class="viewcode-back" href="../../_generated/fasttrips.Assignment.html#fasttrips.Assignment.load_passengers_on_vehicles_with_cap">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">load_passengers_on_vehicles_with_cap</span><span class="p">(</span><span class="n">iteration</span><span class="p">,</span> <span class="n">pathfinding_iteration</span><span class="p">,</span> <span class="n">simulation_iteration</span><span class="p">,</span>
                                              <span class="n">trips</span><span class="p">,</span> <span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">pathset_links_df</span><span class="p">,</span> <span class="n">veh_loaded_df</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -2180,9 +2199,9 @@
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">Assignment</span><span class="o">.</span><span class="n">bump_wait_df</span><span class="p">)</span> <span class="o">==</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">Assignment</span><span class="o">.</span><span class="n">bump_wait_df</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Bump_wait_df:</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">Assignment</span><span class="o">.</span><span class="n">bump_wait_df</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
 
-        <span class="k">return</span> <span class="p">(</span><span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">pathset_links_df</span><span class="p">,</span> <span class="n">veh_loaded_df</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="p">(</span><span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">pathset_links_df</span><span class="p">,</span> <span class="n">veh_loaded_df</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Assignment.choose_paths_without_simulation"><a class="viewcode-back" href="../../_generated/fasttrips.Assignment.html#fasttrips.Assignment.choose_paths_without_simulation">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">choose_paths_without_simulation</span><span class="p">(</span><span class="n">FT</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">iteration</span><span class="p">,</span> <span class="n">pathfinding_iteration</span><span class="p">,</span> <span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">pathset_links_df</span><span class="p">,</span> <span class="n">veh_trips_df</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Given a pathset for each passernger, choose a path (if relevant).  That&#39;s it.</span>
@@ -2241,9 +2260,9 @@
                              <span class="n">drop_pathfinding_columns</span><span class="o">=</span><span class="ow">not</span> <span class="n">Assignment</span><span class="o">.</span><span class="n">DEBUG_OUTPUT_COLUMNS</span><span class="p">)</span>
         <span class="n">chosen_paths_df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;iteration&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="p">(</span><span class="n">num_passengers_arrived</span><span class="p">,</span> <span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">pathset_links_df</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="p">(</span><span class="n">num_passengers_arrived</span><span class="p">,</span> <span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">pathset_links_df</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Assignment.simulate"><a class="viewcode-back" href="../../_generated/fasttrips.Assignment.html#fasttrips.Assignment.simulate">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">simulate</span><span class="p">(</span><span class="n">FT</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">iteration</span><span class="p">,</span> <span class="n">pathfinding_iteration</span><span class="p">,</span> <span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">pathset_links_df</span><span class="p">,</span> <span class="n">veh_trips_df</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Given a pathset for each passenger, choose a path (if relevant) and then</span>
@@ -2353,7 +2372,7 @@
 
         <span class="n">FT</span><span class="o">.</span><span class="n">performance</span><span class="o">.</span><span class="n">record_step_end</span><span class="p">(</span><span class="n">iteration</span><span class="p">,</span> <span class="n">pathfinding_iteration</span><span class="p">,</span> <span class="n">simulation_iteration</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="p">(</span><span class="n">num_passengers_arrived</span><span class="p">,</span> <span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">pathset_links_df</span><span class="p">,</span> <span class="n">veh_trips_df</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="p">(</span><span class="n">num_passengers_arrived</span><span class="p">,</span> <span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">pathset_links_df</span><span class="p">,</span> <span class="n">veh_trips_df</span><span class="p">)</span></div>
 
 
 <span class="k">def</span> <span class="nf">find_trip_based_paths_process_worker</span><span class="p">(</span><span class="n">iteration</span><span class="p">,</span> <span class="n">pathfinding_iteration</span><span class="p">,</span> <span class="n">worker_num</span><span class="p">,</span> <span class="n">input_network_dir</span><span class="p">,</span> <span class="n">input_demand_dir</span><span class="p">,</span> <span class="n">run_config</span><span class="p">,</span> <span class="n">func_file</span><span class="p">,</span>
@@ -2365,7 +2384,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">worker_str</span> <span class="o">=</span> <span class="s2">&quot;_worker</span><span class="si">%02d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">worker_num</span>
 
-    <span class="kn">from</span> <span class="nn">.FastTrips</span> <span class="k">import</span> <span class="n">FastTrips</span>
+    <span class="kn">from</span> <span class="nn">.FastTrips</span> <span class="kn">import</span> <span class="n">FastTrips</span>
     <span class="n">setupLogging</span><span class="p">(</span><span class="n">infoLogFilename</span>  <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">debugLogFilename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">FastTrips</span><span class="o">.</span><span class="n">DEBUG_LOG</span> <span class="o">%</span> <span class="n">worker_str</span><span class="p">),</span>
                  <span class="n">logToConsole</span>     <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -2421,20 +2440,25 @@
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2015-2018, Lisa Zorn
+        &#169; Copyright 2015-2018, Lisa Zorn.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -2442,7 +2466,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

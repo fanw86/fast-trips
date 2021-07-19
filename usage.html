@@ -1,40 +1,45 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Using Fast-Trips &mdash; fasttrips Development Branch Commit 5e504cb3319b58faac3aca1310cb4ad08dc44ed8 documentation</title>
   
 
   
-  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Fast-Trips Classes and Functions" href="api.html" />
@@ -79,6 +84,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -93,13 +99,14 @@
 <li class="toctree-l1"><a class="reference internal" href="io.html">Input/Output Files</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Using Fast-Trips</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#localization-process">Localization Process</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#prepare-local-network-and-demand-data">Prepare Local Network and Demand Data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#prepare-performance-metrics">Prepare Performance metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prepare-local-network">Prepare local network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prepare-demand-data">Prepare demand data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prepare-performance-metrics">Prepare performance metrics</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#posit-initial-parameters">Posit initial parameters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#evaluate-performance">Evaluate performance</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#scenario-evaluation">Scenario Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#scenario-evaluation">Scenario evaluation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">Fast-Trips Classes and Functions</a></li>
@@ -111,6 +118,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -145,18 +153,20 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Using Fast-Trips</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/usage.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -174,35 +184,43 @@
 <h1>Using Fast-Trips<a class="headerlink" href="#using-fast-trips" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="localization-process">
 <h2>Localization Process<a class="headerlink" href="#localization-process" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt>Potential Steps:</dt>
-<dd><ol class="first last arabic simple">
-<li>Prepare local network and demand data</li>
-<li>Prepare performance/validation metrics</li>
-<li>Posit initial set of configuration parameters for an <em>initial validation</em></li>
-<li>Evaluate performance of fast-trips compared to validation data</li>
-<li>Re-evaluate steps 1-3 until you  are satisfied with the output of step 4</li>
+<dl class="simple">
+<dt>Potential Steps:</dt><dd><ol class="arabic simple">
+<li><p>Prepare local network</p></li>
+<li><p>Prepare demand data</p></li>
+<li><p>Prepare performance/validation metrics</p></li>
+<li><p>Posit initial set of configuration parameters for an <em>initial validation</em></p></li>
+<li><p>Evaluate performance of fast-trips compared to validation data</p></li>
+<li><p>Re-evaluate steps 1-3 until you  are satisfied with the output of step 4</p></li>
 </ol>
 </dd>
 </dl>
 <p>The following are examples from the localization process in the San Francisco Bay Area</p>
-<div class="section" id="prepare-local-network-and-demand-data">
-<h3>Prepare Local Network and Demand Data<a class="headerlink" href="#prepare-local-network-and-demand-data" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="prepare-local-network">
+<h3>Prepare local network<a class="headerlink" href="#prepare-local-network" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="prepare-demand-data">
+<h3>Prepare demand data<a class="headerlink" href="#prepare-demand-data" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="prepare-performance-metrics">
-<h3>Prepare Performance metrics<a class="headerlink" href="#prepare-performance-metrics" title="Permalink to this headline">¶</a></h3>
+<h3>Prepare performance metrics<a class="headerlink" href="#prepare-performance-metrics" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="posit-initial-parameters">
 <h3>Posit initial parameters<a class="headerlink" href="#posit-initial-parameters" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="evaluate-performance">
 <h3>Evaluate performance<a class="headerlink" href="#evaluate-performance" title="Permalink to this headline">¶</a></h3>
-<p>If there exists a survey with transit path details that can be converted to the <a class="reference external" href="https://github.com/osplanning-data-standards/dyno-path">dyno-path</a> format as well, Fast-Trips results can be summarized and validated against the survey observations. One such effort has been made to validate Fast-Trips output against two surveys in San Francisco Bay Area - Transit On-Board Survey (OBS) and California Household Travel Survey (CHTS).
-The scripts and detailed instructions to process the surveys and generate summary dashboards in Tableau can be found in the <a class="reference external" href="http://github.com/sfcta/fast-trips-validation">fast-trips-validation</a> repository.</p>
+<p>If there exists a survey with transit path details that can be converted to the
+<a class="reference external" href="https://github.com/osplanning-data-standards/dyno-path">dyno-path</a> format as well, Fast-Trips results can be
+summarized and validated against the survey observations. One such effort has been made to validate Fast-Trips output
+against two surveys in San Francisco Bay Area - Transit On-Board Survey (OBS) and California Household Travel Survey
+(CHTS).
+The scripts and detailed instructions to process the surveys and generate summary dashboards in Tableau can be found in
+the <a class="reference external" href="http://github.com/sfcta/fast-trips-validation">fast-trips-validation</a> repository.</p>
 </div>
 </div>
 <div class="section" id="scenario-evaluation">
-<h2>Scenario Evaluation<a class="headerlink" href="#scenario-evaluation" title="Permalink to this headline">¶</a></h2>
+<h2>Scenario evaluation<a class="headerlink" href="#scenario-evaluation" title="Permalink to this headline">¶</a></h2>
 <p>## Summarizing Results</p>
 </div>
 </div>
@@ -212,29 +230,29 @@ The scripts and detailed instructions to process the surveys and generate summar
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="api.html" class="btn btn-neutral float-right" title="Fast-Trips Classes and Functions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="io.html" class="btn btn-neutral float-left" title="Input/Output Files" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="api.html" class="btn btn-neutral float-right" title="Fast-Trips Classes and Functions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="io.html" class="btn btn-neutral float-left" title="Input/Output Files" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2015-2018, Lisa Zorn
+        &#169; Copyright 2015-2018, Lisa Zorn.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -242,7 +260,6 @@ The scripts and detailed instructions to process the surveys and generate summar
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

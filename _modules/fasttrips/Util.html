@@ -1,40 +1,45 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>fasttrips.Util &mdash; fasttrips Development Branch Commit 5e504cb3319b58faac3aca1310cb4ad08dc44ed8 documentation</title>
   
 
   
-  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+
   
   
 
   
-  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
 </head>
@@ -77,6 +82,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -99,6 +105,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -133,11 +140,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../index.html">Module code</a> &raquo;</li>
         
@@ -157,13 +166,13 @@
            <div itemprop="articleBody">
             
   <h1>Source code for fasttrips.Util</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
-<span class="kn">from</span> <span class="nn">builtins</span> <span class="k">import</span> <span class="nb">next</span>
-<span class="kn">from</span> <span class="nn">builtins</span> <span class="k">import</span> <span class="nb">str</span>
-<span class="kn">from</span> <span class="nn">builtins</span> <span class="k">import</span> <span class="nb">range</span>
-<span class="kn">from</span> <span class="nn">builtins</span> <span class="k">import</span> <span class="nb">object</span>
-
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">next</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">str</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">range</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">object</span>
+<span class="kn">from</span> <span class="nn">.utils.numeric_parser</span> <span class="kn">import</span> <span class="n">vparse_numeric</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;Copyright 2015 Contributing Entities&quot;</span>
 <span class="n">__license__</span>   <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
@@ -187,8 +196,8 @@
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">partridge</span> <span class="k">as</span> <span class="nn">ptg</span>
 
-<span class="kn">from</span> <span class="nn">.Error</span>  <span class="k">import</span> <span class="n">UnexpectedError</span>
-<span class="kn">from</span> <span class="nn">.Logger</span> <span class="k">import</span> <span class="n">FastTripsLogger</span>
+<span class="kn">from</span> <span class="nn">.Error</span>  <span class="kn">import</span> <span class="n">UnexpectedError</span>
+<span class="kn">from</span> <span class="nn">.Logger</span> <span class="kn">import</span> <span class="n">FastTripsLogger</span>
 
 
 <div class="viewcode-block" id="Util"><a class="viewcode-back" href="../../_generated/fasttrips.Util.html#fasttrips.Util">[docs]</a><span class="k">class</span> <span class="nc">Util</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -228,7 +237,7 @@
         <span class="s2">&quot;pf_iteration&quot;</span><span class="p">,</span><span class="s2">&quot;pf_A_time&quot;</span><span class="p">,</span><span class="s2">&quot;pf_B_time&quot;</span><span class="p">,</span><span class="s2">&quot;pf_linktime&quot;</span><span class="p">,</span><span class="s2">&quot;pf_linkcost&quot;</span><span class="p">,</span><span class="s2">&quot;pf_linkdist&quot;</span><span class="p">,</span><span class="s2">&quot;pf_waittime&quot;</span><span class="p">,</span><span class="s2">&quot;pf_linkfare&quot;</span><span class="p">,</span><span class="s2">&quot;pf_cost&quot;</span><span class="p">,</span><span class="s2">&quot;pf_fare&quot;</span><span class="p">,</span><span class="s2">&quot;pf_initcost&quot;</span><span class="p">,</span><span class="s2">&quot;pf_initfare&quot;</span>
     <span class="p">]</span>
 
-<div class="viewcode-block" id="Util.add_numeric_column"><a class="viewcode-back" href="../../_generated/fasttrips.Util.html#fasttrips.Util.add_numeric_column">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">add_numeric_column</span><span class="p">(</span><span class="n">input_df</span><span class="p">,</span> <span class="n">id_colname</span><span class="p">,</span> <span class="n">numeric_newcolname</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to create numerical ID to map to an existing ID.</span>
@@ -246,10 +255,10 @@
             <span class="n">return_df</span><span class="p">[</span><span class="n">numeric_newcolname</span><span class="p">]</span> <span class="o">=</span> <span class="n">return_df</span><span class="p">[</span><span class="n">id_colname</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
         <span class="k">except</span><span class="p">:</span>
             <span class="c1"># if it doesn&#39;t, use index but start at 1</span>
-            <span class="n">return_df</span><span class="p">[</span><span class="n">numeric_newcolname</span><span class="p">]</span> <span class="o">=</span> <span class="n">return_df</span><span class="o">.</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span>
-        <span class="k">return</span> <span class="n">return_df</span></div>
+            <span class="n">return_df</span> <span class="o">=</span> <span class="n">return_df</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="n">numeric_newcolname</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">return_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">})</span>
+        <span class="k">return</span> <span class="n">return_df</span>
 
-<div class="viewcode-block" id="Util.add_new_id"><a class="viewcode-back" href="../../_generated/fasttrips.Util.html#fasttrips.Util.add_new_id">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">add_new_id</span><span class="p">(</span><span class="n">input_df</span><span class="p">,</span>   <span class="n">id_colname</span><span class="p">,</span>         <span class="n">newid_colname</span><span class="p">,</span>
                    <span class="n">mapping_df</span><span class="p">,</span> <span class="n">mapping_id_colname</span><span class="p">,</span> <span class="n">mapping_newid_colname</span><span class="p">,</span>
                    <span class="n">warn</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">warn_msg</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>      <span class="n">drop_failures</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
@@ -315,9 +324,9 @@
         <span class="c1"># print &quot;FINAL RETURN_DF==================&quot;</span>
         <span class="c1"># print return_df.head()</span>
 
-        <span class="k">return</span> <span class="n">return_df</span></div>
+        <span class="k">return</span> <span class="n">return_df</span>
 
-<div class="viewcode-block" id="Util.remove_null_columns"><a class="viewcode-back" href="../../_generated/fasttrips.Util.html#fasttrips.Util.remove_null_columns">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">remove_null_columns</span><span class="p">(</span><span class="n">input_df</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Remove columns from the dataframe if they&#39;re *all* null since they&#39;re not useful and make thinks harder to look at.</span>
@@ -331,16 +340,16 @@
                 <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Dropping null column [</span><span class="si">%s</span><span class="s2">]&quot;</span> <span class="o">%</span> <span class="n">colname</span><span class="p">)</span>
                 <span class="n">input_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">colname</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="n">inplace</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">input_df</span></div>
+        <span class="k">return</span> <span class="n">input_df</span>
 
-<div class="viewcode-block" id="Util.datetime64_formatter"><a class="viewcode-back" href="../../_generated/fasttrips.Util.html#fasttrips.Util.datetime64_formatter">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">datetime64_formatter</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Formatter to convert :py:class:`numpy.datetime64` to string that looks like `HH:MM:SS`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S.</span><span class="si">%f</span><span class="s1">&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span></div>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S.</span><span class="si">%f</span><span class="s1">&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
 
-<div class="viewcode-block" id="Util.pretty"><a class="viewcode-back" href="../../_generated/fasttrips.Util.html#fasttrips.Util.pretty">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">pretty</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Make a pretty version of the dataframe and return it.</span>
@@ -350,9 +359,9 @@
         <span class="k">for</span> <span class="n">col_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df_cols</span><span class="p">)):</span>
             <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="p">[</span><span class="n">col_idx</span><span class="p">])</span> <span class="o">==</span> <span class="s2">&quot;datetime64[ns]&quot;</span><span class="p">:</span> <span class="c1"># print as HH:MM:SS</span>
                 <span class="n">df_cp</span><span class="p">[</span><span class="n">df_cols</span><span class="p">[</span><span class="n">col_idx</span><span class="p">]]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df_cols</span><span class="p">[</span><span class="n">col_idx</span><span class="p">]]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">Util</span><span class="o">.</span><span class="n">datetime64_formatter</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">df_cp</span></div>
+        <span class="k">return</span> <span class="n">df_cp</span>
 
-<div class="viewcode-block" id="Util.datetime64_min_formatter"><a class="viewcode-back" href="../../_generated/fasttrips.Util.html#fasttrips.Util.datetime64_min_formatter">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">datetime64_min_formatter</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Formatter to convert :py:class:`numpy.datetime64` to minutes after midnight</span>
@@ -360,9 +369,9 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">hour</span><span class="o">*</span><span class="mf">60.0</span> <span class="o">+</span> \
                          <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">minute</span> <span class="o">+</span> \
-                         <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">second</span><span class="o">/</span><span class="mf">60.0</span><span class="p">))</span></div>
+                         <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">second</span><span class="o">/</span><span class="mf">60.0</span><span class="p">))</span>
 
-<div class="viewcode-block" id="Util.timedelta_formatter"><a class="viewcode-back" href="../../_generated/fasttrips.Util.html#fasttrips.Util.timedelta_formatter">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">timedelta_formatter</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Formatter to convert :py:class:`numpy.timedelta64` to string that looks like `4m 35.6s`</span>
@@ -370,11 +379,11 @@
         <span class="n">seconds</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;s&#39;</span><span class="p">))</span>
         <span class="n">minutes</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">seconds</span><span class="o">/</span><span class="mi">60</span><span class="p">)</span>
         <span class="n">seconds</span> <span class="o">-=</span> <span class="n">minutes</span><span class="o">*</span><span class="mi">60</span>
-        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%4d</span><span class="s1">m </span><span class="si">%04.1f</span><span class="s1">s&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">minutes</span><span class="p">,</span><span class="n">seconds</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%4d</span><span class="s1">m </span><span class="si">%04.1f</span><span class="s1">s&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">minutes</span><span class="p">,</span><span class="n">seconds</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Util.read_time"><a class="viewcode-back" href="../../_generated/fasttrips.Util.html#fasttrips.Util.read_time">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">read_time</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">end_of_day</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">.Assignment</span> <span class="k">import</span> <span class="n">Assignment</span>
+        <span class="kn">from</span> <span class="nn">.Assignment</span> <span class="kn">import</span> <span class="n">Assignment</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="s1">&#39;&#39;</span> <span class="ow">or</span> <span class="n">x</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">==</span><span class="s1">&#39;default&#39;</span> <span class="ow">or</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
                 <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;24:00:00&#39;</span> <span class="k">if</span> <span class="n">end_of_day</span> <span class="k">else</span> <span class="s1">&#39;00:00:00&#39;</span>
@@ -388,20 +397,20 @@
             <span class="n">time_split</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%02d</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="n">hour</span><span class="o">-</span><span class="mi">24</span><span class="p">)</span>
             <span class="n">day</span> <span class="o">+=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;:&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">time_split</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">combine</span><span class="p">(</span><span class="n">day</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;%H:%M:%S&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">time</span><span class="p">())</span></div>
+        <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">combine</span><span class="p">(</span><span class="n">day</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;%H:%M:%S&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
 
-<div class="viewcode-block" id="Util.read_end_time"><a class="viewcode-back" href="../../_generated/fasttrips.Util.html#fasttrips.Util.read_end_time">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">read_end_time</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">Util</span><span class="o">.</span><span class="n">read_time</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">Util</span><span class="o">.</span><span class="n">read_time</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Util.parse_minutes_to_time"><a class="viewcode-back" href="../../_generated/fasttrips.Util.html#fasttrips.Util.parse_minutes_to_time">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">parse_minutes_to_time</span><span class="p">(</span><span class="n">minutes</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">.Assignment</span> <span class="k">import</span> <span class="n">Assignment</span>
+        <span class="kn">from</span> <span class="nn">.Assignment</span> <span class="kn">import</span> <span class="n">Assignment</span>
         <span class="n">elapsed_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">minutes</span><span class="o">=</span><span class="n">minutes</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">combine</span><span class="p">(</span><span class="n">Assignment</span><span class="o">.</span><span class="n">NETWORK_BUILD_DATE</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">time</span><span class="p">())</span> <span class="o">+</span> <span class="n">elapsed_time</span></div>
+        <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">combine</span><span class="p">(</span><span class="n">Assignment</span><span class="o">.</span><span class="n">NETWORK_BUILD_DATE</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">time</span><span class="p">())</span> <span class="o">+</span> <span class="n">elapsed_time</span>
 
 
-<div class="viewcode-block" id="Util.write_dataframe"><a class="viewcode-back" href="../../_generated/fasttrips.Util.html#fasttrips.Util.write_dataframe">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">write_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">output_file</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">keep_duration_columns</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">drop_debug_columns</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">drop_pathfinding_columns</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Convenience method to write a dataframe but make some of the fields more usable.</span>
@@ -501,9 +510,9 @@
 
         <span class="k">else</span><span class="p">:</span>
             <span class="n">df_toprint</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">float_format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%.10f</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Wrote </span><span class="si">%s</span><span class="s2"> dataframe to </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">output_file</span><span class="p">))</span></div>
+            <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Wrote </span><span class="si">%s</span><span class="s2"> dataframe to </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">output_file</span><span class="p">))</span>
 
-<div class="viewcode-block" id="Util.calculate_distance_miles"><a class="viewcode-back" href="../../_generated/fasttrips.Util.html#fasttrips.Util.calculate_distance_miles">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">calculate_distance_miles</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">origin_lat</span><span class="p">,</span> <span class="n">origin_lon</span><span class="p">,</span> <span class="n">destination_lat</span><span class="p">,</span> <span class="n">destination_lon</span><span class="p">,</span> <span class="n">distance_colname</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Given a dataframe with columns origin_lat, origin_lon, destination_lat, destination_lon, calculates the distance</span>
@@ -529,10 +538,10 @@
         <span class="k">if</span> <span class="n">max_dist</span> <span class="o">&gt;</span> <span class="mi">1000</span><span class="p">:</span>
             <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;calculate_distance_miles: max is greater than 1k</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">dataframe</span><span class="p">[</span><span class="n">distance_colname</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">1000</span><span class="p">]</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
 
-        <span class="n">dataframe</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;dist_lat&quot;</span><span class="p">,</span><span class="s2">&quot;dist_lon&quot;</span><span class="p">,</span><span class="s2">&quot;dist_hava&quot;</span><span class="p">,</span><span class="s2">&quot;dist_havc&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+        <span class="n">dataframe</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;dist_lat&quot;</span><span class="p">,</span><span class="s2">&quot;dist_lon&quot;</span><span class="p">,</span><span class="s2">&quot;dist_hava&quot;</span><span class="p">,</span><span class="s2">&quot;dist_havc&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="Util.get_process_mem_use_bytes"><a class="viewcode-back" href="../../_generated/fasttrips.Util.html#fasttrips.Util.get_process_mem_use_bytes">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">get_process_mem_use_bytes</span><span class="p">():</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the process memory usage in bytes</span>
@@ -546,9 +555,9 @@
 
         <span class="n">p</span> <span class="o">=</span> <span class="n">psutil</span><span class="o">.</span><span class="n">Process</span><span class="p">()</span>
         <span class="nb">bytes</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span>
-        <span class="k">return</span> <span class="nb">bytes</span></div>
+        <span class="k">return</span> <span class="nb">bytes</span>
 
-<div class="viewcode-block" id="Util.get_process_mem_use_str"><a class="viewcode-back" href="../../_generated/fasttrips.Util.html#fasttrips.Util.get_process_mem_use_str">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">get_process_mem_use_str</span><span class="p">():</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a string representing the process memory use.</span>
@@ -562,9 +571,9 @@
             <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%.1f</span><span class="s2"> KB&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">bytes</span><span class="o">/</span><span class="mf">1000.0</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">bytes</span> <span class="o">&lt;</span> <span class="mi">1000</span><span class="o">*</span><span class="mi">1000</span><span class="o">*</span><span class="mi">1000</span><span class="p">:</span>
             <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%.1f</span><span class="s2"> MB&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">bytes</span><span class="o">/</span><span class="p">(</span><span class="mf">1000.0</span><span class="o">*</span><span class="mf">1000.0</span><span class="p">))</span>
-        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%.1f</span><span class="s2"> GB&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">bytes</span><span class="o">/</span><span class="p">(</span><span class="mf">1000.0</span><span class="o">*</span><span class="mf">1000.0</span><span class="o">*</span><span class="mf">1000.0</span><span class="p">))</span></div>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%.1f</span><span class="s2"> GB&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">bytes</span><span class="o">/</span><span class="p">(</span><span class="mf">1000.0</span><span class="o">*</span><span class="mf">1000.0</span><span class="o">*</span><span class="mf">1000.0</span><span class="p">))</span>
 
-<div class="viewcode-block" id="Util.merge_two_dicts"><a class="viewcode-back" href="../../_generated/fasttrips.Util.html#fasttrips.Util.merge_two_dicts">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">merge_two_dicts</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;A helper method for Python 2.7 to &#39;zip&#39; two dictionary objects</span>
 
@@ -577,13 +586,13 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">z</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="n">z</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">z</span></div>
+        <span class="k">return</span> <span class="n">z</span>
 
-<div class="viewcode-block" id="Util.parse_boolean"><a class="viewcode-back" href="../../_generated/fasttrips.Util.html#fasttrips.Util.parse_boolean">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">parse_boolean</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">val</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;true&#39;</span><span class="p">,</span> <span class="s1">&#39;True&#39;</span><span class="p">,</span> <span class="s1">&#39;TRUE&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span></div>
+        <span class="k">return</span> <span class="n">val</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;true&#39;</span><span class="p">,</span> <span class="s1">&#39;True&#39;</span><span class="p">,</span> <span class="s1">&#39;TRUE&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 
-<div class="viewcode-block" id="Util.calculate_pathweight_costs"><a class="viewcode-back" href="../../_generated/fasttrips.Util.html#fasttrips.Util.calculate_pathweight_costs">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">calculate_pathweight_costs</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">result_col</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculates the weighted cost for a given :py:class:`pandas.DataFrame` given a impedance function and</span>
@@ -606,7 +615,7 @@
 <span class="sd">        +-----------------------+--------------+---------------------------------------------------------------------------+</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">fasttrips</span> <span class="k">import</span> <span class="n">PathSet</span>
+        <span class="kn">from</span> <span class="nn">fasttrips</span> <span class="kn">import</span> <span class="n">PathSet</span>
 
         <span class="c1"># default is constant (constant weight)</span>
         <span class="n">df</span><span class="p">[</span><span class="n">result_col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;var_value&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">WEIGHTS_COLUMN_WEIGHT_VALUE</span><span class="p">]</span>
@@ -639,10 +648,10 @@
             <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;---Pathweight costs has negative values. Setting to zero.---</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                 <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">result_col</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
             <span class="p">)</span>
-            <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="n">df</span><span class="p">[</span><span class="n">result_col</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">result_col</span> <span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span></div>
+            <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="n">df</span><span class="p">[</span><span class="n">result_col</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">result_col</span> <span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
 
 
-<div class="viewcode-block" id="Util.exponential_integration"><a class="viewcode-back" href="../../_generated/fasttrips.Util.html#fasttrips.Util.exponential_integration">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">exponential_integration</span><span class="p">(</span><span class="n">penalty_min</span><span class="p">,</span> <span class="n">growth_rate</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the integrated value of an exponential function.</span>
@@ -652,10 +661,10 @@
 <span class="sd">        :param growth_rate: float: Exponetial growth factor</span>
 <span class="sd">        :return: float or :py:class:`pandas.Series` of floats depending on inputs</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">growth_rate</span><span class="p">,</span> <span class="n">penalty_min</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">growth_rate</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">growth_rate</span><span class="p">,</span> <span class="n">penalty_min</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">growth_rate</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="Util.logarithmic_integration"><a class="viewcode-back" href="../../_generated/fasttrips.Util.html#fasttrips.Util.logarithmic_integration">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">logarithmic_integration</span><span class="p">(</span><span class="n">penalty_min</span><span class="p">,</span> <span class="n">growth_rate</span><span class="p">,</span> <span class="n">log_base</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="p">)):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the integrated value of an logarithmic function.</span>
@@ -666,10 +675,10 @@
 <span class="sd">        :param log_base: log base to impact shape of curve</span>
 <span class="sd">        :return: float or :py:class:`pandas.Series` of floats depending on inputs</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">growth_rate</span> <span class="o">*</span> <span class="p">((</span><span class="n">penalty_min</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">penalty_min</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">penalty_min</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">log_base</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">growth_rate</span> <span class="o">*</span> <span class="p">((</span><span class="n">penalty_min</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">penalty_min</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">penalty_min</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">log_base</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="Util.logistic_integration"><a class="viewcode-back" href="../../_generated/fasttrips.Util.html#fasttrips.Util.logistic_integration">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">logistic_integration</span><span class="p">(</span><span class="n">penalty_minute</span><span class="p">,</span> <span class="n">growth_rate</span><span class="p">,</span> <span class="n">max_logit</span><span class="p">,</span> <span class="n">sigmoid_mid</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the integrated value of an logistic function.</span>
@@ -687,10 +696,10 @@
         <span class="n">max_integral</span> <span class="o">=</span> <span class="p">((</span><span class="n">max_logit</span><span class="o">/</span> <span class="n">growth_rate</span><span class="p">))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">growth_rate</span> <span class="o">*</span> <span class="n">penalty_minute</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">growth_rate</span> <span class="o">*</span> <span class="n">sigmoid_mid</span><span class="p">))</span>
         <span class="n">min_integral</span> <span class="o">=</span> <span class="p">((</span><span class="n">max_logit</span><span class="o">/</span> <span class="n">growth_rate</span><span class="p">))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">growth_rate</span> <span class="o">*</span> <span class="n">sigmoid_mid</span><span class="p">))</span>
 
-        <span class="k">return</span> <span class="n">max_integral</span> <span class="o">-</span> <span class="n">min_integral</span></div>
+        <span class="k">return</span> <span class="n">max_integral</span> <span class="o">-</span> <span class="n">min_integral</span>
 
 
-<div class="viewcode-block" id="Util.get_fast_trips_config"><a class="viewcode-back" href="../../_generated/fasttrips.Util.html#fasttrips.Util.get_fast_trips_config">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">get_fast_trips_config</span><span class="p">():</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds additional nodes to the Partridge graph to</span>
@@ -699,36 +708,36 @@
 <span class="sd">        :return: Partridge configuration customized for</span>
 <span class="sd">                 Fast-Trips (_ft) loads and type casting.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">.Route</span> <span class="k">import</span> <span class="n">Route</span>
-        <span class="kn">from</span> <span class="nn">.Stop</span> <span class="k">import</span> <span class="n">Stop</span>
-        <span class="kn">from</span> <span class="nn">.TAZ</span> <span class="k">import</span> <span class="n">TAZ</span>
-        <span class="kn">from</span> <span class="nn">.Transfer</span> <span class="k">import</span> <span class="n">Transfer</span>
-        <span class="kn">from</span> <span class="nn">.Trip</span> <span class="k">import</span> <span class="n">Trip</span>
+        <span class="kn">from</span> <span class="nn">.Route</span> <span class="kn">import</span> <span class="n">Route</span>
+        <span class="kn">from</span> <span class="nn">.Stop</span> <span class="kn">import</span> <span class="n">Stop</span>
+        <span class="kn">from</span> <span class="nn">.TAZ</span> <span class="kn">import</span> <span class="n">TAZ</span>
+        <span class="kn">from</span> <span class="nn">.Transfer</span> <span class="kn">import</span> <span class="n">Transfer</span>
+        <span class="kn">from</span> <span class="nn">.Trip</span> <span class="kn">import</span> <span class="n">Trip</span>
 
         <span class="n">config</span> <span class="o">=</span> <span class="n">ptg</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">default_config</span><span class="p">()</span>
         <span class="n">config</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">([</span>
             <span class="p">(</span><span class="n">TAZ</span><span class="o">.</span><span class="n">INPUT_DRIVE_ACCESS_FILE</span><span class="p">,</span> <span class="p">{</span>
                 <span class="s1">&#39;converters&#39;</span><span class="p">:</span> <span class="p">{</span>
-                    <span class="n">TAZ</span><span class="o">.</span><span class="n">DRIVE_ACCESS_COLUMN_COST</span><span class="p">:</span> <span class="n">ptg</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">vparse_numeric</span><span class="p">,</span>
-                    <span class="n">TAZ</span><span class="o">.</span><span class="n">DRIVE_ACCESS_COLUMN_TRAVEL_TIME</span><span class="p">:</span> <span class="n">ptg</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">vparse_numeric</span><span class="p">,</span>
-                    <span class="n">TAZ</span><span class="o">.</span><span class="n">DRIVE_ACCESS_COLUMN_DISTANCE</span><span class="p">:</span> <span class="n">ptg</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">vparse_numeric</span><span class="p">,</span>
+                    <span class="n">TAZ</span><span class="o">.</span><span class="n">DRIVE_ACCESS_COLUMN_COST</span><span class="p">:</span> <span class="n">vparse_numeric</span><span class="p">,</span>
+                    <span class="n">TAZ</span><span class="o">.</span><span class="n">DRIVE_ACCESS_COLUMN_TRAVEL_TIME</span><span class="p">:</span> <span class="n">vparse_numeric</span><span class="p">,</span>
+                    <span class="n">TAZ</span><span class="o">.</span><span class="n">DRIVE_ACCESS_COLUMN_DISTANCE</span><span class="p">:</span> <span class="n">vparse_numeric</span><span class="p">,</span>
                     <span class="n">TAZ</span><span class="o">.</span><span class="n">DRIVE_ACCESS_COLUMN_START_TIME</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="n">Util</span><span class="o">.</span><span class="n">read_time</span><span class="p">),</span>
                     <span class="n">TAZ</span><span class="o">.</span><span class="n">DRIVE_ACCESS_COLUMN_END_TIME</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="n">Util</span><span class="o">.</span><span class="n">read_end_time</span><span class="p">)</span>
                 <span class="p">}</span>
             <span class="p">}),</span>
             <span class="p">(</span><span class="n">TAZ</span><span class="o">.</span><span class="n">INPUT_DAP_FILE</span><span class="p">,</span> <span class="p">{</span>
                 <span class="s1">&#39;converters&#39;</span><span class="p">:</span> <span class="p">{</span>
-                    <span class="n">TAZ</span><span class="o">.</span><span class="n">DAP_COLUMN_LOT_LATITUDE</span><span class="p">:</span> <span class="n">ptg</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">vparse_numeric</span><span class="p">,</span>
-                    <span class="n">TAZ</span><span class="o">.</span><span class="n">DAP_COLUMN_LOT_LONGITUDE</span><span class="p">:</span> <span class="n">ptg</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">vparse_numeric</span><span class="p">,</span>
-                    <span class="n">TAZ</span><span class="o">.</span><span class="n">DAP_COLUMN_CAPACITY</span><span class="p">:</span> <span class="n">ptg</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">vparse_numeric</span>
+                    <span class="n">TAZ</span><span class="o">.</span><span class="n">DAP_COLUMN_LOT_LATITUDE</span><span class="p">:</span> <span class="n">vparse_numeric</span><span class="p">,</span>
+                    <span class="n">TAZ</span><span class="o">.</span><span class="n">DAP_COLUMN_LOT_LONGITUDE</span><span class="p">:</span> <span class="n">vparse_numeric</span><span class="p">,</span>
+                    <span class="n">TAZ</span><span class="o">.</span><span class="n">DAP_COLUMN_CAPACITY</span><span class="p">:</span> <span class="n">vparse_numeric</span>
                 <span class="p">}</span>
             <span class="p">}),</span>
             <span class="p">(</span><span class="n">Route</span><span class="o">.</span><span class="n">INPUT_FARE_ATTRIBUTES_FILE</span><span class="p">,</span> <span class="p">{</span>
                 <span class="s1">&#39;converters&#39;</span><span class="p">:</span> <span class="p">{</span>
-                    <span class="n">Route</span><span class="o">.</span><span class="n">FARE_ATTR_COLUMN_PAYMENT_METHOD</span><span class="p">:</span> <span class="n">ptg</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">vparse_numeric</span><span class="p">,</span>
-                    <span class="n">Route</span><span class="o">.</span><span class="n">FARE_ATTR_COLUMN_PRICE</span><span class="p">:</span> <span class="n">ptg</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">vparse_numeric</span><span class="p">,</span>
-                    <span class="n">Route</span><span class="o">.</span><span class="n">FARE_ATTR_COLUMN_TRANSFERS</span><span class="p">:</span> <span class="n">ptg</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">vparse_numeric</span><span class="p">,</span>
-                    <span class="n">Route</span><span class="o">.</span><span class="n">FARE_ATTR_COLUMN_TRANSFER_DURATION</span><span class="p">:</span> <span class="n">ptg</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">vparse_numeric</span>
+                    <span class="n">Route</span><span class="o">.</span><span class="n">FARE_ATTR_COLUMN_PAYMENT_METHOD</span><span class="p">:</span> <span class="n">vparse_numeric</span><span class="p">,</span>
+                    <span class="n">Route</span><span class="o">.</span><span class="n">FARE_ATTR_COLUMN_PRICE</span><span class="p">:</span> <span class="n">vparse_numeric</span><span class="p">,</span>
+                    <span class="n">Route</span><span class="o">.</span><span class="n">FARE_ATTR_COLUMN_TRANSFERS</span><span class="p">:</span> <span class="n">vparse_numeric</span><span class="p">,</span>
+                    <span class="n">Route</span><span class="o">.</span><span class="n">FARE_ATTR_COLUMN_TRANSFER_DURATION</span><span class="p">:</span> <span class="n">vparse_numeric</span>
                 <span class="p">}</span>
             <span class="p">}),</span>
             <span class="p">(</span><span class="n">Route</span><span class="o">.</span><span class="n">INPUT_FARE_PERIODS_FILE</span><span class="p">,</span> <span class="p">{</span>
@@ -739,7 +748,7 @@
             <span class="p">}),</span>
             <span class="p">(</span><span class="n">Route</span><span class="o">.</span><span class="n">INPUT_FARE_TRANSFER_RULES_FILE</span><span class="p">,</span> <span class="p">{</span>
                 <span class="s1">&#39;converters&#39;</span><span class="p">:</span> <span class="p">{</span>
-                    <span class="n">Route</span><span class="o">.</span><span class="n">FARE_TRANSFER_RULES_COLUMN_AMOUNT</span><span class="p">:</span> <span class="n">ptg</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">vparse_numeric</span>
+                    <span class="n">Route</span><span class="o">.</span><span class="n">FARE_TRANSFER_RULES_COLUMN_AMOUNT</span><span class="p">:</span> <span class="n">vparse_numeric</span>
                 <span class="p">}</span>
             <span class="p">}),</span>
             <span class="p">(</span><span class="n">Route</span><span class="o">.</span><span class="n">INPUT_ROUTES_FILE</span><span class="p">,</span> <span class="p">{</span>
@@ -750,8 +759,8 @@
             <span class="p">(</span><span class="n">Stop</span><span class="o">.</span><span class="n">INPUT_STOPS_FILE</span><span class="p">,</span> <span class="p">{}),</span>
             <span class="p">(</span><span class="n">Transfer</span><span class="o">.</span><span class="n">INPUT_TRANSFERS_FILE</span><span class="p">,</span> <span class="p">{</span>
                 <span class="s1">&#39;converters&#39;</span><span class="p">:</span> <span class="p">{</span>
-                    <span class="n">Transfer</span><span class="o">.</span><span class="n">TRANSFERS_COLUMN_DISTANCE</span><span class="p">:</span> <span class="n">ptg</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">vparse_numeric</span><span class="p">,</span>
-                    <span class="n">Transfer</span><span class="o">.</span><span class="n">TRANSFERS_COLUMN_ELEVATION_GAIN</span><span class="p">:</span> <span class="n">ptg</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">vparse_numeric</span><span class="p">,</span>
+                    <span class="n">Transfer</span><span class="o">.</span><span class="n">TRANSFERS_COLUMN_DISTANCE</span><span class="p">:</span> <span class="n">vparse_numeric</span><span class="p">,</span>
+                    <span class="n">Transfer</span><span class="o">.</span><span class="n">TRANSFERS_COLUMN_ELEVATION_GAIN</span><span class="p">:</span> <span class="n">vparse_numeric</span><span class="p">,</span>
                 <span class="p">}</span>
             <span class="p">}),</span>
             <span class="p">(</span><span class="n">Trip</span><span class="o">.</span><span class="n">INPUT_TRIPS_FILE</span><span class="p">,</span> <span class="p">{</span>
@@ -759,46 +768,51 @@
             <span class="p">}),</span>
             <span class="p">(</span><span class="n">Trip</span><span class="o">.</span><span class="n">INPUT_VEHICLES_FILE</span><span class="p">,</span> <span class="p">{</span>
                 <span class="s1">&#39;converters&#39;</span><span class="p">:</span> <span class="p">{</span>
-                    <span class="n">Trip</span><span class="o">.</span><span class="n">VEHICLES_COLUMN_ACCELERATION</span><span class="p">:</span> <span class="n">ptg</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">vparse_numeric</span><span class="p">,</span>
-                    <span class="n">Trip</span><span class="o">.</span><span class="n">VEHICLES_COLUMN_DECELERATION</span><span class="p">:</span> <span class="n">ptg</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">vparse_numeric</span><span class="p">,</span>
-                    <span class="n">Trip</span><span class="o">.</span><span class="n">VEHICLES_COLUMN_MAXIMUM_SPEED</span><span class="p">:</span> <span class="n">ptg</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">vparse_numeric</span><span class="p">,</span>
-                    <span class="n">Trip</span><span class="o">.</span><span class="n">VEHICLES_COLUMN_SEATED_CAPACITY</span><span class="p">:</span> <span class="n">ptg</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">vparse_numeric</span><span class="p">,</span>
-                    <span class="n">Trip</span><span class="o">.</span><span class="n">VEHICLES_COLUMN_STANDING_CAPACITY</span><span class="p">:</span> <span class="n">ptg</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">vparse_numeric</span><span class="p">,</span>
+                    <span class="n">Trip</span><span class="o">.</span><span class="n">VEHICLES_COLUMN_ACCELERATION</span><span class="p">:</span> <span class="n">vparse_numeric</span><span class="p">,</span>
+                    <span class="n">Trip</span><span class="o">.</span><span class="n">VEHICLES_COLUMN_DECELERATION</span><span class="p">:</span> <span class="n">vparse_numeric</span><span class="p">,</span>
+                    <span class="n">Trip</span><span class="o">.</span><span class="n">VEHICLES_COLUMN_MAXIMUM_SPEED</span><span class="p">:</span> <span class="n">vparse_numeric</span><span class="p">,</span>
+                    <span class="n">Trip</span><span class="o">.</span><span class="n">VEHICLES_COLUMN_SEATED_CAPACITY</span><span class="p">:</span> <span class="n">vparse_numeric</span><span class="p">,</span>
+                    <span class="n">Trip</span><span class="o">.</span><span class="n">VEHICLES_COLUMN_STANDING_CAPACITY</span><span class="p">:</span> <span class="n">vparse_numeric</span><span class="p">,</span>
                 <span class="p">}</span>
             <span class="p">}),</span>
             <span class="p">(</span><span class="n">TAZ</span><span class="o">.</span><span class="n">INPUT_WALK_ACCESS_FILE</span><span class="p">,</span> <span class="p">{</span>
                 <span class="s1">&#39;converters&#39;</span><span class="p">:</span> <span class="p">{</span>
-                    <span class="n">TAZ</span><span class="o">.</span><span class="n">WALK_ACCESS_COLUMN_DIST</span><span class="p">:</span> <span class="n">ptg</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">vparse_numeric</span><span class="p">,</span>
-                    <span class="n">TAZ</span><span class="o">.</span><span class="n">WALK_ACCESS_COLUMN_ELEVATION_GAIN</span><span class="p">:</span> <span class="n">ptg</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">vparse_numeric</span><span class="p">,</span>
-                    <span class="n">TAZ</span><span class="o">.</span><span class="n">WALK_ACCESS_COLUMN_POPULATION_DENSITY</span><span class="p">:</span> <span class="n">ptg</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">vparse_numeric</span><span class="p">,</span>
-                    <span class="n">TAZ</span><span class="o">.</span><span class="n">WALK_ACCESS_COLUMN_EMPLOYMENT_DENSITY</span><span class="p">:</span> <span class="n">ptg</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">vparse_numeric</span><span class="p">,</span>
-                    <span class="n">TAZ</span><span class="o">.</span><span class="n">WALK_ACCESS_COLUMN_AUTO_CAPACITY</span><span class="p">:</span> <span class="n">ptg</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">vparse_numeric</span><span class="p">,</span>
-                    <span class="n">TAZ</span><span class="o">.</span><span class="n">WALK_ACCESS_COLUMN_INDIRECTNESS</span><span class="p">:</span> <span class="n">ptg</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">vparse_numeric</span><span class="p">,</span>
+                    <span class="n">TAZ</span><span class="o">.</span><span class="n">WALK_ACCESS_COLUMN_DIST</span><span class="p">:</span> <span class="n">vparse_numeric</span><span class="p">,</span>
+                    <span class="n">TAZ</span><span class="o">.</span><span class="n">WALK_ACCESS_COLUMN_ELEVATION_GAIN</span><span class="p">:</span> <span class="n">vparse_numeric</span><span class="p">,</span>
+                    <span class="n">TAZ</span><span class="o">.</span><span class="n">WALK_ACCESS_COLUMN_POPULATION_DENSITY</span><span class="p">:</span> <span class="n">vparse_numeric</span><span class="p">,</span>
+                    <span class="n">TAZ</span><span class="o">.</span><span class="n">WALK_ACCESS_COLUMN_EMPLOYMENT_DENSITY</span><span class="p">:</span> <span class="n">vparse_numeric</span><span class="p">,</span>
+                    <span class="n">TAZ</span><span class="o">.</span><span class="n">WALK_ACCESS_COLUMN_AUTO_CAPACITY</span><span class="p">:</span> <span class="n">vparse_numeric</span><span class="p">,</span>
+                    <span class="n">TAZ</span><span class="o">.</span><span class="n">WALK_ACCESS_COLUMN_INDIRECTNESS</span><span class="p">:</span> <span class="n">vparse_numeric</span><span class="p">,</span>
                 <span class="p">}</span>
             <span class="p">})</span>
         <span class="p">])</span>
 
-        <span class="k">return</span> <span class="n">config</span></div></div>
+        <span class="k">return</span> <span class="n">config</span></div>
 </pre></div>
 
            </div>
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2015-2018, Lisa Zorn
+        &#169; Copyright 2015-2018, Lisa Zorn.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -806,7 +820,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

@@ -1,40 +1,45 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>fasttrips.Route &mdash; fasttrips Development Branch Commit 5e504cb3319b58faac3aca1310cb4ad08dc44ed8 documentation</title>
   
 
   
-  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+
   
   
 
   
-  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
 </head>
@@ -77,6 +82,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -99,6 +105,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -133,11 +140,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../index.html">Module code</a> &raquo;</li>
         
@@ -157,9 +166,9 @@
            <div itemprop="articleBody">
             
   <h1>Source code for fasttrips.Route</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
-<span class="kn">from</span> <span class="nn">builtins</span> <span class="k">import</span> <span class="nb">str</span>
-<span class="kn">from</span> <span class="nn">builtins</span> <span class="k">import</span> <span class="nb">object</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">str</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">object</span>
 
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;Copyright 2015 Contributing Entities&quot;</span>
 <span class="n">__license__</span>   <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
@@ -180,9 +189,9 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="kn">from</span> <span class="nn">.Error</span>  <span class="k">import</span> <span class="n">NetworkInputError</span><span class="p">,</span> <span class="ne">NotImplementedError</span><span class="p">,</span> <span class="n">UnexpectedError</span>
-<span class="kn">from</span> <span class="nn">.Logger</span> <span class="k">import</span> <span class="n">FastTripsLogger</span>
-<span class="kn">from</span> <span class="nn">.Util</span>   <span class="k">import</span> <span class="n">Util</span>
+<span class="kn">from</span> <span class="nn">.Error</span>  <span class="kn">import</span> <span class="n">NetworkInputError</span><span class="p">,</span> <span class="ne">NotImplementedError</span><span class="p">,</span> <span class="n">UnexpectedError</span>
+<span class="kn">from</span> <span class="nn">.Logger</span> <span class="kn">import</span> <span class="n">FastTripsLogger</span>
+<span class="kn">from</span> <span class="nn">.Util</span>   <span class="kn">import</span> <span class="n">Util</span>
 
 
 <div class="viewcode-block" id="Route"><a class="viewcode-back" href="../../_generated/fasttrips.Route.html#fasttrips.Route">[docs]</a><span class="k">class</span> <span class="nc">Route</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -319,7 +328,7 @@
     <span class="c1">#: File with mode, mode number correspondence</span>
     <span class="n">OUTPUT_MODE_NUM_FILE</span>                        <span class="o">=</span> <span class="s2">&quot;ft_intermediate_supply_mode_id.txt&quot;</span>
 
-<div class="viewcode-block" id="Route.__init__"><a class="viewcode-back" href="../../_generated/fasttrips.Route.html#fasttrips.Route.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_archive</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">gtfs</span><span class="p">,</span> <span class="n">today</span><span class="p">,</span> <span class="n">stops</span><span class="p">):</span>
+<div class="viewcode-block" id="Route.__init__"><a class="viewcode-back" href="../../_generated/fasttrips.Route.html#fasttrips.Route.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_archive</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">gtfs</span><span class="p">,</span> <span class="n">today</span><span class="p">,</span> <span class="n">stops</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Constructor.  Reads the gtfs data from the transitfeed schedule, and the additional</span>
 <span class="sd">        fast-trips routes data from the input file in *input_archive*.</span>
@@ -430,7 +439,7 @@
 
 
         <span class="c1"># optionally reverse those with origin/destinations if configured</span>
-        <span class="kn">from</span> <span class="nn">.Assignment</span> <span class="k">import</span> <span class="n">Assignment</span>
+        <span class="kn">from</span> <span class="nn">.Assignment</span> <span class="kn">import</span> <span class="n">Assignment</span>
         <span class="k">if</span> <span class="n">Assignment</span><span class="o">.</span><span class="n">FARE_ZONE_SYMMETRY</span><span class="p">:</span>
             <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;applying FARE_ZONE_SYMMETRY to </span><span class="si">%d</span><span class="s2"> fare rules&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fare_rules_df</span><span class="p">))</span>
             <span class="c1"># select only those with an origin and destination</span>
@@ -622,7 +631,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">write_routes_for_extension</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Route.add_numeric_route_id"><a class="viewcode-back" href="../../_generated/fasttrips.Route.html#fasttrips.Route.add_numeric_route_id">[docs]</a>    <span class="k">def</span> <span class="nf">add_numeric_route_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_df</span><span class="p">,</span> <span class="n">id_colname</span><span class="p">,</span> <span class="n">numeric_newcolname</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">add_numeric_route_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_df</span><span class="p">,</span> <span class="n">id_colname</span><span class="p">,</span> <span class="n">numeric_newcolname</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Passing a :py:class:`pandas.DataFrame` with a route ID column called *id_colname*,</span>
 <span class="sd">        adds the numeric route id as a column named *numeric_newcolname* and returns it.</span>
@@ -630,9 +639,9 @@
         <span class="k">return</span> <span class="n">Util</span><span class="o">.</span><span class="n">add_new_id</span><span class="p">(</span><span class="n">input_df</span><span class="p">,</span> <span class="n">id_colname</span><span class="p">,</span> <span class="n">numeric_newcolname</span><span class="p">,</span>
                                <span class="n">mapping_df</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">route_id_df</span><span class="p">,</span>
                                <span class="n">mapping_id_colname</span><span class="o">=</span><span class="n">Route</span><span class="o">.</span><span class="n">ROUTES_COLUMN_ROUTE_ID</span><span class="p">,</span>
-                               <span class="n">mapping_newid_colname</span><span class="o">=</span><span class="n">Route</span><span class="o">.</span><span class="n">ROUTES_COLUMN_ROUTE_ID_NUM</span><span class="p">)</span></div>
+                               <span class="n">mapping_newid_colname</span><span class="o">=</span><span class="n">Route</span><span class="o">.</span><span class="n">ROUTES_COLUMN_ROUTE_ID_NUM</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Route.add_access_egress_modes"><a class="viewcode-back" href="../../_generated/fasttrips.Route.html#fasttrips.Route.add_access_egress_modes">[docs]</a>    <span class="k">def</span> <span class="nf">add_access_egress_modes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">access_modes_df</span><span class="p">,</span> <span class="n">egress_modes_df</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">add_access_egress_modes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">access_modes_df</span><span class="p">,</span> <span class="n">egress_modes_df</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds access and egress modes to the mode list</span>
 <span class="sd">        Writes out mapping to disk</span>
@@ -653,9 +662,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">modes_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">Route</span><span class="o">.</span><span class="n">OUTPUT_MODE_NUM_FILE</span><span class="p">),</span>
                              <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">Route</span><span class="o">.</span><span class="n">ROUTES_COLUMN_MODE_NUM</span><span class="p">,</span> <span class="n">Route</span><span class="o">.</span><span class="n">ROUTES_COLUMN_MODE</span><span class="p">],</span>
                              <span class="n">sep</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Wrote </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">Route</span><span class="o">.</span><span class="n">OUTPUT_MODE_NUM_FILE</span><span class="p">))</span></div>
+        <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Wrote </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">Route</span><span class="o">.</span><span class="n">OUTPUT_MODE_NUM_FILE</span><span class="p">))</span>
 
-<div class="viewcode-block" id="Route.add_numeric_mode_id"><a class="viewcode-back" href="../../_generated/fasttrips.Route.html#fasttrips.Route.add_numeric_mode_id">[docs]</a>    <span class="k">def</span> <span class="nf">add_numeric_mode_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_df</span><span class="p">,</span> <span class="n">id_colname</span><span class="p">,</span> <span class="n">numeric_newcolname</span><span class="p">,</span> <span class="n">warn</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">add_numeric_mode_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_df</span><span class="p">,</span> <span class="n">id_colname</span><span class="p">,</span> <span class="n">numeric_newcolname</span><span class="p">,</span> <span class="n">warn</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Passing a :py:class:`pandas.DataFrame` with a mode ID column called *id_colname*,</span>
 <span class="sd">        adds the numeric mode id as a column named *numeric_newcolname* and returns it.</span>
@@ -664,9 +673,9 @@
                                <span class="n">mapping_df</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">modes_df</span><span class="p">[[</span><span class="n">Route</span><span class="o">.</span><span class="n">ROUTES_COLUMN_MODE_NUM</span><span class="p">,</span> <span class="n">Route</span><span class="o">.</span><span class="n">ROUTES_COLUMN_MODE</span><span class="p">]],</span>
                                <span class="n">mapping_id_colname</span><span class="o">=</span><span class="n">Route</span><span class="o">.</span><span class="n">ROUTES_COLUMN_MODE</span><span class="p">,</span>
                                <span class="n">mapping_newid_colname</span><span class="o">=</span><span class="n">Route</span><span class="o">.</span><span class="n">ROUTES_COLUMN_MODE_NUM</span><span class="p">,</span>
-                               <span class="n">warn</span><span class="o">=</span><span class="n">warn</span><span class="p">)</span></div>
+                               <span class="n">warn</span><span class="o">=</span><span class="n">warn</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Route.remove_fare_period_overlap"><a class="viewcode-back" href="../../_generated/fasttrips.Route.html#fasttrips.Route.remove_fare_period_overlap">[docs]</a>    <span class="k">def</span> <span class="nf">remove_fare_period_overlap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fare_rules_ft_df</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">remove_fare_period_overlap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fare_rules_ft_df</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Split fare classes so they don&#39;t overlap</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -762,14 +771,14 @@
                 <span class="k">raise</span> <span class="n">UnexpectedError</span><span class="p">(</span><span class="n">error_str</span><span class="p">)</span>
 
         <span class="c1"># this shouldn&#39;t happen</span>
-        <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;This shouldn&#39;t happen&quot;</span><span class="p">)</span></div>
+        <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;This shouldn&#39;t happen&quot;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Route.write_routes_for_extension"><a class="viewcode-back" href="../../_generated/fasttrips.Route.html#fasttrips.Route.write_routes_for_extension">[docs]</a>    <span class="k">def</span> <span class="nf">write_routes_for_extension</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">write_routes_for_extension</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Write to an intermediate formatted file for the C++ extension.</span>
 <span class="sd">        Since there are strings involved, it&#39;s easier than passing it to the extension.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">.Assignment</span> <span class="k">import</span> <span class="n">Assignment</span>
+        <span class="kn">from</span> <span class="nn">.Assignment</span> <span class="kn">import</span> <span class="n">Assignment</span>
         <span class="c1"># write intermediate file -- route id num, route id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">route_id_df</span><span class="p">[[</span><span class="n">Route</span><span class="o">.</span><span class="n">ROUTES_COLUMN_ROUTE_ID_NUM</span><span class="p">,</span> <span class="n">Route</span><span class="o">.</span><span class="n">ROUTES_COLUMN_ROUTE_ID</span><span class="p">]]</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
             <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">Route</span><span class="o">.</span><span class="n">OUTPUT_ROUTE_ID_NUM_FILE</span><span class="p">),</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -822,9 +831,9 @@
                                                    <span class="n">sep</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
                 <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Wrote </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">Route</span><span class="o">.</span><span class="n">OUTPUT_FARE_TRANSFER_FILE</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;No fare rules so no file </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">Route</span><span class="o">.</span><span class="n">OUTPUT_FARE_ID_FILE</span><span class="p">))</span></div>
+            <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;No fare rules so no file </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">Route</span><span class="o">.</span><span class="n">OUTPUT_FARE_ID_FILE</span><span class="p">))</span>
 
-<div class="viewcode-block" id="Route.add_fares"><a class="viewcode-back" href="../../_generated/fasttrips.Route.html#fasttrips.Route.add_fares">[docs]</a>    <span class="k">def</span> <span class="nf">add_fares</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trip_links_df</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">add_fares</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trip_links_df</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds (or replaces) fare columns to the given :py:class:`pandas.DataFrame`.</span>
 
@@ -840,7 +849,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;          Adding fares to pathset&quot;</span><span class="p">)</span>
 
-        <span class="kn">from</span> <span class="nn">.Assignment</span> <span class="k">import</span> <span class="n">Assignment</span>
+        <span class="kn">from</span> <span class="nn">.Assignment</span> <span class="kn">import</span> <span class="n">Assignment</span>
         <span class="k">if</span> <span class="n">Assignment</span><span class="o">.</span><span class="n">SIM_COL_PAX_FARE</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">trip_links_df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">):</span>
             <span class="n">trip_links_df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="n">Assignment</span><span class="o">.</span><span class="n">SIM_COL_PAX_FARE</span><span class="p">,</span>
                                 <span class="n">Assignment</span><span class="o">.</span><span class="n">SIM_COL_PAX_FARE_PERIOD</span><span class="p">,</span>
@@ -880,7 +889,7 @@
         <span class="n">trip_links_matched</span>   <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
         <span class="k">del</span> <span class="n">trip_links_df</span>
 
-        <span class="kn">from</span> <span class="nn">.Passenger</span> <span class="k">import</span> <span class="n">Passenger</span>
+        <span class="kn">from</span> <span class="nn">.Passenger</span> <span class="kn">import</span> <span class="n">Passenger</span>
         <span class="c1"># level 0: match on all three</span>
         <span class="n">fare_rules0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fare_rules_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fare_rules_df</span><span class="p">[</span><span class="n">Route</span><span class="o">.</span><span class="n">FARE_RULES_COLUMN_ROUTE_ID</span>      <span class="p">])</span><span class="o">&amp;</span>
                                              <span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fare_rules_df</span><span class="p">[</span><span class="n">Route</span><span class="o">.</span><span class="n">FARE_RULES_COLUMN_ORIGIN_ID</span>     <span class="p">])</span><span class="o">&amp;</span>
@@ -1084,9 +1093,9 @@
         <span class="c1"># drop other columns</span>
         <span class="n">trip_links_df</span> <span class="o">=</span> <span class="n">trip_links_df</span><span class="p">[</span><span class="n">orig_columns</span> <span class="o">+</span> <span class="n">fare_columns</span> <span class="o">+</span> <span class="n">transfer_columns</span><span class="p">]</span>
 
-        <span class="k">return</span> <span class="n">trip_links_df</span></div>
+        <span class="k">return</span> <span class="n">trip_links_df</span>
 
-<div class="viewcode-block" id="Route.apply_fare_transfer_rules"><a class="viewcode-back" href="../../_generated/fasttrips.Route.html#fasttrips.Route.apply_fare_transfer_rules">[docs]</a>    <span class="k">def</span> <span class="nf">apply_fare_transfer_rules</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trip_links_df</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">apply_fare_transfer_rules</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trip_links_df</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Applies fare transfers by attaching previous fare period.</span>
 
@@ -1095,8 +1104,8 @@
 <span class="sd">        :py:attr:`Assignment.SIM_COL_PAX_FARE`.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">.Passenger</span> <span class="k">import</span> <span class="n">Passenger</span>
-        <span class="kn">from</span> <span class="nn">.Assignment</span> <span class="k">import</span> <span class="n">Assignment</span>
+        <span class="kn">from</span> <span class="nn">.Passenger</span> <span class="kn">import</span> <span class="n">Passenger</span>
+        <span class="kn">from</span> <span class="nn">.Assignment</span> <span class="kn">import</span> <span class="n">Assignment</span>
 
         <span class="k">if</span> <span class="n">Route</span><span class="o">.</span><span class="n">FARE_TRANSFER_RULES_COLUMN_FROM_FARE_PERIOD</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">trip_links_df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">):</span>
             <span class="n">trip_links_df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="n">Route</span><span class="o">.</span><span class="n">FARE_TRANSFER_RULES_COLUMN_FROM_FARE_PERIOD</span><span class="p">,</span>
@@ -1168,18 +1177,18 @@
         <span class="n">trip_links_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="n">trip_links_df</span><span class="p">[</span><span class="n">Assignment</span><span class="o">.</span><span class="n">SIM_COL_PAX_FARE</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">Assignment</span><span class="o">.</span><span class="n">SIM_COL_PAX_FARE</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
         <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;apply_fare_transfers (</span><span class="si">%d</span><span class="s2">):</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">trip_links_df</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">trip_links_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">))))</span>
 
-        <span class="k">return</span> <span class="n">trip_links_df</span></div>
+        <span class="k">return</span> <span class="n">trip_links_df</span>
 
 
-<div class="viewcode-block" id="Route.apply_free_transfers"><a class="viewcode-back" href="../../_generated/fasttrips.Route.html#fasttrips.Route.apply_free_transfers">[docs]</a>    <span class="k">def</span> <span class="nf">apply_free_transfers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trip_links_df</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">apply_free_transfers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trip_links_df</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Apply the free transfers allowed in  to trip_links_df fare_attributes_ft.txt (configured by columns transfers, transfer_duration).</span>
 <span class="sd">        Sets columns Assignment.SIM_COL_PAX_FREE_TRANSFER to None, 0.0 or 1.0</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># free transfers within a fare id</span>
-        <span class="kn">from</span> <span class="nn">.Assignment</span> <span class="k">import</span> <span class="n">Assignment</span>
-        <span class="kn">from</span> <span class="nn">.Passenger</span>  <span class="k">import</span> <span class="n">Passenger</span>
-        <span class="kn">from</span> <span class="nn">.PathSet</span>    <span class="k">import</span> <span class="n">PathSet</span>
+        <span class="kn">from</span> <span class="nn">.Assignment</span> <span class="kn">import</span> <span class="n">Assignment</span>
+        <span class="kn">from</span> <span class="nn">.Passenger</span>  <span class="kn">import</span> <span class="n">Passenger</span>
+        <span class="kn">from</span> <span class="nn">.PathSet</span>    <span class="kn">import</span> <span class="n">PathSet</span>
 
         <span class="c1"># create a fare_index that counts up for a unique person-trip id, pathnum, and fare_period</span>
         <span class="n">trip_links_df</span><span class="p">[</span><span class="s2">&quot;fare_index&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">trip_links_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_ID</span><span class="p">,</span>
@@ -1259,27 +1268,32 @@
         <span class="n">trip_links_df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;fare_index&quot;</span><span class="p">,</span> <span class="s2">&quot;fare_index_ffb&quot;</span><span class="p">,</span> <span class="s2">&quot;transfer_time_sec&quot;</span><span class="p">,</span>
                             <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_ffb&quot;</span> <span class="o">%</span> <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_LINK_NUM</span><span class="p">,</span>
                             <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_ffb&quot;</span> <span class="o">%</span> <span class="n">Assignment</span><span class="o">.</span><span class="n">SIM_COL_PAX_BOARD_TIME</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">trip_links_df</span></div></div>
+        <span class="k">return</span> <span class="n">trip_links_df</span></div>
 </pre></div>
 
            </div>
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2015-2018, Lisa Zorn
+        &#169; Copyright 2015-2018, Lisa Zorn.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -1287,7 +1301,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

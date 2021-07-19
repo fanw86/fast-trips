@@ -1,40 +1,45 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Contributing &mdash; fasttrips Development Branch Commit 5e504cb3319b58faac3aca1310cb4ad08dc44ed8 documentation</title>
   
 
   
-  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="FAQ" href="faq.html" />
@@ -79,6 +84,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -118,6 +124,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -152,18 +159,20 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Contributing</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/contributing.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -181,24 +190,34 @@
 <h1>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="style">
 <h2>Style<a class="headerlink" href="#style" title="Permalink to this headline">¶</a></h2>
-<p>We attempt as much as possible to adhere to <a class="reference external" href="https://www.python.org/dev/peps/pep-0008/">PEP8</a>. Adherence to PEP8 standards can be checked using the <a class="reference external" href="https://pypi.python.org/pypi/pycodestyle">pycodestyle</a> package from your fast-trips directory:</p>
+<p>We attempt as much as possible to adhere to <a class="reference external" href="https://www.python.org/dev/peps/pep-0008/">PEP8</a>. Adherence to PEP8
+standards can be checked using the <a class="reference external" href="https://pypi.python.org/pypi/pycodestyle">pycodestyle</a> package from your
+fast-trips directory:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pycodestyle</span> <span class="n">fasttrips</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="development-workflow">
 <h2>Development Workflow<a class="headerlink" href="#development-workflow" title="Permalink to this headline">¶</a></h2>
-<p>Aside from the core developer team, we use a <a class="reference external" href="https://gist.github.com/Chaser324/ce0505fbed06b947d962">fork-and-pull workflow</a>.</p>
-<p>We use the <a class="reference external" href="http://nvie.com/posts/a-successful-git-branching-model/">Git Flow</a> branching model whereby there is always a master and develop branch.  New features should always be developed in a branch from the develop branch.</p>
-<p>In general, development should respond to <a class="reference external" href="https://github.com/BayAreaMetro/fast-trips/issues">identified issues</a> that proceed along a general roadmap for Fast-Trips.  If no issue exists then please consider making one before proceeding so that your approach can be discussed with the team.   When possible, issues should be written as <a class="reference external" href="https://en.wikipedia.org/wiki/User_story">user stories</a>.</p>
-<p>When possible, the team strives to adhere to <a class="reference external" href="https://en.wikipedia.org/wiki/Agile_software_development#Agile_software_development_principles">agile software development principles</a>.</p>
+<p>Aside from the core developer team, we use a
+<a class="reference external" href="https://gist.github.com/Chaser324/ce0505fbed06b947d962">fork-and-pull workflow</a>.</p>
+<p>We use the <a class="reference external" href="http://nvie.com/posts/a-successful-git-branching-model/">Git Flow</a> branching model whereby there is always
+a master and develop branch.  New features should always be developed in a branch from the develop branch.</p>
+<p>In general, development should respond to <a class="reference external" href="https://github.com/BayAreaMetro/fast-trips/issues">identified issues</a> that
+proceed along a general roadmap for Fast-Trips.  If no issue exists then please consider making one before proceeding so
+that your approach can be discussed with the team.   When possible, issues should be written as
+.`user stories &lt;<a class="reference external" href="https://en.wikipedia.org/wiki/User_story">https://en.wikipedia.org/wiki/User_story</a>&gt;`_.</p>
+<p>When possible, the team strives to adhere to
+<a class="reference external" href="https://en.wikipedia.org/wiki/Agile_software_development#Agile_software_development_principles">agile software development principles</a>.</p>
 </div>
 <div class="section" id="roadmap">
 <h2>Roadmap<a class="headerlink" href="#roadmap" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="testing">
 <h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h2>
-<p>There are a couple dozen tests that are stored in <code class="docutils literal notranslate"><span class="pre">\tests</span></code>.  They can be run by installing the <a class="reference external" href="https://docs.pytest.org/en/latest/">PyTest</a> library ( <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pytest</span></code> and executing the command <code class="docutils literal notranslate"><span class="pre">pytest</span></code> from the command line within your <code class="docutils literal notranslate"><span class="pre">&lt;fast-trips-dir&gt;</span></code>.</p>
+<p>There are a few dozen tests that are stored in <code class="docutils literal notranslate"><span class="pre">\tests</span></code>.  They can be run by installing the
+<a class="reference external" href="https://docs.pytest.org/en/latest/">PyTest</a> library ( <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pytest</span></code> and executing the command <code class="docutils literal notranslate"><span class="pre">pytest</span></code>
+from the command line within your <code class="docutils literal notranslate"><span class="pre">&lt;fast-trips-dir&gt;</span></code>.</p>
 <p>Most of the tests use test scenarios that can be found in the <code class="docutils literal notranslate"><span class="pre">fasttrips/Examples</span></code> directory.</p>
 <p>Many (but not all) of the tests can be individually run by giving the command <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">tests/test_&lt;TESTNAME&gt;.py</span></code>.</p>
 <p>Test output defaults to the folder <code class="docutils literal notranslate"><span class="pre">fasttrips/Examples/output</span></code></p>
@@ -207,14 +226,19 @@
 <p>We use the <a class="reference external" href="travis-ci.org">Travis-CI</a> continuous integration service as follows:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Every push to GitHub will run tests denoted by the <code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.test.basic</span></code> function decorator, which is a small subset of system level tests.</li>
-<li>Every push to <cite>master</cite> or <cite>develop</cite> branches will run tests denoted by the <code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.test.travis</span></code> function decorator.</li>
+<li><p>Every push to GitHub will run tests denoted by the <code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.test.basic</span></code> function decorator, which is a small
+subset of system level tests.</p></li>
+<li><p>Every push to <cite>master</cite> or <cite>develop</cite> branches will run tests denoted by the <code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.test.travis</span></code> function
+decorator.</p></li>
 </ul>
 </div></blockquote>
-<p>These subsets were created to limit the time it takes for Travis to run all the tests.  <strong>When doing invasive development, they are not a substitute for running the entire test suite locally using the ``py.test`` command.</strong></p>
-<p>Additionally, it is important to understand that most of the tests are system-level tests that do not guarantee correct results so much as they make sure the system runs without an error.</p>
+<p>These subsets were created to limit the time it takes for Travis to run all the tests.  <strong>When doing invasive</strong>
+<strong>development, they are not a substitute for running the entire test suite locally using the ``py.test`` command.</strong></p>
+<p>Additionally, it is important to understand that most of the tests are system-level tests that do not guarantee correct
+results so much as they make sure the system runs without an error.</p>
 <p>For documentation-only commits, put “skip ci” somewhere in your commit message to not trigger the Travis testing.</p>
-<p>Some regression tests have regression output that needs to be refreshed an thus have a function decorator <code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.skip</span></code> so that they are skipped.</p>
+<p>Some regression tests have regression output that needs to be refreshed an thus have a function decorator
+<code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.skip</span></code> so that they are skipped.</p>
 </div>
 <div class="section" id="test-descriptions">
 <h3>Test Descriptions<a class="headerlink" href="#test-descriptions" title="Permalink to this headline">¶</a></h3>
@@ -222,137 +246,139 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">tests</span><span class="o">/&lt;</span><span class="n">Test</span> <span class="n">File</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="16%" />
-<col width="21%" />
-<col width="11%" />
-<col width="52%" />
+<col style="width: 16%" />
+<col style="width: 21%" />
+<col style="width: 11%" />
+<col style="width: 52%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head"><em>Test Name</em></th>
-<th class="head"><em>Test File</em></th>
-<th class="head"><em>Status</em></th>
-<th class="head"><em>Description</em></th>
+<thead>
+<tr class="row-odd"><th class="head"><p><em>Test Name</em></p></th>
+<th class="head"><p><em>Test File</em></p></th>
+<th class="head"><p><em>Status</em></p></th>
+<th class="head"><p><em>Description</em></p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>Assignment Type</td>
-<td><code class="docutils literal notranslate"><span class="pre">test_assignment_type.py</span></code></td>
-<td>&#160;</td>
-<td>Tests both deterministic and stochastic shortest path and hyperpaths.</td>
+<tbody>
+<tr class="row-even"><td><p>Assignment Type</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">test_assignment_type.py</span></code></p></td>
+<td></td>
+<td><p>Tests both deterministic and stochastic shortest path and hyperpaths.</p></td>
 </tr>
-<tr class="row-odd"><td>Simple Bunny Hop</td>
-<td><code class="docutils literal notranslate"><span class="pre">test_bunny.py</span></code></td>
-<td>BASIC, TRAVIS</td>
-<td>Tests forward and backward stochastic hyperpaths as well as a sensitivity test
-with a different network.</td>
+<tr class="row-odd"><td><p>Simple Bunny Hop</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">test_bunny.py</span></code></p></td>
+<td><p>BASIC, TRAVIS</p></td>
+<td><p>Tests forward and backward stochastic hyperpaths as well as a sensitivity test
+with a different network.</p></td>
 </tr>
-<tr class="row-even"><td>Calculate Cost</td>
-<td><code class="docutils literal notranslate"><span class="pre">test_calculate_cost.py</span></code></td>
-<td>SKIP</td>
-<td>Regression test of cost calculations.</td>
+<tr class="row-even"><td><p>Calculate Cost</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">test_calculate_cost.py</span></code></p></td>
+<td><p>SKIP</p></td>
+<td><p>Regression test of cost calculations.</p></td>
 </tr>
-<tr class="row-odd"><td>Convergence</td>
-<td><code class="docutils literal notranslate"><span class="pre">test_convergence.py</span></code></td>
-<td>SKIP</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>Convergence</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">test_convergence.py</span></code></p></td>
+<td><p>SKIP</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>Cost Symmetry</td>
-<td><code class="docutils literal notranslate"><span class="pre">test_cost_symmetry.py</span></code></td>
-<td>MANUAL</td>
-<td>Tests that the costs from the c++ pathfinding and the python calculate cost
-functions return the same values.</td>
+<tr class="row-even"><td><p>Cost Symmetry</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">test_cost_symmetry.py</span></code></p></td>
+<td><p>MANUAL</p></td>
+<td><p>Tests that the costs from the c++ pathfinding and the python calculate cost
+functions return the same values.</p></td>
 </tr>
-<tr class="row-odd"><td>Dispersion Levels</td>
-<td><code class="docutils literal notranslate"><span class="pre">test_dispersion.py</span></code></td>
-<td>TRAVIS</td>
-<td>Runs dispersion levels at .0, 0.5, 0.1</td>
+<tr class="row-odd"><td><p>Dispersion Levels</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">test_dispersion.py</span></code></p></td>
+<td><p>TRAVIS</p></td>
+<td><p>Runs dispersion levels at .0, 0.5, 0.1</p></td>
 </tr>
-<tr class="row-even"><td>Distance Calculation</td>
-<td><code class="docutils literal notranslate"><span class="pre">test_distance.py</span></code></td>
-<td>Out of date; skip</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>Distance Calculation</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">test_distance.py</span></code></p></td>
+<td><p>Out of date; skip</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>Fares</td>
-<td><code class="docutils literal notranslate"><span class="pre">test_fares.py</span></code></td>
-<td>TRAVIS</td>
-<td><dl class="first last docutils">
-<dt>Tests shortcuts in fare calculation:</dt>
-<dd><ul class="first last simple">
-<li>ignore pathfinding</li>
-<li>ignore pathfinding and path Enumeration</li>
+<tr class="row-odd"><td><p>Fares</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">test_fares.py</span></code></p></td>
+<td><p>TRAVIS</p></td>
+<td><dl class="simple">
+<dt>Tests shortcuts in fare calculation:</dt><dd><ul class="simple">
+<li><p>ignore pathfinding</p></li>
+<li><p>ignore pathfinding and path Enumeration</p></li>
 </ul>
 </dd>
 </dl>
 </td>
 </tr>
-<tr class="row-even"><td>Feedback</td>
-<td><code class="docutils literal notranslate"><span class="pre">test_feedback.py</span></code></td>
-<td>TRAVIS</td>
-<td>Runs demand for three iterations w/ and w/out capacity constraints</td>
+<tr class="row-even"><td><p>Feedback</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">test_feedback.py</span></code></p></td>
+<td><p>TRAVIS</p></td>
+<td><p>Runs demand for three iterations w/ and w/out capacity constraints</p></td>
 </tr>
-<tr class="row-odd"><td>GTFS</td>
-<td><code class="docutils literal notranslate"><span class="pre">test_gtfs_objects.py</span></code></td>
-<td>Manual</td>
-<td>Test that we can read and process GTFS-Plus</td>
+<tr class="row-odd"><td><p>GTFS</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">test_gtfs_objects.py</span></code></p></td>
+<td><p>Manual</p></td>
+<td><p>Test that we can read and process GTFS-Plus</p></td>
 </tr>
-<tr class="row-even"><td>Max Stop Process Count</td>
-<td><code class="docutils literal notranslate"><span class="pre">test_maxStopProcessCount.py</span></code></td>
-<td>Manual</td>
-<td>Tests 10, 50, and 100 for value of <em>max stop process count</em> –&nbsp;the maximum times
-you will re-process a node (default: None)</td>
+<tr class="row-even"><td><p>Max Stop Process Count</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">test_maxStopProcessCount.py</span></code></p></td>
+<td><p>Manual</p></td>
+<td><p>Tests 10, 50, and 100 for value of <em>max stop process count</em> – the maximum times
+you will re-process a node (default: None)</p></td>
 </tr>
-<tr class="row-odd"><td>Overlap Functions</td>
-<td><code class="docutils literal notranslate"><span class="pre">test_overlap.py</span></code></td>
-<td>TRAVIS</td>
-<td>Tests both overlap type and whether or not each transit segment is broken and
+<tr class="row-odd"><td><p>Overlap Functions</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">test_overlap.py</span></code></p></td>
+<td><p>TRAVIS</p></td>
+<td><p>Tests both overlap type and whether or not each transit segment is broken and
 up into parts.  Tests:
 <strong>overlap variable</strong>: count, distance, time
-<strong>overlap split</strong>: Boolean</td>
+<strong>overlap split</strong>: Boolean</p></td>
 </tr>
-<tr class="row-even"><td>Flexible Departure/</td>
-<td><code class="docutils literal notranslate"><span class="pre">test_pat_variation.py</span></code></td>
-<td>TRAVIS</td>
-<td>Tests that flexible departure and arrival window penalties are working.</td>
+<tr class="row-even"><td><p>Flexible Departure/</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">test_pat_variation.py</span></code></p></td>
+<td><p>TRAVIS</p></td>
+<td><p>Tests that flexible departure and arrival window penalties are working.</p></td>
 </tr>
-<tr class="row-odd"><td>Arrival Windows</td>
-<td>&#160;</td>
-<td>&#160;</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>Arrival Windows</p></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>Penalty Functions</td>
-<td><code class="docutils literal notranslate"><span class="pre">test_penalty_functions.py</span></code></td>
-<td>TRAVIS</td>
-<td>Tests that penalty functions for flexible departure and arrival windows work.</td>
+<tr class="row-even"><td><p>Penalty Functions</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">test_penalty_functions.py</span></code></p></td>
+<td><p>TRAVIS</p></td>
+<td><p>Tests that penalty functions for flexible departure and arrival windows work.</p></td>
 </tr>
-<tr class="row-odd"><td>Regional Network</td>
-<td><code class="docutils literal notranslate"><span class="pre">test_psrc.py</span></code></td>
-<td>TRAVIS</td>
-<td>Tests that things work on a large, regional network</td>
+<tr class="row-odd"><td><p>Regional Network</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">test_psrc.py</span></code></p></td>
+<td><p>TRAVIS</p></td>
+<td><p>Tests that things work on a large, regional network</p></td>
 </tr>
-<tr class="row-even"><td>User Classes</td>
-<td><code class="docutils literal notranslate"><span class="pre">test_user_classes.py</span></code></td>
-<td>Manual</td>
-<td>Uses multiple user classes as defined in <code class="docutils literal notranslate"><span class="pre">config_ft.py</span></code></td>
+<tr class="row-even"><td><p>User Classes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">test_user_classes.py</span></code></p></td>
+<td><p>Manual</p></td>
+<td><p>Uses multiple user classes as defined in <code class="docutils literal notranslate"><span class="pre">config_ft.py</span></code></p></td>
 </tr>
-<tr class="row-odd"><td>Function Transformations</td>
-<td><code class="docutils literal notranslate"><span class="pre">test_weight_qualifiers.py</span></code></td>
-<td>TRAVIS</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>Function Transformations</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">test_weight_qualifiers.py</span></code></p></td>
+<td><p>TRAVIS</p></td>
+<td></td>
 </tr>
 </tbody>
 </table>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Multiprocessing is not tested because it is <a class="reference external" href="https://github.com/pytest-dev/pytest/issues/958">incompatible with PyTest</a></p>
+<p class="admonition-title">Note</p>
+<p>Multiprocessing is not tested because it is <a class="reference external" href="https://github.com/pytest-dev/pytest/issues/958">incompatible with PyTest</a></p>
 </div>
 </div>
 </div>
 <div class="section" id="documentation">
 <h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
-<p>Functions, classes and methods should be documented using <a class="reference external" href="https://thomas-cokelaer.info/tutorials/sphinx/docstring_python.html">restructured text docstrings</a> to be compiled in SPHINX using autodoc functionality, doxygen for c++, and breathe to link them.</p>
-<p>The resulting HTML is then manually pushed to the gh-pages branch.</p>
+<p>Functions, classes and methods should be documented using
+<a class="reference external" href="https://thomas-cokelaer.info/tutorials/sphinx/docstring_python.html">restructured text docstrings</a>
+to be compiled in SPHINX using autodoc functionality, doxygen for c++, and breathe to link them.</p>
+<p>An automatic CI workflow running on GitHub Actions compiles a new version of the documentation at each pull request an
+stores it on GitHub for up to 30 days. The resulting HTML is then manually pushed to the gh-pages branch.</p>
 <p>To rebuild the documentation, you must have sphinx, numpydoc, and the read-the-docs sphinx theme installed:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">sphinx</span> <span class="n">numpydoc</span> <span class="n">sphinx_rtd_theme</span> <span class="n">breathe</span>
 </pre></div>
@@ -361,14 +387,16 @@ up into parts.  Tests:
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">breathe</span>
 </pre></div>
 </div>
-<p>Follow directions on <a class="reference external" href="https://www.stack.nl/~dimitri/doxygen/manual/install.html">doxygen page</a> to install, or if you have brew installed on a mac, use the command:</p>
+<p>Follow directions on <a class="reference external" href="https://www.stack.nl/~dimitri/doxygen/manual/install.html">doxygen page</a> to install, or if you
+have brew installed on a mac, use the command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">doxygen</span>
 </pre></div>
 </div>
 <p>Make sure the file <code class="docutils literal notranslate"><span class="pre">doc\doxygen.conf</span></code> adds the breathe package location to your path using <code class="docutils literal notranslate"><span class="pre">sys.path.append</span></code>.</p>
 <div class="section" id="building-documentation">
 <h3>Building documentation<a class="headerlink" href="#building-documentation" title="Permalink to this headline">¶</a></h3>
-<p>If you have updated the c++ module, you should first update its documentation by running the following command from the <code class="docutils literal notranslate"><span class="pre">\doc</span></code> directory:</p>
+<p>If you have updated the c++ module, you should first update its documentation by running the following command from the
+<code class="docutils literal notranslate"><span class="pre">\doc</span></code> directory:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">doxygen</span> <span class="n">doxygen</span><span class="o">.</span><span class="n">conf</span>
 </pre></div>
 </div>
@@ -380,7 +408,9 @@ up into parts.  Tests:
 </div>
 <div class="section" id="push-documentation-to-gh-pages-branch">
 <h3>Push documentation to gh-pages branch<a class="headerlink" href="#push-documentation-to-gh-pages-branch" title="Permalink to this headline">¶</a></h3>
-<p>The resulting files in the <code class="docutils literal notranslate"><span class="pre">doc/html</span></code> directory should be published to the gh-pages branch in the .git repository, making sure it is clean ahead of time.  This can be done via a GUI or by using the following commands from the root fast-trips directory:</p>
+<p>The resulting files in the <code class="docutils literal notranslate"><span class="pre">doc/html</span></code> directory should be published to the gh-pages branch in the .git repository,
+making sure it is clean ahead of time.  This can be done via a GUI or by using the following commands from the root
+fast-trips directory:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="n">czf</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">html</span><span class="o">.</span><span class="n">tgz</span> <span class="n">doc</span><span class="o">/</span><span class="n">build</span><span class="o">/**</span> <span class="c1">## zips and copies files to temp directory</span>
 <span class="n">git</span> <span class="n">checkout</span> <span class="n">gh</span><span class="o">-</span><span class="n">pages</span>              <span class="c1">## checks out github pages directory</span>
 <span class="n">git</span> <span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="o">.</span>                       <span class="c1">## clean out gh-pages branch...but not the .git folder!</span>
@@ -391,44 +421,20 @@ up into parts.  Tests:
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">make sure you have made any commits to the code you wanted to keep before checking out the gh-pages branch!</p>
+<p class="admonition-title">Note</p>
+<p>make sure you have made any commits to the code you wanted to keep before checking out the gh-pages branch!</p>
 </div>
 </div>
 </div>
 <div class="section" id="todo-list">
 <h2>Todo List<a class="headerlink" href="#todo-list" title="Permalink to this headline">¶</a></h2>
-<p>Please see the <a class="reference external" href="https://github.com/BayAreaMetro/fast-trips/issues">Issues list on Github</a> as well as the in-code todo list below.</p>
+<p>Please see the <a class="reference external" href="https://github.com/BayAreaMetro/fast-trips/issues">Issues list on Github</a> as well as the in-code todo
+list below.</p>
 <div class="admonition-todo admonition">
-<p class="first admonition-title">Todo</p>
-<p class="last">This is really about the access and egress links; perhaps it should be renamed?</p>
+<p class="admonition-title">Todo</p>
+<p>This is really about the access and egress links; perhaps it should be renamed?</p>
 </div>
-<p class="todo-source">(The <a class="reference internal" href="_generated/fasttrips.TAZ.html#index-0"><em>original entry</em></a> is located in /home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/fasttrips/TAZ.py:docstring of fasttrips.TAZ, line 6.)</p>
-<div class="admonition-todo admonition">
-<p class="first admonition-title">Todo</p>
-<p class="last">This neglects the start_time/end_time issue.  Don’t use without fixing.</p>
-</div>
-<p class="todo-source">(The <a class="reference internal" href="_generated/fasttrips.TAZ.html#index-1"><em>original entry</em></a> is located in /home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/fasttrips/TAZ.py:docstring of fasttrips.TAZ.add_distance, line 3.)</p>
-<div class="admonition-todo admonition">
-<p class="first admonition-title">Todo</p>
-<p class="last">clean this up?  Rename intermediate files (they’re not really output)</p>
-</div>
-<p class="todo-source">(The <a class="reference internal" href="_generated/fasttrips.TAZ.html#index-2"><em>original entry</em></a> is located in /home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/fasttrips/TAZ.py:docstring of fasttrips.TAZ.write_access_egress_for_extension, line 6.)</p>
-<div class="admonition-todo admonition">
-<p class="first admonition-title">Todo</p>
-<p class="last">Remove these?  Maybe weights should be distance based?  Walk speed is configured how?</p>
-</div>
-<p class="todo-source">(The <a class="reference internal" href="_generated/fasttrips.Transfer.html#index-0"><em>original entry</em></a> is located in /home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/fasttrips/Transfer.py:docstring of fasttrips.Transfer.TRANSFERS_COLUMN_TIME, line 3.)</p>
-<div class="admonition-todo admonition">
-<p class="first admonition-title">Todo</p>
-<p class="last">Make this configurable?</p>
-</div>
-<p class="todo-source">(The <a class="reference internal" href="_generated/fasttrips.Transfer.html#index-1"><em>original entry</em></a> is located in /home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/fasttrips/Transfer.py:docstring of fasttrips.Transfer.WALK_SPEED_MILES_PER_HOUR, line 3.)</p>
-<div class="admonition-todo admonition">
-<p class="first admonition-title">Todo</p>
-<p class="last">this will be in miles, but should be configurable</p>
-</div>
-<p class="todo-source">(The <a class="reference internal" href="_generated/fasttrips.Trip.html#index-0"><em>original entry</em></a> is located in /home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/fasttrips/Trip.py:docstring of fasttrips.Trip.add_shape_dist_traveled, line 4.)</p>
+<p class="todo-source">(The <a class="reference internal" href="_generated/fasttrips.TAZ.html#id1"><em>original entry</em></a> is located in /home/runner/work/fast-trips/fast-trips/fasttrips/TAZ.py:docstring of fasttrips.TAZ.TAZ, line 6.)</p>
 </div>
 <div class="section" id="releases">
 <h2>Releases<a class="headerlink" href="#releases" title="Permalink to this headline">¶</a></h2>
@@ -441,29 +447,29 @@ up into parts.  Tests:
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="faq.html" class="btn btn-neutral float-right" title="FAQ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="fasttrips_c_extension.html" class="btn btn-neutral float-left" title="fasttrips C++ Extension" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="faq.html" class="btn btn-neutral float-right" title="FAQ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="fasttrips_c_extension.html" class="btn btn-neutral float-left" title="fasttrips C++ Extension" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2015-2018, Lisa Zorn
+        &#169; Copyright 2015-2018, Lisa Zorn.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -471,7 +477,6 @@ up into parts.  Tests:
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {
