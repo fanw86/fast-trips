@@ -223,17 +223,16 @@ from the command line within your <code class="docutils literal notranslate"><sp
 <p>Test output defaults to the folder <code class="docutils literal notranslate"><span class="pre">fasttrips/Examples/output</span></code></p>
 <div class="section" id="continuous-integration">
 <h3>Continuous Integration<a class="headerlink" href="#continuous-integration" title="Permalink to this headline">¶</a></h3>
-<p>We use the <a class="reference external" href="travis-ci.org">Travis-CI</a> continuous integration service as follows:</p>
+<p>We use the <strong>GitHub Actions</strong> continuous integration that runs the following at each and every pull request:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>Every push to GitHub will run tests denoted by the <code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.test.basic</span></code> function decorator, which is a small
-subset of system level tests.</p></li>
-<li><p>Every push to <cite>master</cite> or <cite>develop</cite> branches will run tests denoted by the <code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.test.travis</span></code> function
-decorator.</p></li>
+<li><p>Complete set of unit-testing on Linux, macOS and Windows</p></li>
+<li><p>Documentation building test</p></li>
+<li><p>Package (wheel) build test on Linux, macOS and Windows</p></li>
 </ul>
 </div></blockquote>
-<p>These subsets were created to limit the time it takes for Travis to run all the tests.  <strong>When doing invasive</strong>
-<strong>development, they are not a substitute for running the entire test suite locally using the ``py.test`` command.</strong></p>
+<p>This is a departure from the original strategy of running a small subset of tests during more intense development,
+and we recommend running the entire test suite locally using the <code class="docutils literal notranslate"><span class="pre">py.test</span></code> command prior to issuing a pull-request.</p>
 <p>Additionally, it is important to understand that most of the tests are system-level tests that do not guarantee correct
 results so much as they make sure the system runs without an error.</p>
 <p>For documentation-only commits, put “skip ci” somewhere in your commit message to not trigger the Travis testing.</p>
@@ -248,59 +247,49 @@ results so much as they make sure the system runs without an error.</p>
 </div>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 16%" />
-<col style="width: 21%" />
-<col style="width: 11%" />
-<col style="width: 52%" />
+<col style="width: 18%" />
+<col style="width: 24%" />
+<col style="width: 58%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><em>Test Name</em></p></th>
 <th class="head"><p><em>Test File</em></p></th>
-<th class="head"><p><em>Status</em></p></th>
 <th class="head"><p><em>Description</em></p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Assignment Type</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">test_assignment_type.py</span></code></p></td>
-<td></td>
 <td><p>Tests both deterministic and stochastic shortest path and hyperpaths.</p></td>
 </tr>
 <tr class="row-odd"><td><p>Simple Bunny Hop</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">test_bunny.py</span></code></p></td>
-<td><p>BASIC, TRAVIS</p></td>
 <td><p>Tests forward and backward stochastic hyperpaths as well as a sensitivity test
 with a different network.</p></td>
 </tr>
 <tr class="row-even"><td><p>Calculate Cost</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">test_calculate_cost.py</span></code></p></td>
-<td><p>SKIP</p></td>
 <td><p>Regression test of cost calculations.</p></td>
 </tr>
 <tr class="row-odd"><td><p>Convergence</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">test_convergence.py</span></code></p></td>
-<td><p>SKIP</p></td>
 <td></td>
 </tr>
 <tr class="row-even"><td><p>Cost Symmetry</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">test_cost_symmetry.py</span></code></p></td>
-<td><p>MANUAL</p></td>
 <td><p>Tests that the costs from the c++ pathfinding and the python calculate cost
 functions return the same values.</p></td>
 </tr>
 <tr class="row-odd"><td><p>Dispersion Levels</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">test_dispersion.py</span></code></p></td>
-<td><p>TRAVIS</p></td>
 <td><p>Runs dispersion levels at .0, 0.5, 0.1</p></td>
 </tr>
 <tr class="row-even"><td><p>Distance Calculation</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">test_distance.py</span></code></p></td>
-<td><p>Out of date; skip</p></td>
 <td></td>
 </tr>
 <tr class="row-odd"><td><p>Fares</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">test_fares.py</span></code></p></td>
-<td><p>TRAVIS</p></td>
 <td><dl class="simple">
 <dt>Tests shortcuts in fare calculation:</dt><dd><ul class="simple">
 <li><p>ignore pathfinding</p></li>
@@ -312,23 +301,19 @@ functions return the same values.</p></td>
 </tr>
 <tr class="row-even"><td><p>Feedback</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">test_feedback.py</span></code></p></td>
-<td><p>TRAVIS</p></td>
 <td><p>Runs demand for three iterations w/ and w/out capacity constraints</p></td>
 </tr>
 <tr class="row-odd"><td><p>GTFS</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">test_gtfs_objects.py</span></code></p></td>
-<td><p>Manual</p></td>
 <td><p>Test that we can read and process GTFS-Plus</p></td>
 </tr>
 <tr class="row-even"><td><p>Max Stop Process Count</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">test_maxStopProcessCount.py</span></code></p></td>
-<td><p>Manual</p></td>
 <td><p>Tests 10, 50, and 100 for value of <em>max stop process count</em> – the maximum times
 you will re-process a node (default: None)</p></td>
 </tr>
 <tr class="row-odd"><td><p>Overlap Functions</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">test_overlap.py</span></code></p></td>
-<td><p>TRAVIS</p></td>
 <td><p>Tests both overlap type and whether or not each transit segment is broken and
 up into parts.  Tests:
 <strong>overlap variable</strong>: count, distance, time
@@ -336,27 +321,22 @@ up into parts.  Tests:
 </tr>
 <tr class="row-even"><td><p>Flexible Departure/</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">test_pat_variation.py</span></code></p></td>
-<td><p>TRAVIS</p></td>
 <td><p>Tests that flexible departure and arrival window penalties are working.</p></td>
 </tr>
 <tr class="row-odd"><td><p>Penalty Functions</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">test_penalty_functions.py</span></code></p></td>
-<td><p>TRAVIS</p></td>
 <td><p>Tests that penalty functions for flexible departure and arrival windows work.</p></td>
 </tr>
 <tr class="row-even"><td><p>Regional Network</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">test_psrc.py</span></code></p></td>
-<td><p>TRAVIS</p></td>
 <td><p>Tests that things work on a large, regional network</p></td>
 </tr>
 <tr class="row-odd"><td><p>User Classes</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">test_user_classes.py</span></code></p></td>
-<td><p>Manual</p></td>
 <td><p>Uses multiple user classes as defined in <code class="docutils literal notranslate"><span class="pre">config_ft.py</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>Function Transformations</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">test_weight_qualifiers.py</span></code></p></td>
-<td><p>TRAVIS</p></td>
 <td></td>
 </tr>
 </tbody>
@@ -434,7 +414,9 @@ list below.</p>
 </div>
 <div class="section" id="releases">
 <h2>Releases<a class="headerlink" href="#releases" title="Permalink to this headline">¶</a></h2>
-<p>Releases are manually uploaded to the <a class="reference external" href="https://pypi.python.org/pypi/fasttrips">Python Package Index (PyPI)</a>.</p>
+<p>Whenever a new release is made on GitHub, all wheels for all Python versions and operating systems supported are
+automatically uploaded to the <a class="reference external" href="https://pypi.python.org/pypi/fasttrips">Python Package Index (PyPI)</a>, while all the
+documentation is automatically updated in the github page for the project.</p>
 </div>
 </div>
 
