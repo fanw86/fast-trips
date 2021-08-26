@@ -199,7 +199,7 @@
 <dd><p>Passenger class.</p>
 <p>One instance represents all of the households and persons that could potentially make transit trips.</p>
 <p>Stores household information in <code class="xref py py-attr docutils literal notranslate"><span class="pre">Passenger.households_df</span></code> and person information in
-<code class="xref py py-attr docutils literal notranslate"><span class="pre">Passenger.persons_df</span></code>, which are both <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> instances.</p>
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">Passenger.persons_df</span></code>, which are both <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> instances.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="fasttrips.Passenger.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">today</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stops</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">routes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">capacity_constraint</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fasttrips/Passenger.html#Passenger.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fasttrips.Passenger.__init__" title="Permalink to this definition">¶</a></dt>
@@ -225,19 +225,22 @@
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_chosen_links</span></code>(pathset_links_df[, …])</p></td>
 <td><p>Given the pathset paths and pathset links, returns the pathset links for the ones marked as chosen.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_pathset</span></code>(trip_list_id)</p></td>
-<td><p>Retrieves a stored path set for the given trip_list_id</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_person_id</span></code>(trip_list_id)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_id_columns</span></code>(is_skimming)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_passenger_pathsets</span></code>(pathset_dir, stops, …)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_pathset</span></code>(trip_list_id)</p></td>
+<td><p>Retrieves a stored path set for the given trip_list_id</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_person_id</span></code>(trip_list_id)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_passenger_pathsets</span></code>(pathset_dir, stops, …)</p></td>
 <td><p>Reads the dataframes described in <code class="xref py py-meth docutils literal notranslate"><span class="pre">Passenger.setup_passenger_pathsets()</span></code> and returns them.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup_passenger_pathsets</span></code>(iteration, …)</p></td>
-<td><p>Converts pathfinding results (which is stored in each Passenger <a class="reference internal" href="fasttrips.PathSet.html#fasttrips.PathSet" title="fasttrips.PathSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">PathSet</span></code></a>) into two <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> instances.</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup_passenger_pathsets</span></code>(iteration, …)</p></td>
+<td><p>Converts pathfinding results (which is stored in each Passenger <a class="reference internal" href="fasttrips.PathSet.html#fasttrips.PathSet" title="fasttrips.PathSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">PathSet</span></code></a>) into two <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> instances.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_paths</span></code>(output_dir, iteration, …)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_paths</span></code>(output_dir, iteration, …)</p></td>
 <td><p>Write either pathset paths (if links=False) or pathset links (if links=True) as the case may be</p></td>
 </tr>
 </tbody>

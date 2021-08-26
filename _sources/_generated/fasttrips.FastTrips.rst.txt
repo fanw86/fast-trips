@@ -17,6 +17,7 @@
       ~FastTrips.read_configuration
       ~FastTrips.read_input_files
       ~FastTrips.run_assignment
+      ~FastTrips.run_skimming
    
    
 

@@ -776,6 +776,16 @@
 <span class="sd">        .. todo:: clean this up?  Rename intermediate files (they&#39;re not really output)</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">access_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">merge_access_egress</span><span class="p">()</span>
+
+        <span class="n">access_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">TAZ</span><span class="o">.</span><span class="n">OUTPUT_ACCESS_EGRESS_FILE</span><span class="p">),</span>
+                         <span class="n">sep</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Wrote </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">TAZ</span><span class="o">.</span><span class="n">OUTPUT_ACCESS_EGRESS_FILE</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">merge_access_egress</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Merges walk and drive access and egress dataframes for C++ extension</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># ========== Walk access/egres =================================================</span>
         <span class="c1"># print &quot;walk_access columns&quot;</span>
         <span class="c1"># for col in list(self.walk_access_df.columns): print &quot;  %s&quot; % col</span>
@@ -783,12 +793,12 @@
         <span class="c1"># start with all walk columns</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">walk_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">walk_access_df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="c1"># drop the redundant columns</span>
-        <span class="n">drop_fields</span> <span class="o">=</span> <span class="p">[</span><span class="n">TAZ</span><span class="o">.</span><span class="n">WALK_ACCESS_COLUMN_TAZ</span><span class="p">,</span>        <span class="c1"># use numerical version</span>
-                      <span class="n">TAZ</span><span class="o">.</span><span class="n">WALK_ACCESS_COLUMN_STOP</span><span class="p">,</span>        <span class="c1"># use numerical version</span>
-                      <span class="n">TAZ</span><span class="o">.</span><span class="n">WALK_ACCESS_COLUMN_DIRECTION</span><span class="p">,</span>   <span class="c1"># it&#39;s in the supply mode num</span>
-                      <span class="n">TAZ</span><span class="o">.</span><span class="n">WALK_ACCESS_COLUMN_SUPPLY_MODE</span><span class="p">,</span> <span class="c1"># use numerical version</span>
-                      <span class="n">TAZ</span><span class="o">.</span><span class="n">WALK_ACCESS_COLUMN_TIME</span><span class="p">,</span>        <span class="c1"># use numerical version</span>
-                     <span class="p">]</span>
+        <span class="n">drop_fields</span> <span class="o">=</span> <span class="p">[</span><span class="n">TAZ</span><span class="o">.</span><span class="n">WALK_ACCESS_COLUMN_TAZ</span><span class="p">,</span>  <span class="c1"># use numerical version</span>
+                       <span class="n">TAZ</span><span class="o">.</span><span class="n">WALK_ACCESS_COLUMN_STOP</span><span class="p">,</span>  <span class="c1"># use numerical version</span>
+                       <span class="n">TAZ</span><span class="o">.</span><span class="n">WALK_ACCESS_COLUMN_DIRECTION</span><span class="p">,</span>  <span class="c1"># it&#39;s in the supply mode num</span>
+                       <span class="n">TAZ</span><span class="o">.</span><span class="n">WALK_ACCESS_COLUMN_SUPPLY_MODE</span><span class="p">,</span>  <span class="c1"># use numerical version</span>
+                       <span class="n">TAZ</span><span class="o">.</span><span class="n">WALK_ACCESS_COLUMN_TIME</span><span class="p">,</span>  <span class="c1"># use numerical version</span>
+                       <span class="p">]</span>
         <span class="c1"># we can only drop fields that are in the dataframe</span>
         <span class="n">walk_fields</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">walk_df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
         <span class="n">valid_drop_fields</span> <span class="o">=</span> <span class="p">[]</span>
@@ -798,14 +808,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">walk_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">valid_drop_fields</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="c1"># make walk access valid all times -- need this for consistency</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">walk_df</span><span class="p">[</span><span class="n">TAZ</span><span class="o">.</span><span class="n">DRIVE_ACCESS_COLUMN_START_TIME_MIN</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">walk_df</span><span class="p">[</span><span class="n">TAZ</span><span class="o">.</span><span class="n">DRIVE_ACCESS_COLUMN_END_TIME_MIN</span>  <span class="p">]</span> <span class="o">=</span> <span class="mf">60.0</span><span class="o">*</span><span class="mf">24.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">walk_df</span><span class="p">[</span><span class="n">TAZ</span><span class="o">.</span><span class="n">DRIVE_ACCESS_COLUMN_END_TIME_MIN</span><span class="p">]</span> <span class="o">=</span> <span class="mf">60.0</span> <span class="o">*</span> <span class="mf">24.0</span>
 
         <span class="c1"># the index is TAZ num, supply mode num, and stop num</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">walk_df</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="n">TAZ</span><span class="o">.</span><span class="n">WALK_ACCESS_COLUMN_TAZ_NUM</span><span class="p">,</span>
-                           <span class="n">TAZ</span><span class="o">.</span><span class="n">WALK_ACCESS_COLUMN_SUPPLY_MODE_NUM</span><span class="p">,</span>
-                           <span class="n">TAZ</span><span class="o">.</span><span class="n">WALK_ACCESS_COLUMN_STOP_NUM</span><span class="p">,</span>
-                           <span class="n">TAZ</span><span class="o">.</span><span class="n">DRIVE_ACCESS_COLUMN_START_TIME_MIN</span><span class="p">,</span>
-                           <span class="n">TAZ</span><span class="o">.</span><span class="n">DRIVE_ACCESS_COLUMN_END_TIME_MIN</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                                <span class="n">TAZ</span><span class="o">.</span><span class="n">WALK_ACCESS_COLUMN_SUPPLY_MODE_NUM</span><span class="p">,</span>
+                                <span class="n">TAZ</span><span class="o">.</span><span class="n">WALK_ACCESS_COLUMN_STOP_NUM</span><span class="p">,</span>
+                                <span class="n">TAZ</span><span class="o">.</span><span class="n">DRIVE_ACCESS_COLUMN_START_TIME_MIN</span><span class="p">,</span>
+                                <span class="n">TAZ</span><span class="o">.</span><span class="n">DRIVE_ACCESS_COLUMN_END_TIME_MIN</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="c1"># ========== Drive access/egres =================================================</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">drive_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">drive_access_df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -816,19 +826,19 @@
         <span class="n">drive_fields</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">drive_df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
 
         <span class="c1"># drop some of the attributes</span>
-        <span class="n">drop_fields</span> <span class="o">=</span> <span class="p">[</span><span class="n">TAZ</span><span class="o">.</span><span class="n">DRIVE_ACCESS_COLUMN_TAZ</span><span class="p">,</span>               <span class="c1"># use numerical version</span>
-                       <span class="n">TAZ</span><span class="o">.</span><span class="n">DRIVE_ACCESS_COLUMN_STOP</span><span class="p">,</span>              <span class="c1"># use numerical version</span>
-                       <span class="n">TAZ</span><span class="o">.</span><span class="n">DRIVE_ACCESS_COLUMN_SUPPLY_MODE</span><span class="p">,</span>       <span class="c1"># use numerical version</span>
-                       <span class="n">TAZ</span><span class="o">.</span><span class="n">DRIVE_ACCESS_COLUMN_DRIVE_TRAVEL_TIME</span><span class="p">,</span> <span class="c1"># use numerical version</span>
-                       <span class="n">TAZ</span><span class="o">.</span><span class="n">DRIVE_ACCESS_COLUMN_START_TIME</span><span class="p">,</span>        <span class="c1"># use numerical version</span>
-                       <span class="n">TAZ</span><span class="o">.</span><span class="n">DRIVE_ACCESS_COLUMN_END_TIME</span><span class="p">,</span>          <span class="c1"># use numerical version</span>
-                       <span class="n">TAZ</span><span class="o">.</span><span class="n">DRIVE_ACCESS_COLUMN_WALK_TIME</span><span class="p">,</span>         <span class="c1"># use numerical version</span>
-                       <span class="n">TAZ</span><span class="o">.</span><span class="n">DRIVE_ACCESS_COLUMN_DIRECTION</span><span class="p">,</span>         <span class="c1"># redundant with supply mode</span>
-                       <span class="n">TAZ</span><span class="o">.</span><span class="n">DAP_COLUMN_DROP_OFF</span><span class="p">,</span>                   <span class="c1"># redundant with supply mode</span>
-                       <span class="n">TAZ</span><span class="o">.</span><span class="n">DAP_COLUMN_LOT_LATITUDE</span><span class="p">,</span>               <span class="c1"># probably not useful</span>
-                       <span class="n">TAZ</span><span class="o">.</span><span class="n">DAP_COLUMN_LOT_LONGITUDE</span><span class="p">,</span>              <span class="c1"># probably not useful</span>
-                       <span class="n">TAZ</span><span class="o">.</span><span class="n">DRIVE_ACCESS_COLUMN_LOT_ID</span><span class="p">,</span>            <span class="c1"># probably not useful</span>
-                      <span class="p">]</span>
+        <span class="n">drop_fields</span> <span class="o">=</span> <span class="p">[</span><span class="n">TAZ</span><span class="o">.</span><span class="n">DRIVE_ACCESS_COLUMN_TAZ</span><span class="p">,</span>  <span class="c1"># use numerical version</span>
+                       <span class="n">TAZ</span><span class="o">.</span><span class="n">DRIVE_ACCESS_COLUMN_STOP</span><span class="p">,</span>  <span class="c1"># use numerical version</span>
+                       <span class="n">TAZ</span><span class="o">.</span><span class="n">DRIVE_ACCESS_COLUMN_SUPPLY_MODE</span><span class="p">,</span>  <span class="c1"># use numerical version</span>
+                       <span class="n">TAZ</span><span class="o">.</span><span class="n">DRIVE_ACCESS_COLUMN_DRIVE_TRAVEL_TIME</span><span class="p">,</span>  <span class="c1"># use numerical version</span>
+                       <span class="n">TAZ</span><span class="o">.</span><span class="n">DRIVE_ACCESS_COLUMN_START_TIME</span><span class="p">,</span>  <span class="c1"># use numerical version</span>
+                       <span class="n">TAZ</span><span class="o">.</span><span class="n">DRIVE_ACCESS_COLUMN_END_TIME</span><span class="p">,</span>  <span class="c1"># use numerical version</span>
+                       <span class="n">TAZ</span><span class="o">.</span><span class="n">DRIVE_ACCESS_COLUMN_WALK_TIME</span><span class="p">,</span>  <span class="c1"># use numerical version</span>
+                       <span class="n">TAZ</span><span class="o">.</span><span class="n">DRIVE_ACCESS_COLUMN_DIRECTION</span><span class="p">,</span>  <span class="c1"># redundant with supply mode</span>
+                       <span class="n">TAZ</span><span class="o">.</span><span class="n">DAP_COLUMN_DROP_OFF</span><span class="p">,</span>  <span class="c1"># redundant with supply mode</span>
+                       <span class="n">TAZ</span><span class="o">.</span><span class="n">DAP_COLUMN_LOT_LATITUDE</span><span class="p">,</span>  <span class="c1"># probably not useful</span>
+                       <span class="n">TAZ</span><span class="o">.</span><span class="n">DAP_COLUMN_LOT_LONGITUDE</span><span class="p">,</span>  <span class="c1"># probably not useful</span>
+                       <span class="n">TAZ</span><span class="o">.</span><span class="n">DRIVE_ACCESS_COLUMN_LOT_ID</span><span class="p">,</span>  <span class="c1"># probably not useful</span>
+                       <span class="p">]</span>
         <span class="n">valid_drop_fields</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">drop_fields</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">drive_fields</span><span class="p">:</span> <span class="n">valid_drop_fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">field</span><span class="p">)</span>
@@ -852,7 +862,7 @@
 
         <span class="n">access_df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="c1"># rename from these default column names</span>
-        <span class="n">access_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;level_3&quot;</span><span class="p">:</span><span class="s2">&quot;attr_name&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="s2">&quot;attr_value&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">access_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;level_3&quot;</span><span class="p">:</span> <span class="s2">&quot;attr_name&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;attr_value&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="c1"># make attr_value a float instead of an object</span>
         <span class="n">access_df</span><span class="p">[</span><span class="s2">&quot;attr_value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">access_df</span><span class="p">[</span><span class="s2">&quot;attr_value&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
 
@@ -862,16 +872,13 @@
         <span class="c1"># Check for null stop ids</span>
         <span class="n">null_stop_ids</span> <span class="o">=</span> <span class="n">access_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">access_df</span><span class="p">[</span><span class="s2">&quot;stop_id_num&quot;</span><span class="p">])]</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">null_stop_ids</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;write_access_egress_for_extension null_stop_ids:</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">null_stop_ids</span><span class="p">))</span>
+            <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;merge_access_egress null_stop_ids:</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">null_stop_ids</span><span class="p">))</span>
 
             <span class="c1"># for now, drop rows with null stop id nums</span>
-            <span class="n">access_df</span> <span class="o">=</span> <span class="n">access_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">access_df</span><span class="p">[</span><span class="s2">&quot;stop_id_num&quot;</span><span class="p">])</span> <span class="p">]</span>
+            <span class="n">access_df</span> <span class="o">=</span> <span class="n">access_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">access_df</span><span class="p">[</span><span class="s2">&quot;stop_id_num&quot;</span><span class="p">])]</span>
 
         <span class="n">access_df</span><span class="p">[</span><span class="s2">&quot;stop_id_num&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">access_df</span><span class="p">[</span><span class="s2">&quot;stop_id_num&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-
-        <span class="n">access_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">TAZ</span><span class="o">.</span><span class="n">OUTPUT_ACCESS_EGRESS_FILE</span><span class="p">),</span>
-                         <span class="n">sep</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Wrote </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">TAZ</span><span class="o">.</span><span class="n">OUTPUT_ACCESS_EGRESS_FILE</span><span class="p">))</span></div>
+        <span class="k">return</span> <span class="n">access_df</span></div>
 </pre></div>
 
            </div>

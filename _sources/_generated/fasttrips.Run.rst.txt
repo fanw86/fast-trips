@@ -15,6 +15,7 @@
    
       main
       run_fasttrips
+      run_fasttrips_skimming
       run_setup
    
    

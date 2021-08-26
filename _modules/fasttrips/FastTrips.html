@@ -193,6 +193,7 @@
 <span class="kn">from</span> <span class="nn">.Passenger</span>   <span class="kn">import</span> <span class="n">Passenger</span>
 <span class="kn">from</span> <span class="nn">.Performance</span> <span class="kn">import</span> <span class="n">Performance</span>
 <span class="kn">from</span> <span class="nn">.Route</span>       <span class="kn">import</span> <span class="n">Route</span>
+<span class="kn">from</span> <span class="nn">.Skimming</span> <span class="kn">import</span> <span class="n">Skimming</span>
 <span class="kn">from</span> <span class="nn">.Stop</span>        <span class="kn">import</span> <span class="n">Stop</span>
 <span class="kn">from</span> <span class="nn">.TAZ</span>         <span class="kn">import</span> <span class="n">TAZ</span>
 <span class="kn">from</span> <span class="nn">.Transfer</span>    <span class="kn">import</span> <span class="n">Transfer</span>
@@ -344,6 +345,25 @@
 
             <span class="n">r</span> <span class="o">=</span> <span class="n">Assignment</span><span class="o">.</span><span class="n">assign_paths</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
 
+        <span class="k">except</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">((</span><span class="s2">&quot;Unexpected error:&quot;</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="mi">0</span><span class="p">]))</span>
+            <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s2">&quot;Unexpected error: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="mi">0</span><span class="p">]))</span>
+            <span class="k">raise</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">performance</span><span class="o">.</span><span class="n">record_step_end</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">performance</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">output_dir</span><span class="p">)</span>
+
+        <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Successfully completed!&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">r</span>
+
+    <span class="k">def</span> <span class="nf">run_skimming</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">performance</span><span class="o">.</span><span class="n">record_step_start</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;run_skimming&quot;</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># do this last before assigning paths so values reflect pathfinding</span>
+            <span class="n">Assignment</span><span class="o">.</span><span class="n">write_configuration</span><span class="p">(</span><span class="n">Assignment</span><span class="o">.</span><span class="n">OUTPUT_DIR</span><span class="p">)</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">Skimming</span><span class="o">.</span><span class="n">generate_skims</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
         <span class="k">except</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">((</span><span class="s2">&quot;Unexpected error:&quot;</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="mi">0</span><span class="p">]))</span>
             <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s2">&quot;Unexpected error: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="mi">0</span><span class="p">]))</span>

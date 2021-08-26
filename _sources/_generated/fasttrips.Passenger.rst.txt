@@ -17,6 +17,7 @@
       ~Passenger.add_pathset
       ~Passenger.choose_paths
       ~Passenger.get_chosen_links
+      ~Passenger.get_id_columns
       ~Passenger.get_pathset
       ~Passenger.get_person_id
       ~Passenger.read_passenger_pathsets
