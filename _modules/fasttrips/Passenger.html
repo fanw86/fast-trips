@@ -716,218 +716,255 @@
         <span class="k">return</span> <span class="p">(</span><span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">pathset_links_df</span><span class="p">)</span>
 
 
-    <span class="k">def</span> <span class="nf">setup_passenger_pathsets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iteration</span><span class="p">,</span> <span class="n">pathfinding_iteration</span><span class="p">,</span> <span class="n">stops</span><span class="p">,</span> <span class="n">trip_id_df</span><span class="p">,</span> <span class="n">trips_df</span><span class="p">,</span> <span class="n">modes_df</span><span class="p">,</span>
-                                 <span class="n">transfers</span><span class="p">,</span> <span class="n">tazs</span><span class="p">,</span> <span class="n">prepend_route_id_to_trip_id</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Converts pathfinding results (which is stored in each Passenger :py:class:`PathSet`) into two</span>
-<span class="sd">        :py:class:`pandas.DataFrame` instances.</span>
-
-<span class="sd">        Returns two :py:class:`pandas.DataFrame` instances: pathset_paths_df and pathset_links_df.</span>
-<span class="sd">        These only include pathsets for person trips which have just been sought (e.g. those in</span>
-<span class="sd">        :py:attr:`Passenger.pathfind_trip_list_df`)</span>
-
-<span class="sd">        pathset_paths_df has path set information, where each row represents a passenger&#39;s path:</span>
-
-<span class="sd">        ==================  ===============  =====================================================================================================</span>
-<span class="sd">        column name          column type     description</span>
-<span class="sd">        ==================  ===============  =====================================================================================================</span>
-<span class="sd">        `person_id`                  object  person ID</span>
-<span class="sd">        `person_trip_id`             object  person trip ID</span>
-<span class="sd">        `trip_list_id_num`            int64  trip list numerical ID</span>
-<span class="sd">        `trace`                        bool  Are we tracing this person trip?</span>
-<span class="sd">        `pathdir`                     int64  the :py:attr:`PathSet.direction`</span>
-<span class="sd">        `pathmode`                   object  the :py:attr:`PathSet.mode`</span>
-<span class="sd">        `pf_iteration`              float64  iteration + 0.01*pathfinding_iteration in which these paths were found</span>
-<span class="sd">        `pathnum`                     int64  the path number for the path within the pathset</span>
-<span class="sd">        `pf_cost`                   float64  the cost of the entire path</span>
-<span class="sd">        `pf_fare`                   float64  the fare of the entire path</span>
-<span class="sd">        `pf_probability`            float64  the probability of the path</span>
-<span class="sd">        `pf_initcost`               float64  the initial cost of the entire path</span>
-<span class="sd">        `pf_initfare`               float64  the initial fare of the entire path</span>
-<span class="sd">        `description`                object  string representation of the path</span>
-<span class="sd">        ==================  ===============  =====================================================================================================</span>
-
-<span class="sd">        pathset_links_df has path link information, where each row represents a link in a passenger&#39;s path:</span>
-
-<span class="sd">        ==================  ===============  =====================================================================================================</span>
-<span class="sd">        column name          column type     description</span>
-<span class="sd">        ==================  ===============  =====================================================================================================</span>
-<span class="sd">        `person_id`                  object  person ID</span>
-<span class="sd">        `person_trip_id`             object  person trip ID</span>
-<span class="sd">        `trip_list_id_num`            int64  trip list numerical ID</span>
-<span class="sd">        `trace`                        bool  Are we tracing this person trip?</span>
-<span class="sd">        `pf_iteration`              float64  iteration + 0.01*pathfinding_iteration in which these paths were found</span>
-<span class="sd">        `pathnum`                     int64  the path number for the path within the pathset</span>
-<span class="sd">        `linkmode`                   object  the mode of the link, one of :py:attr:`PathSet.STATE_MODE_ACCESS`, :py:attr:`PathSet.STATE_MODE_EGRESS`,</span>
-<span class="sd">                                             :py:attr:`PathSet.STATE_MODE_TRANSFER` or :py:attr:`PathSet.STATE_MODE_TRIP`.  PathSets will always start with</span>
-<span class="sd">                                             access, followed by trips with transfers in between, and ending in an egress following the last trip.</span>
-<span class="sd">        `mode_num`                    int64  the mode number for the link</span>
-<span class="sd">        `mode`                       object  the supply mode for the link</span>
-<span class="sd">        `route_id`                   object  the route ID for trip links.  Set to :py:attr:`numpy.nan` for non-trip links.</span>
-<span class="sd">        `trip_id`                    object  the trip ID for trip links.  Set to :py:attr:`numpy.nan` for non-trip links.</span>
-<span class="sd">        `trip_id_num`               float64  the numerical trip ID for trip links.  Set to :py:attr:`numpy.nan` for non-trip links.</span>
-<span class="sd">        `A_id`                       object  the stop ID at the start of the link, or TAZ ID for access links</span>
-<span class="sd">        `A_id_num`                    int64  the numerical stop ID at the start of the link, or a numerical TAZ ID for access links</span>
-<span class="sd">        `B_id`                       object  the stop ID at the end of the link, or a TAZ ID for access links</span>
-<span class="sd">        `B_id_num`                    int64  the numerical stop ID at the end of the link, or a numerical TAZ ID for access links</span>
-<span class="sd">        `A_seq`                       int64  the sequence number for the stop at the start of the link, or -1 for access links</span>
-<span class="sd">        `B_seq`                       int64  the sequence number for the stop at the start of the link, or -1 for access links</span>
-<span class="sd">        `pf_A_time`          datetime64[ns]  the time the passenger arrives at `A_id`</span>
-<span class="sd">        `pf_B_time`          datetime64[ns]  the time the passenger arrives at `B_id`</span>
-<span class="sd">        `pf_linktime`       timedelta64[ns]  the time spent on the link</span>
-<span class="sd">        `pf_linkfare`               float64  the fare of the link</span>
-<span class="sd">        `pf_linkcost`               float64  the generalized cost of the link</span>
-<span class="sd">        `pf_linkdist`               float64  the distance for the link</span>
-<span class="sd">        `A_lat`                     float64  the latitude of A (if it&#39;s a stop)</span>
-<span class="sd">        `A_lon`                     float64  the longitude of A (if it&#39;s a stop)</span>
-<span class="sd">        `B_lat`                     float64  the latitude of B (if it&#39;s a stop)</span>
-<span class="sd">        `B_lon`                     float64  the longitude of B (if it&#39;s a stop)</span>
-<span class="sd">        ==================  ===============  =====================================================================================================</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">.Assignment</span> <span class="kn">import</span> <span class="n">Assignment</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">process_path</span><span class="p">(</span><span class="n">pathnum</span><span class="p">,</span> <span class="n">pathset</span><span class="p">,</span> <span class="n">pathset_id</span><span class="p">,</span> <span class="n">pf_iteration</span><span class="p">,</span> <span class="n">is_skimming</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">.PathSet</span> <span class="kn">import</span> <span class="n">PathSet</span>
-        <span class="n">pathlist</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">linklist</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="kn">from</span> <span class="nn">.Assignment</span> <span class="kn">import</span> <span class="n">Assignment</span>
+
+        <span class="k">if</span> <span class="n">is_skimming</span><span class="p">:</span>
+            <span class="n">origin</span> <span class="o">=</span> <span class="n">pathset_id</span>
+
+            <span class="n">pathlist_entry</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">origin</span><span class="p">,</span>
+                <span class="n">pathset</span><span class="o">.</span><span class="n">direction</span><span class="p">,</span>
+                <span class="c1"># pathset.mode,  # where does this come from?</span>
+                <span class="n">pathnum</span><span class="p">,</span>
+            <span class="p">]</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">trip_list_id</span> <span class="o">=</span> <span class="n">pathset_id</span>
+            <span class="n">pathlist_entry</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">pathset</span><span class="o">.</span><span class="n">person_id</span><span class="p">,</span>
+                <span class="n">pathset</span><span class="o">.</span><span class="n">person_trip_id</span><span class="p">,</span>
+                <span class="n">trip_list_id</span><span class="p">,</span>
+                <span class="p">(</span><span class="n">pathset</span><span class="o">.</span><span class="n">person_id</span><span class="p">,</span> <span class="n">pathset</span><span class="o">.</span><span class="n">person_trip_id</span><span class="p">)</span> <span class="ow">in</span> <span class="n">Assignment</span><span class="o">.</span><span class="n">TRACE_IDS</span><span class="p">,</span>
+                <span class="n">pathset</span><span class="o">.</span><span class="n">direction</span><span class="p">,</span>
+                <span class="n">pathset</span><span class="o">.</span><span class="n">mode</span><span class="p">,</span>
+                <span class="n">pf_iteration</span><span class="p">,</span>
+                <span class="n">pathnum</span><span class="p">,</span>
+
+            <span class="p">]</span>
+
+        <span class="n">pathlist_entry</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span>
+            <span class="n">pathset</span><span class="o">.</span><span class="n">pathdict</span><span class="p">[</span><span class="n">pathnum</span><span class="p">][</span><span class="n">PathSet</span><span class="o">.</span><span class="n">PATH_KEY_COST</span><span class="p">],</span>
+            <span class="n">pathset</span><span class="o">.</span><span class="n">pathdict</span><span class="p">[</span><span class="n">pathnum</span><span class="p">][</span><span class="n">PathSet</span><span class="o">.</span><span class="n">PATH_KEY_FARE</span><span class="p">],</span>
+            <span class="n">pathset</span><span class="o">.</span><span class="n">pathdict</span><span class="p">[</span><span class="n">pathnum</span><span class="p">][</span><span class="n">PathSet</span><span class="o">.</span><span class="n">PATH_KEY_PROBABILITY</span><span class="p">],</span>
+            <span class="n">pathset</span><span class="o">.</span><span class="n">pathdict</span><span class="p">[</span><span class="n">pathnum</span><span class="p">][</span><span class="n">PathSet</span><span class="o">.</span><span class="n">PATH_KEY_INIT_COST</span><span class="p">],</span>
+            <span class="n">pathset</span><span class="o">.</span><span class="n">pathdict</span><span class="p">[</span><span class="n">pathnum</span><span class="p">][</span><span class="n">PathSet</span><span class="o">.</span><span class="n">PATH_KEY_INIT_FARE</span><span class="p">]</span>
+        <span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">pathlist_entry</span>
+
+
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">process_path_state</span><span class="p">(</span>
+            <span class="n">pathnum</span><span class="p">,</span> <span class="n">pathset</span><span class="p">,</span> <span class="n">pathset_id</span><span class="p">,</span> <span class="n">state_id</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">pf_iteration</span><span class="p">,</span>
+            <span class="n">linkmode</span><span class="p">,</span> <span class="n">link_num</span><span class="p">,</span> <span class="n">prev_linkmode</span><span class="p">,</span> <span class="n">prev_state_id</span><span class="p">,</span> <span class="n">state_list_for_logging</span><span class="p">,</span> <span class="n">is_skimming</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+
+    <span class="p">):</span>
+        <span class="c1"># OUTBOUND passengers have states like this:</span>
+        <span class="c1">#    stop:          label    departure   dep_mode  successor linktime</span>
+        <span class="c1"># orig_taz                                 Access    b stop1</span>
+        <span class="c1">#  b stop1                                  trip1    a stop2</span>
+        <span class="c1">#  a stop2                               Transfer    b stop3</span>
+        <span class="c1">#  b stop3                                  trip2    a stop4</span>
+        <span class="c1">#  a stop4                                 Egress   dest_taz</span>
+        <span class="c1">#</span>
+        <span class="c1">#  stop:         label  dep_time    dep_mode   successor  seq  suc       linktime             cost  arr_time</span>
+        <span class="c1">#   460:  0:20:49.4000  17:41:10      Access        3514   -1   -1   0:03:08.4000     0:03:08.4000  17:44:18</span>
+        <span class="c1">#  3514:  0:17:41.0000  17:44:18     5131292        4313   30   40   0:06:40.0000     0:12:21.8000  17:50:59</span>
+        <span class="c1">#  4313:  0:05:19.2000  17:50:59    Transfer        5728   -1   -1   0:00:19.2000     0:00:19.2000  17:51:18</span>
+        <span class="c1">#  5728:  0:04:60.0000  17:57:00     5154302        5726   16   17   0:07:33.8000     0:03:02.4000  17:58:51</span>
+        <span class="c1">#  5726:  0:01:57.6000  17:58:51      Egress         231   -1   -1   0:01:57.6000     0:01:57.6000  18:00:49</span>
+
+        <span class="c1"># INBOUND passengers have states like this</span>
+        <span class="c1">#   stop:          label      arrival   arr_mode predecessor linktime</span>
+        <span class="c1"># dest_taz                                 Egress    a stop4</span>
+        <span class="c1">#  a stop4                                  trip2    b stop3</span>
+        <span class="c1">#  b stop3                               Transfer    a stop2</span>
+        <span class="c1">#  a stop2                                  trip1    b stop1</span>
+        <span class="c1">#  b stop1                                 Access   orig_taz</span>
+        <span class="c1">#</span>
+        <span class="c1">#  stop:         label  arr_time    arr_mode predecessor  seq pred       linktime             cost  dep_time</span>
+        <span class="c1">#    15:  0:36:38.4000  17:30:38      Egress        3772   -1   -1   0:02:38.4000     0:02:38.4000  17:28:00</span>
+        <span class="c1">#  3772:  0:34:00.0000  17:28:00     5123368        6516   22   14   0:24:17.2000     0:24:17.2000  17:05:50</span>
+        <span class="c1">#  6516:  0:09:42.8000  17:03:42    Transfer        4766   -1   -1   0:00:16.8000     0:00:16.8000  17:03:25</span>
+        <span class="c1">#  4766:  0:09:26.0000  17:03:25     5138749        5671    7    3   0:05:30.0000     0:05:33.2000  16:57:55</span>
+        <span class="c1">#  5671:  0:03:52.8000  16:57:55      Access         943   -1   -1   0:03:52.8000     0:03:52.8000  16:54:03</span>
+        <span class="kn">from</span> <span class="nn">.PathSet</span> <span class="kn">import</span> <span class="n">PathSet</span>
+        <span class="kn">from</span> <span class="nn">.Assignment</span> <span class="kn">import</span> <span class="n">Assignment</span>
+
+        <span class="n">prev_linkmode</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">prev_state_id</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">mode_num</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">trip_id</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">waittime</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">linkmode</span> <span class="ow">in</span> <span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_MODE_ACCESS</span><span class="p">,</span> <span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_MODE_TRANSFER</span><span class="p">,</span> <span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_MODE_EGRESS</span><span class="p">]:</span>
+            <span class="n">mode_num</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_TRIP</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># trip mode_num will need to be joined</span>
+            <span class="n">trip_id</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_TRIP</span><span class="p">]</span>
+            <span class="n">linkmode</span> <span class="o">=</span> <span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_MODE_TRIP</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_skimming</span> <span class="ow">and</span> <span class="n">pathset</span><span class="o">.</span><span class="n">outbound</span><span class="p">:</span>
+            <span class="n">a_id_num</span> <span class="o">=</span> <span class="n">state_id</span>
+            <span class="n">b_id_num</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_SUCCPRED</span><span class="p">]</span>
+            <span class="n">a_seq</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_SEQ</span><span class="p">]</span>
+            <span class="n">b_seq</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_SEQ_SUCCPRED</span><span class="p">]</span>
+            <span class="n">b_time</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_ARRDEP</span><span class="p">]</span>
+            <span class="n">a_time</span> <span class="o">=</span> <span class="n">b_time</span> <span class="o">-</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_LINKTIME</span><span class="p">]</span>
+            <span class="n">trip_time</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_ARRDEP</span><span class="p">]</span> <span class="o">-</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_DEPARR</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># skimming always inbound</span>
+            <span class="n">a_id_num</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_SUCCPRED</span><span class="p">]</span>
+            <span class="n">b_id_num</span> <span class="o">=</span> <span class="n">state_id</span>
+            <span class="n">a_seq</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_SEQ_SUCCPRED</span><span class="p">]</span>
+            <span class="n">b_seq</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_SEQ</span><span class="p">]</span>
+            <span class="n">b_time</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_DEPARR</span><span class="p">]</span>
+            <span class="n">a_time</span> <span class="o">=</span> <span class="n">b_time</span> <span class="o">-</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_LINKTIME</span><span class="p">]</span>
+            <span class="n">trip_time</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_DEPARR</span><span class="p">]</span> <span class="o">-</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_ARRDEP</span><span class="p">]</span>
+
+        <span class="c1"># trips: linktime includes wait</span>
+        <span class="k">if</span> <span class="n">linkmode</span> <span class="o">==</span> <span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_MODE_TRIP</span><span class="p">:</span>
+            <span class="n">waittime</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_LINKTIME</span><span class="p">]</span> <span class="o">-</span> <span class="n">trip_time</span>
+
+        <span class="c1"># two trips in a row -- this shouldn&#39;t happen</span>
+        <span class="k">if</span> <span class="n">linkmode</span> <span class="o">==</span> <span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_MODE_TRIP</span> <span class="ow">and</span> <span class="n">prev_linkmode</span> <span class="o">==</span> <span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_MODE_TRIP</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">is_skimming</span><span class="p">:</span>
+                <span class="n">warn_msg</span> <span class="o">=</span><span class="p">(</span><span class="s2">&quot;Two trip links in a row... this shouldn&#39;t happen. person_id is </span><span class="si">%s</span><span class="s2"> trip is </span><span class="si">%s</span><span class="se">\n</span><span class="s2">pathnum is </span><span class="si">%d</span><span class="se">\n</span><span class="s2">statelist (</span><span class="si">%d</span><span class="s2">): </span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                <span class="n">pathset</span><span class="o">.</span><span class="n">person_id</span><span class="p">,</span> <span class="n">pathset</span><span class="o">.</span><span class="n">person_trip_id</span><span class="p">,</span> <span class="n">pathnum</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">state_list_for_logging</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">state_list_for_logging</span><span class="p">)))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">warn_msg</span> <span class="o">=</span> <span class="s2">&quot;Two trip links in a row... this shouldn&#39;t happen.&quot;</span>
+            <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">warn_msg</span><span class="p">)</span>
+
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">is_skimming</span><span class="p">:</span>
+            <span class="n">linklist_entry</span> <span class="o">=</span> <span class="p">[</span><span class="n">pathset_id</span><span class="p">]</span> <span class="c1"># origin</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">linklist_entry</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">pathset</span><span class="o">.</span><span class="n">person_id</span><span class="p">,</span>
+                <span class="n">pathset</span><span class="o">.</span><span class="n">person_trip_id</span><span class="p">,</span>
+                <span class="n">pathset_id</span><span class="p">,</span>  <span class="c1"># trip list id</span>
+                <span class="p">(</span><span class="n">pathset</span><span class="o">.</span><span class="n">person_id</span><span class="p">,</span> <span class="n">pathset</span><span class="o">.</span><span class="n">person_trip_id</span><span class="p">)</span> <span class="ow">in</span> <span class="n">Assignment</span><span class="o">.</span><span class="n">TRACE_IDS</span><span class="p">,</span>
+                <span class="n">pf_iteration</span><span class="p">,</span>
+                <span class="c1"># 0.01 * pathfinding_iteration + iteration,</span>
+            <span class="p">]</span>
+        <span class="n">linklist_entry</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="n">pathnum</span><span class="p">,</span>
+                <span class="n">linkmode</span><span class="p">,</span>
+                <span class="n">mode_num</span><span class="p">,</span>
+                <span class="n">trip_id</span><span class="p">,</span>
+                <span class="n">a_id_num</span><span class="p">,</span>
+                <span class="n">b_id_num</span><span class="p">,</span>
+                <span class="n">a_seq</span><span class="p">,</span>
+                <span class="n">b_seq</span><span class="p">,</span>
+                <span class="n">a_time</span><span class="p">,</span>
+                <span class="n">b_time</span><span class="p">,</span>
+                <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_LINKTIME</span><span class="p">],</span>
+                <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_LINKFARE</span><span class="p">],</span>
+                <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_LINKCOST</span><span class="p">],</span>
+                <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_LINKDIST</span><span class="p">],</span>
+                <span class="n">waittime</span><span class="p">,</span>
+                <span class="n">link_num</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">linklist_entry</span>
+
+    <span class="k">def</span> <span class="nf">setup_passenger_pathsets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iteration</span><span class="p">,</span> <span class="n">pathfinding_iteration</span><span class="p">,</span> <span class="n">stops</span><span class="p">,</span> <span class="n">trip_id_df</span><span class="p">,</span> <span class="n">trips_df</span><span class="p">,</span> <span class="n">modes_df</span><span class="p">,</span>
+                                 <span class="n">transfers</span><span class="p">,</span> <span class="n">tazs</span><span class="p">,</span> <span class="n">prepend_route_id_to_trip_id</span><span class="p">,</span>
+                                 <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                Converts pathfinding results (which is stored in each Passenger :py:class:`PathSet`) into two</span>
+<span class="sd">                :py:class:`pandas.DataFrame` instances.</span>
+
+<span class="sd">                Returns two :py:class:`pandas.DataFrame` instances: pathset_paths_df and pathset_links_df.</span>
+<span class="sd">                These only include pathsets for person trips which have just been sought (e.g. those in</span>
+<span class="sd">                :py:attr:`Passenger.pathfind_trip_list_df`)</span>
+
+<span class="sd">                pathset_paths_df has path set information, where each row represents a passenger&#39;s path:</span>
+
+<span class="sd">                ==================  ===============  =====================================================================================================</span>
+<span class="sd">                column name          column type     description</span>
+<span class="sd">                ==================  ===============  =====================================================================================================</span>
+<span class="sd">                `person_id`                  object  person ID</span>
+<span class="sd">                `person_trip_id`             object  person trip ID</span>
+<span class="sd">                `trip_list_id_num`            int64  trip list numerical ID</span>
+<span class="sd">                `trace`                        bool  Are we tracing this person trip?</span>
+<span class="sd">                `pathdir`                     int64  the :py:attr:`PathSet.direction`</span>
+<span class="sd">                `pathmode`                   object  the :py:attr:`PathSet.mode`</span>
+<span class="sd">                `pf_iteration`              float64  iteration + 0.01*pathfinding_iteration in which these paths were found</span>
+<span class="sd">                `pathnum`                     int64  the path number for the path within the pathset</span>
+<span class="sd">                `pf_cost`                   float64  the cost of the entire path</span>
+<span class="sd">                `pf_fare`                   float64  the fare of the entire path</span>
+<span class="sd">                `pf_probability`            float64  the probability of the path</span>
+<span class="sd">                `pf_initcost`               float64  the initial cost of the entire path</span>
+<span class="sd">                `pf_initfare`               float64  the initial fare of the entire path</span>
+<span class="sd">                `description`                object  string representation of the path</span>
+<span class="sd">                ==================  ===============  =====================================================================================================</span>
+
+<span class="sd">                pathset_links_df has path link information, where each row represents a link in a passenger&#39;s path:</span>
+
+<span class="sd">                ==================  ===============  =====================================================================================================</span>
+<span class="sd">                column name          column type     description</span>
+<span class="sd">                ==================  ===============  =====================================================================================================</span>
+<span class="sd">                `person_id`                  object  person ID</span>
+<span class="sd">                `person_trip_id`             object  person trip ID</span>
+<span class="sd">                `trip_list_id_num`            int64  trip list numerical ID</span>
+<span class="sd">                `trace`                        bool  Are we tracing this person trip?</span>
+<span class="sd">                `pf_iteration`              float64  iteration + 0.01*pathfinding_iteration in which these paths were found</span>
+<span class="sd">                `pathnum`                     int64  the path number for the path within the pathset</span>
+<span class="sd">                `linkmode`                   object  the mode of the link, one of :py:attr:`PathSet.STATE_MODE_ACCESS`, :py:attr:`PathSet.STATE_MODE_EGRESS`,</span>
+<span class="sd">                                                     :py:attr:`PathSet.STATE_MODE_TRANSFER` or :py:attr:`PathSet.STATE_MODE_TRIP`.  PathSets will always start with</span>
+<span class="sd">                                                     access, followed by trips with transfers in between, and ending in an egress following the last trip.</span>
+<span class="sd">                `mode_num`                    int64  the mode number for the link</span>
+<span class="sd">                `mode`                       object  the supply mode for the link</span>
+<span class="sd">                `route_id`                   object  the route ID for trip links.  Set to :py:attr:`numpy.nan` for non-trip links.</span>
+<span class="sd">                `trip_id`                    object  the trip ID for trip links.  Set to :py:attr:`numpy.nan` for non-trip links.</span>
+<span class="sd">                `trip_id_num`               float64  the numerical trip ID for trip links.  Set to :py:attr:`numpy.nan` for non-trip links.</span>
+<span class="sd">                `A_id`                       object  the stop ID at the start of the link, or TAZ ID for access links</span>
+<span class="sd">                `A_id_num`                    int64  the numerical stop ID at the start of the link, or a numerical TAZ ID for access links</span>
+<span class="sd">                `B_id`                       object  the stop ID at the end of the link, or a TAZ ID for access links</span>
+<span class="sd">                `B_id_num`                    int64  the numerical stop ID at the end of the link, or a numerical TAZ ID for access links</span>
+<span class="sd">                `A_seq`                       int64  the sequence number for the stop at the start of the link, or -1 for access links</span>
+<span class="sd">                `B_seq`                       int64  the sequence number for the stop at the start of the link, or -1 for access links</span>
+<span class="sd">                `pf_A_time`          datetime64[ns]  the time the passenger arrives at `A_id`</span>
+<span class="sd">                `pf_B_time`          datetime64[ns]  the time the passenger arrives at `B_id`</span>
+<span class="sd">                `pf_linktime`       timedelta64[ns]  the time spent on the link</span>
+<span class="sd">                `pf_linkfare`               float64  the fare of the link</span>
+<span class="sd">                `pf_linkcost`               float64  the generalized cost of the link</span>
+<span class="sd">                `pf_linkdist`               float64  the distance for the link</span>
+<span class="sd">                `A_lat`                     float64  the latitude of A (if it&#39;s a stop)</span>
+<span class="sd">                `A_lon`                     float64  the longitude of A (if it&#39;s a stop)</span>
+<span class="sd">                `B_lat`                     float64  the latitude of B (if it&#39;s a stop)</span>
+<span class="sd">                `B_lon`                     float64  the longitude of B (if it&#39;s a stop)</span>
+<span class="sd">                ==================  ===============  =====================================================================================================</span>
+
+<span class="sd">                &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">.PathSet</span> <span class="kn">import</span> <span class="n">PathSet</span>
 
         <span class="n">trip_list_id_nums</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pathfind_trip_list_df</span><span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TRIP_LIST_ID_NUM</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="c1"># only process if we just did pathfinding for this person trip</span>
+        <span class="n">pathset_dict</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">trip_list_id</span><span class="p">:</span> <span class="n">pathset</span> <span class="k">for</span> <span class="n">trip_list_id</span><span class="p">,</span> <span class="n">pathset</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_to_pathset</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span>
+            <span class="n">trip_list_id</span> <span class="ow">in</span> <span class="n">trip_list_id_nums</span>
+        <span class="p">}</span>
+        <span class="n">pf_iteration</span> <span class="o">=</span> <span class="mf">0.01</span> <span class="o">*</span> <span class="n">pathfinding_iteration</span> <span class="o">+</span> <span class="n">iteration</span>
 
-        <span class="k">for</span> <span class="n">trip_list_id</span><span class="p">,</span><span class="n">pathset</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_to_pathset</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="c1"># only process if we just did pathfinding for this person trip</span>
-            <span class="k">if</span> <span class="n">trip_list_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">trip_list_id_nums</span><span class="p">:</span> <span class="k">continue</span>
-
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">pathset</span><span class="o">.</span><span class="n">goes_somewhere</span><span class="p">():</span>   <span class="k">continue</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">pathset</span><span class="o">.</span><span class="n">path_found</span><span class="p">():</span>       <span class="k">continue</span>
-
-            <span class="k">for</span> <span class="n">pathnum</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">pathset</span><span class="o">.</span><span class="n">num_paths</span><span class="p">()):</span>
-                <span class="c1"># OUTBOUND passengers have states like this:</span>
-                <span class="c1">#    stop:          label    departure   dep_mode  successor linktime</span>
-                <span class="c1"># orig_taz                                 Access    b stop1</span>
-                <span class="c1">#  b stop1                                  trip1    a stop2</span>
-                <span class="c1">#  a stop2                               Transfer    b stop3</span>
-                <span class="c1">#  b stop3                                  trip2    a stop4</span>
-                <span class="c1">#  a stop4                                 Egress   dest_taz</span>
-                <span class="c1">#</span>
-                <span class="c1">#  stop:         label  dep_time    dep_mode   successor  seq  suc       linktime             cost  arr_time</span>
-                <span class="c1">#   460:  0:20:49.4000  17:41:10      Access        3514   -1   -1   0:03:08.4000     0:03:08.4000  17:44:18</span>
-                <span class="c1">#  3514:  0:17:41.0000  17:44:18     5131292        4313   30   40   0:06:40.0000     0:12:21.8000  17:50:59</span>
-                <span class="c1">#  4313:  0:05:19.2000  17:50:59    Transfer        5728   -1   -1   0:00:19.2000     0:00:19.2000  17:51:18</span>
-                <span class="c1">#  5728:  0:04:60.0000  17:57:00     5154302        5726   16   17   0:07:33.8000     0:03:02.4000  17:58:51</span>
-                <span class="c1">#  5726:  0:01:57.6000  17:58:51      Egress         231   -1   -1   0:01:57.6000     0:01:57.6000  18:00:49</span>
-
-                <span class="c1"># INBOUND passengers have states like this</span>
-                <span class="c1">#   stop:          label      arrival   arr_mode predecessor linktime</span>
-                <span class="c1"># dest_taz                                 Egress    a stop4</span>
-                <span class="c1">#  a stop4                                  trip2    b stop3</span>
-                <span class="c1">#  b stop3                               Transfer    a stop2</span>
-                <span class="c1">#  a stop2                                  trip1    b stop1</span>
-                <span class="c1">#  b stop1                                 Access   orig_taz</span>
-                <span class="c1">#</span>
-                <span class="c1">#  stop:         label  arr_time    arr_mode predecessor  seq pred       linktime             cost  dep_time</span>
-                <span class="c1">#    15:  0:36:38.4000  17:30:38      Egress        3772   -1   -1   0:02:38.4000     0:02:38.4000  17:28:00</span>
-                <span class="c1">#  3772:  0:34:00.0000  17:28:00     5123368        6516   22   14   0:24:17.2000     0:24:17.2000  17:05:50</span>
-                <span class="c1">#  6516:  0:09:42.8000  17:03:42    Transfer        4766   -1   -1   0:00:16.8000     0:00:16.8000  17:03:25</span>
-                <span class="c1">#  4766:  0:09:26.0000  17:03:25     5138749        5671    7    3   0:05:30.0000     0:05:33.2000  16:57:55</span>
-                <span class="c1">#  5671:  0:03:52.8000  16:57:55      Access         943   -1   -1   0:03:52.8000     0:03:52.8000  16:54:03</span>
-                <span class="n">prev_linkmode</span> <span class="o">=</span> <span class="kc">None</span>
-                <span class="n">prev_state_id</span> <span class="o">=</span> <span class="kc">None</span>
-
-                <span class="n">state_list</span> <span class="o">=</span> <span class="n">pathset</span><span class="o">.</span><span class="n">pathdict</span><span class="p">[</span><span class="n">pathnum</span><span class="p">][</span><span class="n">PathSet</span><span class="o">.</span><span class="n">PATH_KEY_STATES</span><span class="p">]</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">pathset</span><span class="o">.</span><span class="n">outbound</span><span class="p">:</span> <span class="n">state_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">state_list</span><span class="p">))</span>
-
-                <span class="n">pathlist</span><span class="o">.</span><span class="n">append</span><span class="p">([</span>\
-                    <span class="n">pathset</span><span class="o">.</span><span class="n">person_id</span><span class="p">,</span>
-                    <span class="n">pathset</span><span class="o">.</span><span class="n">person_trip_id</span><span class="p">,</span>
-                    <span class="n">trip_list_id</span><span class="p">,</span>
-                    <span class="p">(</span><span class="n">pathset</span><span class="o">.</span><span class="n">person_id</span><span class="p">,</span><span class="n">pathset</span><span class="o">.</span><span class="n">person_trip_id</span><span class="p">)</span> <span class="ow">in</span> <span class="n">Assignment</span><span class="o">.</span><span class="n">TRACE_IDS</span><span class="p">,</span>
-                    <span class="n">pathset</span><span class="o">.</span><span class="n">direction</span><span class="p">,</span>
-                    <span class="n">pathset</span><span class="o">.</span><span class="n">mode</span><span class="p">,</span>
-                    <span class="mf">0.01</span><span class="o">*</span><span class="n">pathfinding_iteration</span><span class="o">+</span><span class="n">iteration</span><span class="p">,</span>
-                    <span class="n">pathnum</span><span class="p">,</span>
-                    <span class="n">pathset</span><span class="o">.</span><span class="n">pathdict</span><span class="p">[</span><span class="n">pathnum</span><span class="p">][</span><span class="n">PathSet</span><span class="o">.</span><span class="n">PATH_KEY_COST</span><span class="p">],</span>
-                    <span class="n">pathset</span><span class="o">.</span><span class="n">pathdict</span><span class="p">[</span><span class="n">pathnum</span><span class="p">][</span><span class="n">PathSet</span><span class="o">.</span><span class="n">PATH_KEY_FARE</span><span class="p">],</span>
-                    <span class="n">pathset</span><span class="o">.</span><span class="n">pathdict</span><span class="p">[</span><span class="n">pathnum</span><span class="p">][</span><span class="n">PathSet</span><span class="o">.</span><span class="n">PATH_KEY_PROBABILITY</span><span class="p">],</span>
-                    <span class="n">pathset</span><span class="o">.</span><span class="n">pathdict</span><span class="p">[</span><span class="n">pathnum</span><span class="p">][</span><span class="n">PathSet</span><span class="o">.</span><span class="n">PATH_KEY_INIT_COST</span><span class="p">],</span>
-                    <span class="n">pathset</span><span class="o">.</span><span class="n">pathdict</span><span class="p">[</span><span class="n">pathnum</span><span class="p">][</span><span class="n">PathSet</span><span class="o">.</span><span class="n">PATH_KEY_INIT_FARE</span><span class="p">]</span>
-                <span class="p">])</span>
-
-                <span class="n">link_num</span>   <span class="o">=</span> <span class="mi">0</span>
-                <span class="k">for</span> <span class="p">(</span><span class="n">state_id</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span> <span class="ow">in</span> <span class="n">state_list</span><span class="p">:</span>
-
-                    <span class="n">linkmode</span>        <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_DEPARRMODE</span><span class="p">]</span>
-                    <span class="n">mode_num</span>        <span class="o">=</span> <span class="kc">None</span>
-                    <span class="n">trip_id</span>         <span class="o">=</span> <span class="kc">None</span>
-                    <span class="n">waittime</span>        <span class="o">=</span> <span class="kc">None</span>
-
-                    <span class="k">if</span> <span class="n">linkmode</span> <span class="ow">in</span> <span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_MODE_ACCESS</span><span class="p">,</span> <span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_MODE_TRANSFER</span><span class="p">,</span> <span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_MODE_EGRESS</span><span class="p">]:</span>
-                        <span class="n">mode_num</span>    <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_TRIP</span><span class="p">]</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="c1"># trip mode_num will need to be joined</span>
-                        <span class="n">trip_id</span>     <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_TRIP</span><span class="p">]</span>
-                        <span class="n">linkmode</span>    <span class="o">=</span> <span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_MODE_TRIP</span>
-
-                    <span class="k">if</span> <span class="n">pathset</span><span class="o">.</span><span class="n">outbound</span><span class="p">:</span>
-                        <span class="n">a_id_num</span>    <span class="o">=</span> <span class="n">state_id</span>
-                        <span class="n">b_id_num</span>    <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_SUCCPRED</span><span class="p">]</span>
-                        <span class="n">a_seq</span>       <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_SEQ</span><span class="p">]</span>
-                        <span class="n">b_seq</span>       <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_SEQ_SUCCPRED</span><span class="p">]</span>
-                        <span class="n">b_time</span>      <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_ARRDEP</span><span class="p">]</span>
-                        <span class="n">a_time</span>      <span class="o">=</span> <span class="n">b_time</span> <span class="o">-</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_LINKTIME</span><span class="p">]</span>
-                        <span class="n">trip_time</span>   <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_ARRDEP</span><span class="p">]</span> <span class="o">-</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_DEPARR</span><span class="p">]</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="n">a_id_num</span>    <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_SUCCPRED</span><span class="p">]</span>
-                        <span class="n">b_id_num</span>    <span class="o">=</span> <span class="n">state_id</span>
-                        <span class="n">a_seq</span>       <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_SEQ_SUCCPRED</span><span class="p">]</span>
-                        <span class="n">b_seq</span>       <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_SEQ</span><span class="p">]</span>
-                        <span class="n">b_time</span>      <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_DEPARR</span><span class="p">]</span>
-                        <span class="n">a_time</span>      <span class="o">=</span> <span class="n">b_time</span> <span class="o">-</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_LINKTIME</span><span class="p">]</span>
-                        <span class="n">trip_time</span>   <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_DEPARR</span><span class="p">]</span> <span class="o">-</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_ARRDEP</span><span class="p">]</span>
-
-                    <span class="c1"># trips: linktime includes wait</span>
-                    <span class="k">if</span> <span class="n">linkmode</span> <span class="o">==</span> <span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_MODE_TRIP</span><span class="p">:</span>
-                        <span class="n">waittime</span>    <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_LINKTIME</span><span class="p">]</span> <span class="o">-</span> <span class="n">trip_time</span>
-
-                    <span class="c1"># two trips in a row -- this shouldn&#39;t happen</span>
-                    <span class="k">if</span> <span class="n">linkmode</span> <span class="o">==</span> <span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_MODE_TRIP</span> <span class="ow">and</span> <span class="n">prev_linkmode</span> <span class="o">==</span> <span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_MODE_TRIP</span><span class="p">:</span>
-                        <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Two trip links in a row... this shouldn&#39;t happen. person_id is </span><span class="si">%s</span><span class="s2"> trip is </span><span class="si">%s</span><span class="se">\n</span><span class="s2">pathnum is </span><span class="si">%d</span><span class="se">\n</span><span class="s2">statelist (</span><span class="si">%d</span><span class="s2">): </span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">person_id</span><span class="p">,</span> <span class="n">person_trip_id</span><span class="p">,</span> <span class="n">pathnum</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">state_list</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">state_list</span><span class="p">)))</span>
-                        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
-
-                    <span class="n">linklist</span><span class="o">.</span><span class="n">append</span><span class="p">([</span>\
-                        <span class="n">pathset</span><span class="o">.</span><span class="n">person_id</span><span class="p">,</span>
-                        <span class="n">pathset</span><span class="o">.</span><span class="n">person_trip_id</span><span class="p">,</span>
-                        <span class="n">trip_list_id</span><span class="p">,</span>
-                        <span class="p">(</span><span class="n">pathset</span><span class="o">.</span><span class="n">person_id</span><span class="p">,</span><span class="n">pathset</span><span class="o">.</span><span class="n">person_trip_id</span><span class="p">)</span> <span class="ow">in</span> <span class="n">Assignment</span><span class="o">.</span><span class="n">TRACE_IDS</span><span class="p">,</span>
-                        <span class="mf">0.01</span><span class="o">*</span><span class="n">pathfinding_iteration</span> <span class="o">+</span> <span class="n">iteration</span><span class="p">,</span>
-                        <span class="n">pathnum</span><span class="p">,</span>
-                        <span class="n">linkmode</span><span class="p">,</span>
-                        <span class="n">mode_num</span><span class="p">,</span>
-                        <span class="n">trip_id</span><span class="p">,</span>
-                        <span class="n">a_id_num</span><span class="p">,</span>
-                        <span class="n">b_id_num</span><span class="p">,</span>
-                        <span class="n">a_seq</span><span class="p">,</span>
-                        <span class="n">b_seq</span><span class="p">,</span>
-                        <span class="n">a_time</span><span class="p">,</span>
-                        <span class="n">b_time</span><span class="p">,</span>
-                        <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_LINKTIME</span><span class="p">],</span>
-                        <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_LINKFARE</span><span class="p">],</span>
-                        <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_LINKCOST</span><span class="p">],</span>
-                        <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_LINKDIST</span><span class="p">],</span>
-                        <span class="n">waittime</span><span class="p">,</span>
-                        <span class="n">link_num</span> <span class="p">])</span>
-
-                    <span class="n">prev_linkmode</span> <span class="o">=</span> <span class="n">linkmode</span>
-                    <span class="n">prev_state_id</span> <span class="o">=</span> <span class="n">state_id</span>
-                    <span class="n">link_num</span>     <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">pathlist</span><span class="p">,</span> <span class="n">linklist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup_pathsets_generic</span><span class="p">(</span><span class="n">pathset_dict</span><span class="p">,</span> <span class="n">pf_iteration</span><span class="p">,</span> <span class="n">is_skimming</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
         <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;setup_passenger_pathsets(): pathlist and linklist constructed&quot;</span><span class="p">)</span>
 
-        <span class="n">pathset_paths_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pathlist</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span>\
+        <span class="n">pathset_paths_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pathlist</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span> \
             <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_ID</span><span class="p">,</span>
             <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_TRIP_ID</span><span class="p">,</span>
             <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TRIP_LIST_ID_NUM</span><span class="p">,</span>
             <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TRACE</span><span class="p">,</span>
             <span class="s1">&#39;pathdir&#39;</span><span class="p">,</span>  <span class="c1"># for debugging</span>
-            <span class="s1">&#39;pathmode&#39;</span><span class="p">,</span> <span class="c1"># for output</span>
+            <span class="s1">&#39;pathmode&#39;</span><span class="p">,</span>  <span class="c1"># for output</span>
             <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_PF_ITERATION</span><span class="p">,</span>
             <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_PATH_NUM</span><span class="p">,</span>
             <span class="n">PathSet</span><span class="o">.</span><span class="n">PATH_KEY_COST</span><span class="p">,</span>
@@ -936,7 +973,7 @@
             <span class="n">PathSet</span><span class="o">.</span><span class="n">PATH_KEY_INIT_COST</span><span class="p">,</span>
             <span class="n">PathSet</span><span class="o">.</span><span class="n">PATH_KEY_INIT_FARE</span><span class="p">])</span>
 
-        <span class="n">pathset_links_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">linklist</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span>\
+        <span class="n">pathset_links_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">linklist</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span> \
             <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_ID</span><span class="p">,</span>
             <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_TRIP_ID</span><span class="p">,</span>
             <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TRIP_LIST_ID_NUM</span><span class="p">,</span>
@@ -946,8 +983,8 @@
             <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_LINK_MODE</span><span class="p">,</span>
             <span class="n">Route</span><span class="o">.</span><span class="n">ROUTES_COLUMN_MODE_NUM</span><span class="p">,</span>
             <span class="n">Trip</span><span class="o">.</span><span class="n">TRIPS_COLUMN_TRIP_ID_NUM</span><span class="p">,</span>
-            <span class="s1">&#39;A_id_num&#39;</span><span class="p">,</span><span class="s1">&#39;B_id_num&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;A_seq&#39;</span><span class="p">,</span><span class="s1">&#39;B_seq&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;A_id_num&#39;</span><span class="p">,</span> <span class="s1">&#39;B_id_num&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;A_seq&#39;</span><span class="p">,</span> <span class="s1">&#39;B_seq&#39;</span><span class="p">,</span>
             <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_PAX_A_TIME</span><span class="p">,</span>
             <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_PAX_B_TIME</span><span class="p">,</span>
             <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_LINK_TIME</span><span class="p">,</span>
@@ -955,62 +992,105 @@
             <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_LINK_COST</span><span class="p">,</span>
             <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_LINK_DIST</span><span class="p">,</span>
             <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_WAIT_TIME</span><span class="p">,</span>
-            <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_LINK_NUM</span> <span class="p">])</span>
+            <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_LINK_NUM</span><span class="p">])</span>
+        <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="s2">&quot;setup_passenger_pathsets(): pathset_paths_df(</span><span class="si">%d</span><span class="s2">) and pathset_links_df(</span><span class="si">%d</span><span class="s2">) dataframes constructed&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                <span class="nb">len</span><span class="p">(</span><span class="n">pathset_paths_df</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">pathset_links_df</span><span class="p">)))</span>
 
-        <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;setup_passenger_pathsets(): pathset_paths_df(</span><span class="si">%d</span><span class="s2">) and pathset_links_df(</span><span class="si">%d</span><span class="s2">) dataframes constructed&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pathset_paths_df</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">pathset_links_df</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">clean_pathset_dfs</span><span class="p">(</span>
+            <span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">pathset_links_df</span><span class="p">,</span> <span class="n">stops</span><span class="p">,</span> <span class="n">trip_id_df</span><span class="p">,</span> <span class="n">trips_df</span><span class="p">,</span> <span class="n">modes_df</span><span class="p">,</span>
+            <span class="n">prepend_route_id_to_trip_id</span><span class="o">=</span><span class="n">prepend_route_id_to_trip_id</span><span class="p">,</span> <span class="n">is_skimming</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">clean_pathset_dfs</span><span class="p">(</span><span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">pathset_links_df</span><span class="p">,</span> <span class="n">stops</span><span class="p">,</span> <span class="n">trip_id_df</span><span class="p">,</span> <span class="n">trips_df</span><span class="p">,</span> <span class="n">modes_df</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span>
+                          <span class="n">prepend_route_id_to_trip_id</span><span class="p">,</span> <span class="n">is_skimming</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">.Skimming</span> <span class="kn">import</span> <span class="n">Skimming</span>
+        <span class="kn">from</span> <span class="nn">.PathSet</span> <span class="kn">import</span> <span class="n">PathSet</span>
+        <span class="k">if</span> <span class="n">prepend_route_id_to_trip_id</span> <span class="ow">and</span> <span class="n">is_skimming</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;prepend_route_id_to_trip_id not implemented for skimming&quot;</span><span class="p">)</span>
+
 
         <span class="c1"># get A_id and B_id and trip_id</span>
-        <span class="n">pathset_links_df</span> <span class="o">=</span> <span class="n">stops</span><span class="o">.</span><span class="n">add_stop_id_for_numeric_id</span><span class="p">(</span><span class="n">pathset_links_df</span><span class="p">,</span><span class="s1">&#39;A_id_num&#39;</span><span class="p">,</span><span class="s1">&#39;A_id&#39;</span><span class="p">)</span>
-        <span class="n">pathset_links_df</span> <span class="o">=</span> <span class="n">stops</span><span class="o">.</span><span class="n">add_stop_id_for_numeric_id</span><span class="p">(</span><span class="n">pathset_links_df</span><span class="p">,</span><span class="s1">&#39;B_id_num&#39;</span><span class="p">,</span><span class="s1">&#39;B_id&#39;</span><span class="p">)</span>
+        <span class="n">pathset_links_df</span> <span class="o">=</span> <span class="n">stops</span><span class="o">.</span><span class="n">add_stop_id_for_numeric_id</span><span class="p">(</span><span class="n">pathset_links_df</span><span class="p">,</span> <span class="s1">&#39;A_id_num&#39;</span><span class="p">,</span> <span class="s1">&#39;A_id&#39;</span><span class="p">)</span>
+        <span class="n">pathset_links_df</span> <span class="o">=</span> <span class="n">stops</span><span class="o">.</span><span class="n">add_stop_id_for_numeric_id</span><span class="p">(</span><span class="n">pathset_links_df</span><span class="p">,</span> <span class="s1">&#39;B_id_num&#39;</span><span class="p">,</span> <span class="s1">&#39;B_id&#39;</span><span class="p">)</span>
 
         <span class="c1"># get A_lat, A_lon, B_lat, B_lon</span>
-        <span class="n">pathset_links_df</span> <span class="o">=</span> <span class="n">stops</span><span class="o">.</span><span class="n">add_stop_lat_lon</span><span class="p">(</span><span class="n">pathset_links_df</span><span class="p">,</span> <span class="n">id_colname</span><span class="o">=</span><span class="s2">&quot;A_id&quot;</span><span class="p">,</span> <span class="n">new_lat_colname</span><span class="o">=</span><span class="s2">&quot;A_lat&quot;</span><span class="p">,</span> <span class="n">new_lon_colname</span><span class="o">=</span><span class="s2">&quot;A_lon&quot;</span><span class="p">)</span>
-        <span class="n">pathset_links_df</span> <span class="o">=</span> <span class="n">stops</span><span class="o">.</span><span class="n">add_stop_lat_lon</span><span class="p">(</span><span class="n">pathset_links_df</span><span class="p">,</span> <span class="n">id_colname</span><span class="o">=</span><span class="s2">&quot;B_id&quot;</span><span class="p">,</span> <span class="n">new_lat_colname</span><span class="o">=</span><span class="s2">&quot;B_lat&quot;</span><span class="p">,</span> <span class="n">new_lon_colname</span><span class="o">=</span><span class="s2">&quot;B_lon&quot;</span><span class="p">)</span>
+        <span class="n">pathset_links_df</span> <span class="o">=</span> <span class="n">stops</span><span class="o">.</span><span class="n">add_stop_lat_lon</span><span class="p">(</span><span class="n">pathset_links_df</span><span class="p">,</span> <span class="n">id_colname</span><span class="o">=</span><span class="s2">&quot;A_id&quot;</span><span class="p">,</span> <span class="n">new_lat_colname</span><span class="o">=</span><span class="s2">&quot;A_lat&quot;</span><span class="p">,</span>
+                                                  <span class="n">new_lon_colname</span><span class="o">=</span><span class="s2">&quot;A_lon&quot;</span><span class="p">)</span>
+        <span class="n">pathset_links_df</span> <span class="o">=</span> <span class="n">stops</span><span class="o">.</span><span class="n">add_stop_lat_lon</span><span class="p">(</span><span class="n">pathset_links_df</span><span class="p">,</span> <span class="n">id_colname</span><span class="o">=</span><span class="s2">&quot;B_id&quot;</span><span class="p">,</span> <span class="n">new_lat_colname</span><span class="o">=</span><span class="s2">&quot;B_lat&quot;</span><span class="p">,</span>
+                                                  <span class="n">new_lon_colname</span><span class="o">=</span><span class="s2">&quot;B_lon&quot;</span><span class="p">)</span>
 
         <span class="c1"># get trip_id</span>
-        <span class="n">pathset_links_df</span> <span class="o">=</span> <span class="n">Util</span><span class="o">.</span><span class="n">add_new_id</span><span class="p">(</span>  <span class="n">input_df</span><span class="o">=</span><span class="n">pathset_links_df</span><span class="p">,</span>          <span class="n">id_colname</span><span class="o">=</span><span class="n">Trip</span><span class="o">.</span><span class="n">TRIPS_COLUMN_TRIP_ID_NUM</span><span class="p">,</span>         <span class="n">newid_colname</span><span class="o">=</span><span class="n">Trip</span><span class="o">.</span><span class="n">TRIPS_COLUMN_TRIP_ID</span><span class="p">,</span>
-                                           <span class="n">mapping_df</span><span class="o">=</span><span class="n">trip_id_df</span><span class="p">,</span>        <span class="n">mapping_id_colname</span><span class="o">=</span><span class="n">Trip</span><span class="o">.</span><span class="n">TRIPS_COLUMN_TRIP_ID_NUM</span><span class="p">,</span> <span class="n">mapping_newid_colname</span><span class="o">=</span><span class="n">Trip</span><span class="o">.</span><span class="n">TRIPS_COLUMN_TRIP_ID</span><span class="p">)</span>
+        <span class="n">pathset_links_df</span> <span class="o">=</span> <span class="n">Util</span><span class="o">.</span><span class="n">add_new_id</span><span class="p">(</span><span class="n">input_df</span><span class="o">=</span><span class="n">pathset_links_df</span><span class="p">,</span> <span class="n">id_colname</span><span class="o">=</span><span class="n">Trip</span><span class="o">.</span><span class="n">TRIPS_COLUMN_TRIP_ID_NUM</span><span class="p">,</span>
+                                           <span class="n">newid_colname</span><span class="o">=</span><span class="n">Trip</span><span class="o">.</span><span class="n">TRIPS_COLUMN_TRIP_ID</span><span class="p">,</span>
+                                           <span class="n">mapping_df</span><span class="o">=</span><span class="n">trip_id_df</span><span class="p">,</span> <span class="n">mapping_id_colname</span><span class="o">=</span><span class="n">Trip</span><span class="o">.</span><span class="n">TRIPS_COLUMN_TRIP_ID_NUM</span><span class="p">,</span>
+                                           <span class="n">mapping_newid_colname</span><span class="o">=</span><span class="n">Trip</span><span class="o">.</span><span class="n">TRIPS_COLUMN_TRIP_ID</span><span class="p">)</span>
 
         <span class="c1"># get route id</span>
         <span class="c1"># mode_num will appear in left (for non-transit links) and right (for transit link) both, so we need to consolidate</span>
-        <span class="n">pathset_links_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="n">pathset_links_df</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="n">trips_df</span><span class="p">[[</span><span class="n">Trip</span><span class="o">.</span><span class="n">TRIPS_COLUMN_TRIP_ID</span><span class="p">,</span> <span class="n">Trip</span><span class="o">.</span><span class="n">TRIPS_COLUMN_ROUTE_ID</span><span class="p">,</span> <span class="n">Route</span><span class="o">.</span><span class="n">ROUTES_COLUMN_MODE_NUM</span><span class="p">]],</span>
-                                        <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="n">Trip</span><span class="o">.</span><span class="n">TRIPS_COLUMN_TRIP_ID</span><span class="p">)</span>
+        <span class="n">pathset_links_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="n">pathset_links_df</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="n">trips_df</span><span class="p">[</span>
+            <span class="p">[</span><span class="n">Trip</span><span class="o">.</span><span class="n">TRIPS_COLUMN_TRIP_ID</span><span class="p">,</span> <span class="n">Trip</span><span class="o">.</span><span class="n">TRIPS_COLUMN_ROUTE_ID</span><span class="p">,</span> <span class="n">Route</span><span class="o">.</span><span class="n">ROUTES_COLUMN_MODE_NUM</span><span class="p">]],</span>
+                                    <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="n">Trip</span><span class="o">.</span><span class="n">TRIPS_COLUMN_TRIP_ID</span><span class="p">)</span>
 
         <span class="n">pathset_links_df</span><span class="p">[</span><span class="n">Route</span><span class="o">.</span><span class="n">ROUTES_COLUMN_MODE_NUM</span><span class="p">]</span> <span class="o">=</span> <span class="n">pathset_links_df</span><span class="p">[</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_x&quot;</span> <span class="o">%</span> <span class="n">Route</span><span class="o">.</span><span class="n">ROUTES_COLUMN_MODE_NUM</span><span class="p">]</span>
-        <span class="n">pathset_links_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">pathset_links_df</span><span class="p">[</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_y&quot;</span> <span class="o">%</span> <span class="n">Route</span><span class="o">.</span><span class="n">ROUTES_COLUMN_MODE_NUM</span><span class="p">]),</span> <span class="n">Route</span><span class="o">.</span><span class="n">ROUTES_COLUMN_MODE_NUM</span><span class="p">]</span> <span class="o">=</span> <span class="n">pathset_links_df</span><span class="p">[</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_y&quot;</span> <span class="o">%</span> <span class="n">Route</span><span class="o">.</span><span class="n">ROUTES_COLUMN_MODE_NUM</span><span class="p">]</span>
+        <span class="n">pathset_links_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+            <span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">pathset_links_df</span><span class="p">[</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_y&quot;</span> <span class="o">%</span> <span class="n">Route</span><span class="o">.</span><span class="n">ROUTES_COLUMN_MODE_NUM</span><span class="p">]),</span> <span class="n">Route</span><span class="o">.</span><span class="n">ROUTES_COLUMN_MODE_NUM</span><span class="p">]</span> <span class="o">=</span> \
+        <span class="n">pathset_links_df</span><span class="p">[</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_y&quot;</span> <span class="o">%</span> <span class="n">Route</span><span class="o">.</span><span class="n">ROUTES_COLUMN_MODE_NUM</span><span class="p">]</span>
         <span class="n">pathset_links_df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_x&quot;</span> <span class="o">%</span> <span class="n">Route</span><span class="o">.</span><span class="n">ROUTES_COLUMN_MODE_NUM</span><span class="p">,</span>
                                <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_y&quot;</span> <span class="o">%</span> <span class="n">Route</span><span class="o">.</span><span class="n">ROUTES_COLUMN_MODE_NUM</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="c1"># verify it&#39;s always set</span>
-        <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Have </span><span class="si">%d</span><span class="s2"> links with no mode number set&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">pathset_links_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">pathset_links_df</span><span class="p">[</span><span class="n">Route</span><span class="o">.</span><span class="n">ROUTES_COLUMN_MODE_NUM</span><span class="p">])</span> <span class="p">]))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_skimming</span><span class="p">:</span>
+            <span class="c1"># TODO should this apply in both cases&gt;?</span>
+            <span class="c1"># verify it&#39;s always set</span>
+            <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Have </span><span class="si">%d</span><span class="s2"> links with no mode number set&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span>
+                <span class="n">pathset_links_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">pathset_links_df</span><span class="p">[</span><span class="n">Route</span><span class="o">.</span><span class="n">ROUTES_COLUMN_MODE_NUM</span><span class="p">])]))</span>
 
         <span class="c1"># get supply mode</span>
-        <span class="n">pathset_links_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="n">pathset_links_df</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="n">modes_df</span><span class="p">[[</span><span class="n">Route</span><span class="o">.</span><span class="n">ROUTES_COLUMN_MODE_NUM</span><span class="p">,</span> <span class="n">Route</span><span class="o">.</span><span class="n">ROUTES_COLUMN_MODE</span><span class="p">]],</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
+        <span class="n">pathset_links_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="n">pathset_links_df</span><span class="p">,</span>
+                                    <span class="n">right</span><span class="o">=</span><span class="n">modes_df</span><span class="p">[[</span><span class="n">Route</span><span class="o">.</span><span class="n">ROUTES_COLUMN_MODE_NUM</span><span class="p">,</span> <span class="n">Route</span><span class="o">.</span><span class="n">ROUTES_COLUMN_MODE</span><span class="p">]],</span>
+                                    <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
 
-        <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;setup_passenger_pathsets(): pathset_paths_df and pathset_links_df dataframes constructed&quot;</span><span class="p">)</span>
-        <span class="c1"># FastTripsLogger.debug(&quot;\n%s&quot; % pathset_links_df.head().to_string())</span>
-
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pathset_paths_df</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="c1"># create path description</span>
-            <span class="n">pathset_links_df</span><span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_DESCRIPTION</span><span class="p">]</span> <span class="o">=</span> <span class="n">pathset_links_df</span><span class="p">[</span><span class="s2">&quot;A_id&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">pathset_links_df</span><span class="p">[</span><span class="n">Route</span><span class="o">.</span><span class="n">ROUTES_COLUMN_MODE</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">prepend_route_id_to_trip_id</span><span class="p">:</span>
-                <span class="n">pathset_links_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">pathset_links_df</span><span class="p">[</span><span class="n">Trip</span><span class="o">.</span><span class="n">TRIPS_COLUMN_TRIP_ID</span><span class="p">]),</span> <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_DESCRIPTION</span> <span class="p">]</span> <span class="o">=</span> <span class="n">pathset_links_df</span><span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_DESCRIPTION</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">pathset_links_df</span><span class="p">[</span><span class="n">Trip</span><span class="o">.</span><span class="n">TRIPS_COLUMN_ROUTE_ID</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">pathset_links_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">pathset_links_df</span><span class="p">[</span><span class="n">Trip</span><span class="o">.</span><span class="n">TRIPS_COLUMN_TRIP_ID</span><span class="p">]),</span> <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_DESCRIPTION</span> <span class="p">]</span> <span class="o">=</span> <span class="n">pathset_links_df</span><span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_DESCRIPTION</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span>
-            <span class="n">pathset_links_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">pathset_links_df</span><span class="p">[</span><span class="n">Trip</span><span class="o">.</span><span class="n">TRIPS_COLUMN_TRIP_ID</span><span class="p">]),</span>     <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_DESCRIPTION</span> <span class="p">]</span> <span class="o">=</span> <span class="n">pathset_links_df</span><span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_DESCRIPTION</span><span class="p">]</span> <span class="o">+</span> <span class="n">pathset_links_df</span><span class="p">[</span><span class="n">Trip</span><span class="o">.</span><span class="n">TRIPS_COLUMN_TRIP_ID</span><span class="p">]</span>
-            <span class="n">pathset_links_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="n">pathset_links_df</span><span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_LINK_MODE</span><span class="p">]</span><span class="o">==</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_MODE_EGRESS</span><span class="p">,</span> <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_DESCRIPTION</span> <span class="p">]</span> <span class="o">=</span> <span class="n">pathset_links_df</span><span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_DESCRIPTION</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">pathset_links_df</span><span class="p">[</span><span class="s2">&quot;B_id&quot;</span><span class="p">]</span>
-
-            <span class="n">descr_df</span> <span class="o">=</span> <span class="n">pathset_links_df</span><span class="p">[[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TRIP_LIST_ID_NUM</span><span class="p">,</span>
-                                         <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_PF_ITERATION</span><span class="p">,</span>
-                                         <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_PATH_NUM</span><span class="p">,</span>
-                                         <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_DESCRIPTION</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TRIP_LIST_ID_NUM</span><span class="p">,</span>
-                                                                                 <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_PF_ITERATION</span><span class="p">,</span>
-                                                                                 <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_PATH_NUM</span><span class="p">])[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_DESCRIPTION</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-            <span class="n">descr_df</span> <span class="o">=</span> <span class="n">descr_df</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-            <span class="c1"># join it to pathset_paths and drop from pathset_links</span>
-            <span class="n">pathset_paths_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="n">descr_df</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
-            <span class="n">pathset_links_df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_DESCRIPTION</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">is_skimming</span><span class="p">:</span>
+            <span class="c1"># attach destination zone numbers</span>
+            <span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">pathset_links_df</span> <span class="o">=</span> <span class="n">Skimming</span><span class="o">.</span><span class="n">attach_destination_number</span><span class="p">(</span><span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">pathset_links_df</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">pathset_paths_df</span><span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_DESCRIPTION</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pathset_paths_df</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># create path description</span>
+                <span class="n">pathset_links_df</span><span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_DESCRIPTION</span><span class="p">]</span> <span class="o">=</span> <span class="n">pathset_links_df</span><span class="p">[</span><span class="s2">&quot;A_id&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">pathset_links_df</span><span class="p">[</span>
+                    <span class="n">Route</span><span class="o">.</span><span class="n">ROUTES_COLUMN_MODE</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">prepend_route_id_to_trip_id</span><span class="p">:</span>
+                    <span class="n">pathset_links_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+                        <span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">pathset_links_df</span><span class="p">[</span><span class="n">Trip</span><span class="o">.</span><span class="n">TRIPS_COLUMN_TRIP_ID</span><span class="p">]),</span> <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_DESCRIPTION</span><span class="p">]</span> <span class="o">=</span> \
+                        <span class="n">pathset_links_df</span><span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_DESCRIPTION</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">pathset_links_df</span><span class="p">[</span>
+                            <span class="n">Trip</span><span class="o">.</span><span class="n">TRIPS_COLUMN_ROUTE_ID</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">pathset_links_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+                        <span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">pathset_links_df</span><span class="p">[</span><span class="n">Trip</span><span class="o">.</span><span class="n">TRIPS_COLUMN_TRIP_ID</span><span class="p">]),</span> <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_DESCRIPTION</span><span class="p">]</span> <span class="o">=</span> \
+                        <span class="n">pathset_links_df</span><span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_DESCRIPTION</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span>
+                <span class="n">pathset_links_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+                    <span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">pathset_links_df</span><span class="p">[</span><span class="n">Trip</span><span class="o">.</span><span class="n">TRIPS_COLUMN_TRIP_ID</span><span class="p">]),</span> <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_DESCRIPTION</span><span class="p">]</span> <span class="o">=</span> \
+                    <span class="n">pathset_links_df</span><span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_DESCRIPTION</span><span class="p">]</span> <span class="o">+</span> <span class="n">pathset_links_df</span><span class="p">[</span><span class="n">Trip</span><span class="o">.</span><span class="n">TRIPS_COLUMN_TRIP_ID</span><span class="p">]</span>
+                <span class="n">pathset_links_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">pathset_links_df</span><span class="p">[</span>
+                                         <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_LINK_MODE</span><span class="p">]</span> <span class="o">==</span> <span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_MODE_EGRESS</span><span class="p">,</span> <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_DESCRIPTION</span><span class="p">]</span> <span class="o">=</span> \
+                    <span class="n">pathset_links_df</span><span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_DESCRIPTION</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">pathset_links_df</span><span class="p">[</span><span class="s2">&quot;B_id&quot;</span><span class="p">]</span>
+
+                <span class="n">descr_df</span> <span class="o">=</span> <span class="n">pathset_links_df</span><span class="p">[[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TRIP_LIST_ID_NUM</span><span class="p">,</span>
+                                             <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_PF_ITERATION</span><span class="p">,</span>
+                                             <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_PATH_NUM</span><span class="p">,</span>
+                                             <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_DESCRIPTION</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span>
+                    <span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TRIP_LIST_ID_NUM</span><span class="p">,</span>
+                     <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_PF_ITERATION</span><span class="p">,</span>
+                     <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_PATH_NUM</span><span class="p">])[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_DESCRIPTION</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+                <span class="n">descr_df</span> <span class="o">=</span> <span class="n">descr_df</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+                <span class="c1"># join it to pathset_paths and drop from pathset_links</span>
+                <span class="n">pathset_paths_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="n">descr_df</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
+                <span class="n">pathset_links_df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_DESCRIPTION</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">pathset_paths_df</span><span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_DESCRIPTION</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="s2">&quot;setup_passenger_pathsets(): pathset_paths_df and pathset_links_df dataframes constructed&quot;</span><span class="p">)</span>
+        <span class="c1"># FastTripsLogger.debug(&quot;\n%s&quot; % pathset_links_df.head().to_string())</span>
 
         <span class="n">pathset_links_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">pathset_links_df</span><span class="o">.</span><span class="n">dtypes</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">]</span> <span class="o">=</span> \
             <span class="n">pathset_links_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">pathset_links_df</span><span class="o">.</span><span class="n">dtypes</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
@@ -1025,6 +1105,54 @@
                                                                                <span class="n">downcast</span><span class="o">=</span><span class="s1">&#39;integer&#39;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="p">(</span><span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">pathset_links_df</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">setup_pathsets_generic</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">pathset_dict</span><span class="p">,</span> <span class="n">pf_iteration</span><span class="p">,</span> <span class="n">is_skimming</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">.PathSet</span> <span class="kn">import</span> <span class="n">PathSet</span>
+        <span class="n">pathlist</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">linklist</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">pathset_id</span><span class="p">,</span> <span class="n">pathset</span> <span class="ow">in</span> <span class="n">pathset_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+
+            <span class="c1"># no intrazonal skims, don&#39;t need to check for skimming</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">is_skimming</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">pathset</span><span class="o">.</span><span class="n">goes_somewhere</span><span class="p">():</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">pathset</span><span class="o">.</span><span class="n">path_found</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">is_skimming</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;TODO Jan&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+            <span class="k">for</span> <span class="n">pathnum</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">pathset</span><span class="o">.</span><span class="n">num_paths</span><span class="p">()):</span>
+                <span class="n">pathlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">process_path</span><span class="p">(</span><span class="n">pathnum</span><span class="p">,</span> <span class="n">pathset</span><span class="p">,</span> <span class="n">pathset_id</span><span class="p">,</span> <span class="n">pf_iteration</span><span class="p">,</span> <span class="n">is_skimming</span><span class="o">=</span><span class="n">is_skimming</span><span class="p">))</span>
+
+                <span class="n">state_list</span> <span class="o">=</span> <span class="n">pathset</span><span class="o">.</span><span class="n">pathdict</span><span class="p">[</span><span class="n">pathnum</span><span class="p">][</span><span class="n">PathSet</span><span class="o">.</span><span class="n">PATH_KEY_STATES</span><span class="p">]</span>
+                <span class="c1"># skimming is always inbound</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">is_skimming</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">pathset</span><span class="o">.</span><span class="n">outbound</span><span class="p">:</span>
+                    <span class="n">state_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">state_list</span><span class="p">))</span>
+
+                <span class="n">link_num</span>   <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">prev_linkmode</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="n">prev_state_id</span> <span class="o">=</span> <span class="kc">None</span>
+
+                <span class="k">for</span> <span class="p">(</span><span class="n">state_id</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span> <span class="ow">in</span> <span class="n">state_list</span><span class="p">:</span>
+                    <span class="n">linkmode</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">STATE_IDX_DEPARRMODE</span><span class="p">]</span>
+                    <span class="n">linklist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="bp">cls</span><span class="o">.</span><span class="n">process_path_state</span><span class="p">(</span>
+                            <span class="n">pathnum</span><span class="p">,</span> <span class="n">pathset</span><span class="p">,</span> <span class="n">pathset_id</span><span class="p">,</span>
+                            <span class="n">state_id</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">pf_iteration</span><span class="p">,</span>
+                            <span class="n">linkmode</span><span class="p">,</span> <span class="n">link_num</span><span class="p">,</span>
+                            <span class="n">prev_linkmode</span><span class="p">,</span> <span class="n">prev_state_id</span><span class="p">,</span>
+                            <span class="n">state_list</span><span class="p">,</span> <span class="n">is_skimming</span><span class="o">=</span><span class="n">is_skimming</span><span class="p">)</span>
+                    <span class="p">)</span>
+
+                    <span class="n">prev_linkmode</span> <span class="o">=</span> <span class="n">linkmode</span>
+                    <span class="n">prev_state_id</span> <span class="o">=</span> <span class="n">state_id</span>
+                    <span class="n">link_num</span>     <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">return</span> <span class="n">pathlist</span><span class="p">,</span> <span class="n">linklist</span>
+
+
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">write_paths</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">iteration</span><span class="p">,</span> <span class="n">pathfinding_iteration</span><span class="p">,</span> <span class="n">simulation_iteration</span><span class="p">,</span> <span class="n">pathset_df</span><span class="p">,</span> <span class="n">links</span><span class="p">,</span> <span class="n">output_pathset_per_sim_iter</span><span class="p">,</span> <span class="n">drop_debug_columns</span><span class="p">,</span> <span class="n">drop_pathfinding_columns</span><span class="p">):</span>
