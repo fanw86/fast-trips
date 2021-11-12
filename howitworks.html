@@ -16,7 +16,6 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -158,7 +157,7 @@ unassigned network (i.e. on the service schedule as per input files) via running
 <dt><code class="docutils literal notranslate"><span class="pre">time_period_end</span></code></dt><dd><p>End of skimming period in minutes after midnight.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">time_period_sampling_interval</span></code></dt><dd><p>Sample frequency for skim path building in minutes. This means the number of skim path building runs is
-<span class="math notranslate nohighlight">\(\frac{time_period_end - time_period_start}{time_period_sampling_interval}\)</span>.</p>
+(time_period_end - time_period_start) / time_period_sampling_interval.</p>
 </dd>
 </dl>
 <p><code class="docutils literal notranslate"><span class="pre">find_a_good_name_here</span></code>
