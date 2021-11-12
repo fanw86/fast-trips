@@ -16,6 +16,7 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -123,9 +124,10 @@ simulation.  This can be done by using the <code class="code docutils literal no
 <h2>Skimming<a class="headerlink" href="#skimming" title="Permalink to this headline"></a></h2>
 <p>Skims are average level-of-service indicators. Given that fasttrips is trip-based and dynamic, we need to define an
 averaging scheme. Since fasttrips is zone-based, we do not need to worry about spatial aggregation. We are
-therefore left with the following dimensions:
-1) temporal
-2) personal attributes:</p>
+therefore left with the following dimensions:</p>
+<ol class="arabic">
+<li><p>temporal</p></li>
+<li><p>personal attributes:</p>
 <blockquote>
 <div><ul class="simple">
 <li><p>value of time</p></li>
@@ -134,11 +136,13 @@ therefore left with the following dimensions:
 <li><p>access/egress mode</p></li>
 </ul>
 </div></blockquote>
+</li>
+</ol>
 <p>Regarding 1), the user has to specify a skimming start time, a skimming end time, and a sample interval. For each
 sampling interval, we build a shortest path from each origin to all destinations, calculate common skims,
 and then average over time sampling points by taking the mean.</p>
-<p>Regarding 2), …
-If you only want one user_class - purpose combination per access/egress combination, you can specify these in the
+<p>Regarding 2), …</p>
+<p>If you only want one user_class - purpose combination per access/egress combination, you can specify these in the
 <code class="docutils literal notranslate"><span class="pre">pathweight_ft.csv</span></code> file. Note that at the moment you will probably want this due to the caveat mentioned in
 <span class="xref std std-ref">Pathfinding details</span>.</p>
 <section id="running-skimming">
@@ -148,28 +152,51 @@ unassigned network (i.e. on the service schedule as per input files) via running
 <p>In both cases, fasttrips needs the the options listed in the following subsection.</p>
 <section id="skimming-parameters">
 <h4>Skimming parameters<a class="headerlink" href="#skimming-parameters" title="Permalink to this headline"></a></h4>
-<p><code class="docutils literal notranslate"><span class="pre">time_period_start</span></code>: Start of skimming period in minutes after midnight.
-<code class="docutils literal notranslate"><span class="pre">time_period_end</span></code>: End of skimming period in minutes after midnight.
-<code class="docutils literal notranslate"><span class="pre">time_period_sampling_interval</span></code>: Sample frequency for skim path building</p>
-<p>user_class
-purpose
-access, pt, egress mode</p>
-<p>user_class,purpose,demand_mode_type</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">time_period_start</span></code></dt><dd><p>Start of skimming period in minutes after midnight.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">time_period_end</span></code></dt><dd><p>End of skimming period in minutes after midnight.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">time_period_sampling_interval</span></code></dt><dd><p>Sample frequency for skim path building in minutes. This means the number of skim path building runs is
+<span class="math notranslate nohighlight">\(\frac{time_period_end - time_period_start}{time_period_sampling_interval}\)</span>.</p>
+</dd>
+</dl>
+<p><code class="docutils literal notranslate"><span class="pre">find_a_good_name_here</span></code>
+[(user_class, purpose, access_mode, transit_mode, demand_mode, vot)]
+TODO Jan: this is not implemented yet, currently it uses configobj with indented syntax and mean vot (across the
+entire provided demand)</p>
 </section>
 </section>
 <section id="implemented-components">
 <h3>Implemented components<a class="headerlink" href="#implemented-components" title="Permalink to this headline"></a></h3>
-<blockquote>
-<div><p>‘fare’,
-‘num_transfers’,
-‘invehicle_time’,
-‘access_time’,
-‘egress_time’,
-‘transfer_time’,
-‘wait_time’,
-‘adaption_time’,
-‘gen_cost’</p>
-</div></blockquote>
+<p>All times are in seconds, fares are in whatever currency unit is provided.</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">invehicle_time</span></code></dt><dd><p>The time in seconds spent inside a PT vehicle.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">access_time</span></code></dt><dd><p>The time in seconds spent accessing the PT service by the specified access mode, i.e. the time to get from the origin
+to the first PT stop.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">egress_time</span></code></dt><dd><p>The time in seconds spent egressing from the PT service by the specified egress mode, i.e. the time to get from the
+last PT stop to the destination.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">transfer_time</span></code></dt><dd><p>The time in seconds spent transferring between two stops, necessarily by foot.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">wait_time</span></code></dt><dd><p>The time in seconds spent waiting for the next service at each transfer stop. This is zero for trips without transfer;
+there is no wait time at the first stop, see the adaption time component.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">adaption_time</span></code></dt><dd><p>FastTrips’ deterministic pathfinder uses total travel time as its objective to minimise. It finds the next service
+that has the earliest arrival time, and then sets the departure time of the trip such that there is no wait time at
+the first stop. The time (in seconds) between the start of a given skim time sampling period and the actual
+departure time is recorded as adaption_time.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">fare</span></code></dt><dd><p>The fare in the provided currency unit.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">num_transfers</span></code></dt><dd><p>The number of transfers.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">gen_cost</span></code></dt><dd><p>The generalised cost calculated with the weights provided in <code class="docutils literal notranslate"><span class="pre">pathweights_ft</span></code> and for the specified user_class,
+purpose, access_mode, transit_mode, egress_mode, value_of_time combination as provided in <code class="docutils literal notranslate"><span class="pre">config_ft</span></code>.</p>
+</dd>
+</dl>
 </section>
 <section id="pathfinding-details">
 <h3>Pathfinding details<a class="headerlink" href="#pathfinding-details" title="Permalink to this headline"></a></h3>
@@ -177,8 +204,8 @@ access, pt, egress mode</p>
 difference to the point-to-point implementation of the assignment being the built of a shortest path tree per origin
 (i.e. one origin to all destinations). This means the deterministic pathfinder as currently implemented determines
 what constitutes a shortest path and at the moment this is always with respect to time, not generalised cost.</p>
-<p>This also means that currently, running skimming with different value of time, user class, and purpose will not generate
-different paths.</p>
+<p>This also means that currently, running skimming with different values of time, user classes, and purposes will not
+generate different paths.</p>
 </section>
 <section id="output-format-and-location">
 <h3>Output format and location<a class="headerlink" href="#output-format-and-location" title="Permalink to this headline"></a></h3>
