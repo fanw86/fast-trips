@@ -126,7 +126,7 @@ averaging scheme. Since fasttrips is zone-based, we do not need to worry about s
 therefore left with the following dimensions:</p>
 <ol class="arabic">
 <li><p>temporal</p></li>
-<li><p>personal attributes:</p>
+<li><p>personal and trip attributes:</p>
 <blockquote>
 <div><ul class="simple">
 <li><p>value of time</p></li>
@@ -140,10 +140,10 @@ therefore left with the following dimensions:</p>
 <p>Regarding 1), the user has to specify a skimming start time, a skimming end time, and a sample interval. For each
 sampling interval, we build a shortest path from each origin to all destinations, calculate common skims,
 and then average over time sampling points by taking the mean.</p>
-<p>Regarding 2), …</p>
-<p>If you only want one user_class - purpose combination per access/egress combination, you can specify these in the
-<code class="docutils literal notranslate"><span class="pre">pathweight_ft.csv</span></code> file. Note that at the moment you will probably want this due to the caveat mentioned in
-<span class="xref std std-ref">Pathfinding details</span>.</p>
+<p>Regarding 2), the user can provide a list of combinations for which skims are sought. An example would be [(all,
+work, walk, transit, walk, 10)]. The generic form is [(user_class, purpose, access_mode, transit_mode, egress_mode,
+VoT)] and any number of these can be provided. Note that at the moment you will probably want to provide only one
+combination of (user_class, purpose, VoT) because of the pathfinding details mentioned in <span class="xref std std-ref">Pathfinding details</span>.</p>
 <section id="running-skimming">
 <h3>Running skimming<a class="headerlink" href="#running-skimming" title="Permalink to this headline"></a></h3>
 <p>Either post-assignment via parameter in config_ft.txt in the fasttrips section: “create_skims = True”; or on the
