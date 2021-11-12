@@ -1,79 +1,39 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>Input/Output Files &mdash; fasttrips Development Branch Commit 5e504cb3319b58faac3aca1310cb4ad08dc44ed8 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Using Fast-Trips" href="usage.html" />
     <link rel="prev" title="How Fast-Trips Works" href="howitworks.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="index.html" class="icon icon-home"> fasttrips
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 0.0
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -81,18 +41,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="usecases.html">Use Cases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">Getting Started</a></li>
@@ -113,6 +62,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#config-ft-file">Config_ft File</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#configuration-options-fasttrips">Configuration Options: fasttrips</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#configuration-options-pathfinding">Configuration Options: pathfinding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configuration-options-skimming">Configuration Options: skimming</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#more-on-overlap-path-size-penalties">More on Overlap Path Size Penalties</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#user-class-configuration-config-ft-py">User Class Configuration: config_ft.py</a></li>
 </ul>
@@ -128,6 +78,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#trace-output">Trace  Output</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#computing-performance-output">Computing Performance Output</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#settings-output">Settings Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#skimming-output">Skimming Output</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Using Fast-Trips</a></li>
@@ -137,83 +88,43 @@
 <li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">fasttrips</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>Input/Output Files</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="_sources/io.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="input-output-files">
-<h1>Input/Output Files<a class="headerlink" href="#input-output-files" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="input-output-files">
+<h1>Input/Output Files<a class="headerlink" href="#input-output-files" title="Permalink to this headline"></a></h1>
 <dl class="simple" id="input-files">
 <dt>The input to fast-trips consists of:</dt><dd><ul class="simple">
+<li><p>A Transit Network directory, including schedules, access, egress and transfer information, specified by the <a class="reference external" href="https://github.com/osplanning-data-standards/GTFS-PLUS">gtfs_plus</a></p></li>
 <li><p>A Transit Network directory, including schedules, access, egress and transfer information, specified by the <a class="reference external" href="https://github.com/osplanning-data-standards/GTFS-PLUS">gtfs_plus</a></p></li>
 <li><p>A Transit Demand directory, including persons, households and trips, specified by the <a class="reference external" href="https://github.com/osplanning-data-standards/dyno-demand">dyno_demand</a></p></li>
 <li><p>fast-trips Configuration, specified below</p></li>
 </ul>
 </dd>
 </dl>
-<div class="section" id="passenger-demand">
-<span id="id1"></span><h2>Passenger Demand<a class="headerlink" href="#passenger-demand" title="Permalink to this headline">¶</a></h2>
+<section id="passenger-demand">
+<span id="id1"></span><h2>Passenger Demand<a class="headerlink" href="#passenger-demand" title="Permalink to this headline"></a></h2>
 <dl class="simple">
 <dt>Passenger demand is specified in the the <a class="reference external" href="https://github.com/osplanning-data-standards/dyno-demand">dyno_demand</a> format of one to three csv files.</dt><dd><ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">trip_list.txt</span></code></p></li>
@@ -362,14 +273,14 @@ ID MAY be sequential.</p></td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="transport-network">
-<span id="id2"></span><h2>Transport Network<a class="headerlink" href="#transport-network" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="transport-network">
+<span id="id2"></span><h2>Transport Network<a class="headerlink" href="#transport-network" title="Permalink to this headline"></a></h2>
 <p>The transport network is specified in the the <a class="reference external" href="https://github.com/osplanning-data-standards/GTFS-PLUS">gtfs_plus</a> format of text files.
 It can be generated by augmenting existing GTFS files, or by converting travel model files to <a class="reference external" href="https://github.com/osplanning-data-standards/GTFS-PLUS">gtfs_plus</a> using a tool
 like <a class="reference external" href="https://github.com/sfcta/networkwrangler">network_wrangler</a></p>
-<div class="section" id="fares">
-<h3>Fares<a class="headerlink" href="#fares" title="Permalink to this headline">¶</a></h3>
+<section id="fares">
+<h3>Fares<a class="headerlink" href="#fares" title="Permalink to this headline"></a></h3>
 <p><a href="#id11"><span class="problematic" id="id12">`GTFS-plus`_</span></a> fare inputs are similar to GTFS fare inputs but with additional fare periods for time period-based fares.</p>
 <p>However, since the columns <cite>route_id</cite>, <cite>origin_id</cite>, <cite>destination_id</cite> and <cite>contains_id</cite> are all optional in
 <cite>fare_rules.txt &lt;https://github.com/osplanning-data-standards/GTFS-PLUS/blob/master/files/fare_rules.md&gt;`_</cite> and
@@ -437,10 +348,10 @@ to the slow-down of vehicles – so consider deprecating this in favor of using 
 it’s a good test that the C++ code is working as expected; running with simulation off should result in identical
 fare and cost results from pathfinding and the (non-vehicle-updating) python simulation.</p></li>
 </ol>
-</div>
-</div>
-<div class="section" id="configuration-files">
-<h2>Configuration Files<a class="headerlink" href="#configuration-files" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="configuration-files">
+<h2>Configuration Files<a class="headerlink" href="#configuration-files" title="Permalink to this headline"></a></h2>
 <dl class="simple">
 <dt>There are two required configuration files:</dt><dd><ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">pathweights_ft.txt</span></code>  : weights assigned to each component of a transit path</p></li>
@@ -452,8 +363,8 @@ fare and cost results from pathfinding and the (non-vehicle-updating) python sim
 </ul>
 </dd>
 </dl>
-<div class="section" id="pathweights-specification">
-<h3>Pathweights Specification<a class="headerlink" href="#pathweights-specification" title="Permalink to this headline">¶</a></h3>
+<section id="pathweights-specification">
+<h3>Pathweights Specification<a class="headerlink" href="#pathweights-specification" title="Permalink to this headline"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">pathweight_ft.txt</span></code> file is a <em>required</em> file that tells Fast-Trips how much to value each attribute of a path.
 This will be used for the stop-labeling stage but also the path selection, which is done in a logit model.  Therefore,
 the weights should be consistent with with utility.</p>
@@ -522,8 +433,8 @@ coefficient is 0.2, the value for route choice would be 0.10 (0.02 / 0.2).</p>
 </tr>
 </tbody>
 </table>
-<div class="section" id="determining-supply-modes-and-weight-values">
-<h4>Determining supply modes and weight values<a class="headerlink" href="#determining-supply-modes-and-weight-values" title="Permalink to this headline">¶</a></h4>
+<section id="determining-supply-modes-and-weight-values">
+<h4>Determining supply modes and weight values<a class="headerlink" href="#determining-supply-modes-and-weight-values" title="Permalink to this headline"></a></h4>
 <dl class="simple">
 <dt>If a supply mode exists in <code class="docutils literal notranslate"><span class="pre">pathweight_ft.txt</span></code>, it is assumed to be a valid mode to use for the associated demand mode.</dt><dd><ul class="simple">
 <li><p>Demand modes for each person are determined from each component of <code class="docutils literal notranslate"><span class="pre">mode</span></code> in <code class="docutils literal notranslate"><span class="pre">trip_list.txt</span></code> plus an implied
@@ -583,9 +494,9 @@ nesting parameter (ranging from ~0.2-0.8) to get a rough reasonable range of 0.0
 </ul>
 </dd>
 </dl>
-</div>
-<div class="section" id="weight-names">
-<h4>Weight Names<a class="headerlink" href="#weight-names" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="weight-names">
+<h4>Weight Names<a class="headerlink" href="#weight-names" title="Permalink to this headline"></a></h4>
 <dl class="simple">
 <dt>The column <code class="docutils literal notranslate"><span class="pre">weight_name</span></code> must conform to a set of constraints as discussed below.</dt><dd><ul class="simple">
 <li><p>For most of the weights prefix mode is not needed. E.g. there is no need to label <code class="docutils literal notranslate"><span class="pre">weight_name</span></code> <code class="docutils literal notranslate"><span class="pre">time_min</span></code> for
@@ -655,9 +566,9 @@ for <code class="docutils literal notranslate"><span class="pre">supply_mode</sp
 <p class="admonition-title">Note</p>
 <p>Note that the cost component is handled at the path level using the value of time column in <code class="docutils literal notranslate"><span class="pre">trip_list.txt</span></code>.</p>
 </div>
-</div>
-<div class="section" id="weight-qualifiers">
-<span id="weightqualifiers"></span><h4>Weight Qualifiers<a class="headerlink" href="#weight-qualifiers" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="weight-qualifiers">
+<span id="weightqualifiers"></span><h4>Weight Qualifiers<a class="headerlink" href="#weight-qualifiers" title="Permalink to this headline"></a></h4>
 <p>By default, Fast-Trips will apply all weights as a constant on the appropriate variable. Fast-Trips also supports weight
 qualifiers which allow for the weights to be applied using more complex models. The supported qualifiers are listed
 below. Certain qualifiers also require modifiers to shape the cost function.</p>
@@ -718,19 +629,19 @@ below. Certain qualifiers also require modifiers to shape the cost function.</p>
 <span class="nb">all</span>        <span class="n">other</span>   <span class="n">egress</span>           <span class="n">walk</span>           <span class="n">walk_egress</span>  <span class="n">arrive_late_min</span><span class="o">.</span><span class="n">logarithmic</span><span class="o">.</span><span class="n">log_base</span>          <span class="mf">2.71828</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="config-ft-file">
-<span id="configft"></span><h3>Config_ft File<a class="headerlink" href="#config-ft-file" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="config-ft-file">
+<span id="configft"></span><h3>Config_ft File<a class="headerlink" href="#config-ft-file" title="Permalink to this headline"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">config_ft.txt</span></code> is a <em>required</em> file whose location is specified at runtime.
 If the same options are specified in both, then the version specified in the Transit Demand input directory will be used.
 (Two versions may be specified because some configuration options are more relevant to demand and some are more relevant
 to network inputs.)</p>
 <p>The configuration files are parsed by python’s
-<a class="reference external" href="https://docs.python.org/2/library/configparser.html#module-ConfigParser">ConfigParser module</a> and therefore adhere to
-that format, with two possible sections: <em>fasttrips</em> and <em>pathfinding</em>.</p>
-<div class="section" id="configuration-options-fasttrips">
-<h4>Configuration Options: fasttrips<a class="headerlink" href="#configuration-options-fasttrips" title="Permalink to this headline">¶</a></h4>
+<cite>ConfigParser module</cite> &lt;<a class="reference external" href="https://docs.python.org/2/library/configparser.html#module-ConfigParser">https://docs.python.org/2/library/configparser.html#module-ConfigParser</a>&gt;`_ and therefore
+adhere to that format, with three possible sections: <em>fasttrips</em>, <em>pathfinding</em> and <em>skimming</em>.</p>
+<section id="configuration-options-fasttrips">
+<h4>Configuration Options: fasttrips<a class="headerlink" href="#configuration-options-fasttrips" title="Permalink to this headline"></a></h4>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 38%" />
@@ -767,7 +678,7 @@ a new path using an overcapacity vehicle.</p></td>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">create_skims</span></code></p></td>
 <td><p>bool</p></td>
 <td><p>False</p></td>
-<td><p>##TODO Not implemented yet.</p></td>
+<td><p>Run skimming after assignment.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">debug_num_trips</span></code></p></td>
 <td><p>int</p></td>
@@ -848,16 +759,6 @@ and verifying that pathfinding calculations
 are consisten twith cost/fare calculations
 done outside of pathfinding.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">skim_start_time</span></code></p></td>
-<td><p>string</p></td>
-<td><p>5:00</p></td>
-<td><p>##TODO Not implemented yet.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">skim_end_time</span></code></p></td>
-<td><p>string</p></td>
-<td><p>10:00</p></td>
-<td><p>##TODO Not implemented yet.</p></td>
-</tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">skip_person_ids</span></code></p></td>
 <td><p>string</p></td>
 <td><p>‘None’</p></td>
@@ -871,9 +772,9 @@ for whom to output verbose trace information.</p></td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="configuration-options-pathfinding">
-<h4>Configuration Options: pathfinding<a class="headerlink" href="#configuration-options-pathfinding" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="configuration-options-pathfinding">
+<h4>Configuration Options: pathfinding<a class="headerlink" href="#configuration-options-pathfinding" title="Permalink to this headline"></a></h4>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 34%" />
@@ -1029,9 +930,49 @@ time target by this many minutes.</p></td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="more-on-overlap-path-size-penalties">
-<h4>More on Overlap Path Size Penalties<a class="headerlink" href="#more-on-overlap-path-size-penalties" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="configuration-options-skimming">
+<h4>Configuration Options: skimming<a class="headerlink" href="#configuration-options-skimming" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 9%" />
+<col style="width: 10%" />
+<col style="width: 46%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><em>Option Name</em></p></th>
+<th class="head"><p><em>Type</em></p></th>
+<th class="head"><p><em>Default</em></p></th>
+<th class="head"><p><em>Description</em></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">time_period_start</span></code></p></td>
+<td><p>int</p></td>
+<td><p>N/A</p></td>
+<td><p>Start of skimming period in minutes after midnight</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">time_period_end</span></code></p></td>
+<td><p>int</p></td>
+<td><p>N/A</p></td>
+<td><p>End of skimming period in minutes after midnight</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">time_period_sampling_interval</span></code></p></td>
+<td><p>int</p></td>
+<td><p>N/A</p></td>
+<td><p>Sample frequency for skim path building</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">user_class</span></code></p></td>
+<td><p>string</p></td>
+<td><p>N/A</p></td>
+<td><p>##TODO Not documented yet.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="more-on-overlap-path-size-penalties">
+<h4>More on Overlap Path Size Penalties<a class="headerlink" href="#more-on-overlap-path-size-penalties" title="Permalink to this headline"></a></h4>
 <p>The path size overlap penalty is formulated by Ramming and discussed in Hoogendoorn-Lanser et al. (see
 [References](#references) ).</p>
 <p>When the pathsize overlap is penalized (pathfinding <code class="docutils literal notranslate"><span class="pre">overlap_variable</span></code> is not <cite>None</cite>), then the following equation is
@@ -1100,9 +1041,9 @@ used to calculate the path size overlap penalty:</p>
 </dd>
 </dl>
 </div></blockquote>
-</div>
-<div class="section" id="user-class-configuration-config-ft-py">
-<h4>User Class Configuration: config_ft.py<a class="headerlink" href="#user-class-configuration-config-ft-py" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="user-class-configuration-config-ft-py">
+<h4>User Class Configuration: config_ft.py<a class="headerlink" href="#user-class-configuration-config-ft-py" title="Permalink to this headline"></a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">config_ft.py</span></code> is an <em>optional</em> python file containing functions that are evaluated to ascertain items such as user
 classes.
 This could be used to programmatically define user classes based on person, household and/or trip attributes.</p>
@@ -1120,11 +1061,11 @@ This could be used to programmatically define user classes based on person, hous
     <span class="k">return</span> <span class="s2">&quot;real&quot;</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="passenger-path-output">
-<h2>Passenger Path Output<a class="headerlink" href="#passenger-path-output" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+</section>
+<section id="passenger-path-output">
+<h2>Passenger Path Output<a class="headerlink" href="#passenger-path-output" title="Permalink to this headline"></a></h2>
 <p>Fast-Trips uses the <a class="reference external" href="https://github.com/osplanning-data-standards/dyno-path">dyno_path</a> data standard to convey sets of paths, or a <cite>pathset</cite>.  Each Path is comprised of a set
 of links. Each dyno-path pathset is comprised of two sets of files, a path-file, and a link file, described in the
 following sections.</p>
@@ -1136,8 +1077,8 @@ following sections.</p>
 <dt><code class="docutils literal notranslate"><span class="pre">chosen_links.csv</span></code> and <code class="docutils literal notranslate"><span class="pre">chosen_paths.csv</span></code></dt><dd><p>Paths that are selected by passengers.</p>
 </dd>
 </dl>
-<div class="section" id="path-files">
-<h3>Path files<a class="headerlink" href="#path-files" title="Permalink to this headline">¶</a></h3>
+<section id="path-files">
+<h3>Path files<a class="headerlink" href="#path-files" title="Permalink to this headline"></a></h3>
 <p>Path-based output files depict the available and enumerated paths in the path choice set in the <a class="reference external" href="https://github.com/osplanning-data-standards/dyno-path">dyno_path</a> format.</p>
 <p>Dyno-path path file <strong>required</strong> attributes:</p>
 <table class="docutils align-default">
@@ -1217,9 +1158,9 @@ iteration + simulation_iteration/100.</p></td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="link-files">
-<h3>Link files<a class="headerlink" href="#link-files" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="link-files">
+<h3>Link files<a class="headerlink" href="#link-files" title="Permalink to this headline"></a></h3>
 <p>Link-based dyno-path output files depict the links within the available and enumerated paths in the path choice set in
 the <a class="reference external" href="https://github.com/osplanning-data-standards/dyno-path">dyno_path</a> format.</p>
 <p>Dyno-path link file <strong>required</strong> Attributes</p>
@@ -1399,10 +1340,10 @@ alight time due to changes in dwell time.</p></td>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-<div class="section" id="vehicle-based-output">
-<h2>Vehicle Based Output<a class="headerlink" href="#vehicle-based-output" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="vehicle-based-output">
+<h2>Vehicle Based Output<a class="headerlink" href="#vehicle-based-output" title="Permalink to this headline"></a></h2>
 <dl>
 <dt><code class="docutils literal notranslate"><span class="pre">veh_trips.csv</span></code></dt><dd><p>Contains a record for each <em>vehicle-trip, stop</em> and <em>iteration, pathfinding_iteration, simulation_iteration</em>
 combination.</p>
@@ -1491,9 +1432,9 @@ data standard.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="trace-output">
-<h2>Trace  Output<a class="headerlink" href="#trace-output" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="trace-output">
+<h2>Trace  Output<a class="headerlink" href="#trace-output" title="Permalink to this headline"></a></h2>
 <p>Output from person traces is currently contained in a very lengthy .log file as well as specially labeled link- and path-
 output csvs in the <a class="reference external" href="https://github.com/osplanning-data-standards/dyno-path">dyno_path</a> formats.</p>
 <dl>
@@ -1576,9 +1517,9 @@ here</p></td>
 </table>
 </dd>
 </dl>
-</div>
-<div class="section" id="computing-performance-output">
-<h2>Computing Performance Output<a class="headerlink" href="#computing-performance-output" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="computing-performance-output">
+<h2>Computing Performance Output<a class="headerlink" href="#computing-performance-output" title="Permalink to this headline"></a></h2>
 <dl class="simple">
 <dt><code class="docutils literal notranslate"><span class="pre">ft_output_performance.csv</span></code></dt><dd><p>Outputs start- and end- time and memory for each iteration of each step of fast-trips: read_configuration, pathfinding,
 assignment, simulation iteration, and output.  Note that mid-process memory is not able to be logged :-(</p>
@@ -1599,64 +1540,59 @@ assignment, simulation iteration, and output.  Note that mid-process memory is n
 </dl>
 </dd>
 </dl>
-</div>
-<div class="section" id="settings-output">
-<h2>Settings Output<a class="headerlink" href="#settings-output" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="settings-output">
+<h2>Settings Output<a class="headerlink" href="#settings-output" title="Permalink to this headline"></a></h2>
 <dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">ft_output_config.txt</span></code></dt><dd><p>Just in case you threw away any record of the settings you used to run Fast-Trips, the input files you used, …or if
-you wanted to know what settings Fast-Trips actually used when you gave it multiple layers of direction, you can
-review them here.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">ft_output_config.txt</span></code></dt><dd><p>Just in case you threw away any record of the settings you used to run Fast-Trips, the input files you used, …or if you wanted to know what settings Fast-Trips actually used when you gave it multiple layers of direction, you can review them here.</p>
 </dd>
 </dl>
-</div>
-</div>
+</section>
+<section id="skimming-output">
+<h2>Skimming Output<a class="headerlink" href="#skimming-output" title="Permalink to this headline"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">skims/skim_index_to_zone_id_mapping.csv</span></code>
+Mapping from 0-based skim index (first column) to arbitrary zone identifiers as specified in network files (second
+column). Note that this information is also stored as an attribute in the omx file, however it is not specified as an
+omx mapping because the identifiers can be arbitrary strings (like in the Springfield example) and types that cannot be
+cast to integers <a class="reference external" href="https://github.com/osPlanning/omx-python/blob/337ea4deff0c0055a6e792a5bf45aabf3fc82075/openmatrix/File.py#L284">are not supported by
+omx</a>
+currently.</p>
+<p><code class="docutils literal notranslate"><span class="pre">skims/{user_class}_{purpose}_{access}_{transit}_{egress}/{skim_name}.omx</span></code>
+For each requested combination of (user_class, purpose, access_mode, transit_mode, egress_mode) there is a directory
+corresponding sub-directory which contains all skims. All components are saved to individual omx files, with the file
+name a combination of component_name, skim start time, skim end time, and skim sampling interval.</p>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="usage.html" class="btn btn-neutral float-right" title="Using Fast-Trips" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="howitworks.html" class="btn btn-neutral float-left" title="How Fast-Trips Works" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="usage.html" class="btn btn-neutral float-right" title="Using Fast-Trips" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2015-2018, Lisa Zorn.
-
-    </p>
+    <p>&#169; Copyright 2015-2018, Lisa Zorn.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

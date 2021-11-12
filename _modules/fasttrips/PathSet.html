@@ -1,76 +1,35 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>fasttrips.PathSet &mdash; fasttrips Development Branch Commit 5e504cb3319b58faac3aca1310cb4ad08dc44ed8 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
-    
+    <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../index.html" class="icon icon-home"> fasttrips
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 0.0
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -78,18 +37,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../usecases.html">Use Cases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../gettingstarted.html">Getting Started</a></li>
@@ -102,69 +50,30 @@
 <li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../index.html">fasttrips</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../index.html">Module code</a> &raquo;</li>
-        
       <li>fasttrips.PathSet</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <h1>Source code for fasttrips.PathSet</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
 <span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">str</span>
@@ -954,7 +863,7 @@
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">calculate_cost</span><span class="p">(</span><span class="n">STOCH_DISPERSION</span><span class="p">,</span> <span class="n">pathset_paths_df</span><span class="p">,</span> <span class="n">pathset_links_df</span><span class="p">,</span> <span class="n">veh_trips_df</span><span class="p">,</span>
-                       <span class="n">trip_list_df</span><span class="p">,</span> <span class="n">routes</span><span class="p">,</span> <span class="n">tazs</span><span class="p">,</span> <span class="n">transfers</span><span class="p">,</span> <span class="n">stops</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reset_bump_iter</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+                       <span class="n">trip_list_df</span><span class="p">,</span> <span class="n">routes</span><span class="p">,</span> <span class="n">tazs</span><span class="p">,</span> <span class="n">transfers</span><span class="p">,</span> <span class="n">stops</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reset_bump_iter</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">is_skimming</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This is equivalent to the C++ Path::calculateCost() method.  Would it be faster to do it in C++?</span>
 <span class="sd">        It would require us to package up the networks and paths and send back and forth.  :p</span>
@@ -995,7 +904,7 @@
             <span class="n">pathset_links_df</span> <span class="o">=</span> <span class="n">stops</span><span class="o">.</span><span class="n">add_stop_zone_id</span><span class="p">(</span><span class="n">pathset_links_df</span><span class="p">,</span> <span class="s2">&quot;A_id&quot;</span><span class="p">,</span> <span class="s2">&quot;A_zone_id&quot;</span><span class="p">)</span>
             <span class="n">pathset_links_df</span> <span class="o">=</span> <span class="n">stops</span><span class="o">.</span><span class="n">add_stop_zone_id</span><span class="p">(</span><span class="n">pathset_links_df</span><span class="p">,</span> <span class="s2">&quot;B_id&quot;</span><span class="p">,</span> <span class="s2">&quot;B_zone_id&quot;</span><span class="p">)</span>
         <span class="c1"># This needs to be done fresh each time since simulation might change the board times and therefore the fare periods</span>
-        <span class="n">pathset_links_df</span> <span class="o">=</span> <span class="n">routes</span><span class="o">.</span><span class="n">add_fares</span><span class="p">(</span><span class="n">pathset_links_df</span><span class="p">)</span>
+        <span class="n">pathset_links_df</span> <span class="o">=</span> <span class="n">routes</span><span class="o">.</span><span class="n">add_fares</span><span class="p">(</span><span class="n">pathset_links_df</span><span class="p">,</span> <span class="n">is_skimming</span><span class="p">)</span>
 
 
         <span class="c1"># base this on pathfinding distance</span>
@@ -1009,9 +918,11 @@
 
         <span class="c1"># First, we need user class, purpose, demand modes, and value of time</span>
         <span class="n">pathset_links_cost_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">left</span> <span class="o">=</span><span class="n">pathset_links_to_use</span><span class="p">,</span>
-                                             <span class="n">right</span><span class="o">=</span><span class="n">trip_list_df</span><span class="p">[[</span>
-                                                        <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_ID</span><span class="p">,</span>
-                                                        <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_TRIP_ID</span><span class="p">,</span>
+                                             <span class="n">right</span><span class="o">=</span><span class="n">trip_list_df</span><span class="p">[</span>
+                                                        <span class="c1">#Passenger.TRIP_LIST_COLUMN_PERSON_ID,</span>
+                                                        <span class="c1">#Passenger.TRIP_LIST_COLUMN_PERSON_TRIP_ID,</span>
+                                                        <span class="n">Passenger</span><span class="o">.</span><span class="n">get_id_columns</span><span class="p">(</span><span class="n">is_skimming</span><span class="p">)</span> <span class="o">+</span>
+                                                        <span class="p">[</span>
                                                         <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_USER_CLASS</span><span class="p">,</span>
                                                         <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PURPOSE</span><span class="p">,</span>
                                                         <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_VOT</span><span class="p">,</span>
@@ -1020,7 +931,8 @@
                                                         <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TRANSIT_MODE</span><span class="p">,</span>
                                                         <span class="p">]],</span>
                                              <span class="n">how</span>  <span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span>
-                                             <span class="n">on</span>   <span class="o">=</span><span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">PERSONS_COLUMN_PERSON_ID</span><span class="p">,</span> <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_TRIP_ID</span><span class="p">])</span>
+                                             <span class="n">on</span>   <span class="o">=</span><span class="n">Passenger</span><span class="o">.</span><span class="n">get_id_columns</span><span class="p">(</span><span class="n">is_skimming</span><span class="p">))</span>
+            <span class="c1">#[Passenger.PERSONS_COLUMN_PERSON_ID, Passenger.TRIP_LIST_COLUMN_PERSON_TRIP_ID])</span>
 
         <span class="c1"># linkmode = demand_mode_type.  Set demand_mode for the links</span>
         <span class="n">pathset_links_cost_df</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">WEIGHTS_COLUMN_DEMAND_MODE</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
@@ -1063,7 +975,7 @@
         <span class="c1"># since generalized cost is in utils, (ivt utils/min)x(60 min/1 hour)x(hour/vot currency) is the weight (utils/currency)</span>
         <span class="n">cost_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="n">cost_df</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">WEIGHTS_COLUMN_WEIGHT_NAME</span><span class="p">]</span><span class="o">==</span><span class="n">Assignment</span><span class="o">.</span><span class="n">SIM_COL_PAX_FARE</span><span class="p">,</span> <span class="s2">&quot;weight_value&quot;</span> <span class="p">]</span> <span class="o">*=</span> <span class="p">(</span><span class="mf">60.0</span><span class="o">/</span><span class="n">cost_df</span><span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_VOT</span><span class="p">])</span>
 
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">Assignment</span><span class="o">.</span><span class="n">TRACE_IDS</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Assignment</span><span class="o">.</span><span class="n">TRACE_IDS</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_skimming</span><span class="p">:</span>
             <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;calculate_cost: cost_df</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">cost_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cost_df</span><span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TRACE</span><span class="p">]</span><span class="o">==</span><span class="kc">True</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span>
                                   <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TRIP_LIST_ID_NUM</span><span class="p">,</span>
                                   <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_PATH_NUM</span><span class="p">,</span><span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_LINK_NUM</span><span class="p">])</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">)))</span>
@@ -1132,15 +1044,17 @@
 
         <span class="c1"># Access/egress needs passenger trip departure, arrival and time_target</span>
         <span class="n">cost_accegr_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">left</span> <span class="o">=</span><span class="n">cost_accegr_df</span><span class="p">,</span>
-                                      <span class="n">right</span><span class="o">=</span><span class="n">trip_list_df</span><span class="p">[[</span>
-                                                <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_ID</span><span class="p">,</span>
-                                                <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_TRIP_ID</span><span class="p">,</span>
+                                      <span class="n">right</span><span class="o">=</span><span class="n">trip_list_df</span><span class="p">[</span>
+                                                <span class="c1">#[Passenger.TRIP_LIST_COLUMN_PERSON_ID,</span>
+                                                <span class="c1">#Passenger.TRIP_LIST_COLUMN_PERSON_TRIP_ID,</span>
+                                                <span class="n">Passenger</span><span class="o">.</span><span class="n">get_id_columns</span><span class="p">(</span><span class="n">is_skimming</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span>
                                                 <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_DEPARTURE_TIME</span><span class="p">,</span>
                                                 <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_ARRIVAL_TIME</span><span class="p">,</span>
                                                 <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TIME_TARGET</span><span class="p">,</span>
                                                 <span class="p">]],</span>
                                       <span class="n">how</span>  <span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span>
-                                      <span class="n">on</span>   <span class="o">=</span><span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">PERSONS_COLUMN_PERSON_ID</span><span class="p">,</span> <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_TRIP_ID</span><span class="p">])</span>
+                                      <span class="n">on</span>   <span class="o">=</span><span class="n">Passenger</span><span class="o">.</span><span class="n">get_id_columns</span><span class="p">(</span><span class="n">is_skimming</span><span class="p">))</span>
+                                  <span class="c1">#[Passenger.PERSONS_COLUMN_PERSON_ID, Passenger.TRIP_LIST_COLUMN_PERSON_TRIP_ID])</span>
 
         <span class="c1"># drop links that are irrelevant based on departure time for access links, or arrival time for egress links</span>
         <span class="n">cost_accegr_df</span><span class="p">[</span><span class="s2">&quot;check_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cost_accegr_df</span><span class="p">[</span><span class="n">Assignment</span><span class="o">.</span><span class="n">SIM_COL_PAX_A_TIME</span><span class="p">]</span>  <span class="c1"># departure time for access</span>
@@ -1303,7 +1217,7 @@
             <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="n">error_trip_msg</span><span class="p">)</span>
 
         <span class="c1">##################### Finally, handle Transfer link costs</span>
-        <span class="n">cost_transfer_df</span> <span class="o">=</span> <span class="n">transfers</span><span class="o">.</span><span class="n">add_transfer_attributes</span><span class="p">(</span><span class="n">cost_transfer_df</span><span class="p">,</span> <span class="n">pathset_links_df</span><span class="p">)</span>
+        <span class="n">cost_transfer_df</span> <span class="o">=</span> <span class="n">transfers</span><span class="o">.</span><span class="n">add_transfer_attributes</span><span class="p">(</span><span class="n">cost_transfer_df</span><span class="p">,</span> <span class="n">pathset_links_df</span><span class="p">,</span> <span class="n">is_skimming</span><span class="p">)</span>
         <span class="n">cost_transfer_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cost_transfer_df</span><span class="p">[</span><span class="n">PathSet</span><span class="o">.</span><span class="n">WEIGHTS_COLUMN_WEIGHT_NAME</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;walk_time_min&quot;</span><span class="p">,</span> <span class="s2">&quot;var_value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cost_transfer_df</span><span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_LINK_TIME</span><span class="p">]</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;m&#39;</span><span class="p">)</span>
 
         <span class="c1"># any numeric column can be used</span>
@@ -1335,8 +1249,9 @@
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Missing var_values; See log&quot;</span><span class="p">)</span>
 
         <span class="c1">##################### Put them back together into a single dataframe</span>
-        <span class="n">cost_columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_ID</span><span class="p">,</span>
-                        <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_TRIP_ID</span><span class="p">,</span>
+        <span class="n">cost_columns</span> <span class="o">=</span> <span class="n">Passenger</span><span class="o">.</span><span class="n">get_id_columns</span><span class="p">(</span><span class="n">is_skimming</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span>
+                       <span class="c1">#[Passenger.TRIP_LIST_COLUMN_PERSON_ID,</span>
+                       <span class="c1"># Passenger.TRIP_LIST_COLUMN_PERSON_TRIP_ID,</span>
                         <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TRIP_LIST_ID_NUM</span><span class="p">,</span>
                         <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TRACE</span><span class="p">,</span>
                         <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_USER_CLASS</span><span class="p">,</span>
@@ -1368,8 +1283,9 @@
         <span class="c1"># calculate link cost a function of the variable, weight and weight type</span>
         <span class="n">Util</span><span class="o">.</span><span class="n">calculate_pathweight_costs</span><span class="p">(</span><span class="n">cost_df</span><span class="p">,</span> <span class="n">Assignment</span><span class="o">.</span><span class="n">SIM_COL_PAX_COST</span><span class="p">)</span>
 
-        <span class="n">cost_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_ID</span><span class="p">,</span>
-                             <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_TRIP_ID</span><span class="p">,</span>
+        <span class="n">cost_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">Passenger</span><span class="o">.</span><span class="n">get_id_columns</span><span class="p">(</span><span class="n">is_skimming</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span>
+                            <span class="c1">#[Passenger.TRIP_LIST_COLUMN_PERSON_ID,</span>
+                            <span class="c1"># Passenger.TRIP_LIST_COLUMN_PERSON_TRIP_ID,</span>
                              <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_PATH_NUM</span><span class="p">,</span>
                              <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_LINK_NUM</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;calculate_cost: cost_df</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">cost_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cost_df</span><span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TRACE</span><span class="p">]</span><span class="o">==</span><span class="kc">True</span><span class="p">]))</span>
@@ -1381,16 +1297,19 @@
             <span class="k">raise</span> <span class="n">UnexpectedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
         <span class="c1">###################### sum linkcost to links</span>
-        <span class="n">cost_link_df</span> <span class="o">=</span> <span class="n">cost_df</span><span class="p">[[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_ID</span><span class="p">,</span>
-                                <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_TRIP_ID</span><span class="p">,</span>
+        <span class="n">cost_link_df</span> <span class="o">=</span> <span class="n">cost_df</span><span class="p">[</span><span class="c1">#[Passenger.TRIP_LIST_COLUMN_PERSON_ID,</span>
+                               <span class="c1">#  Passenger.TRIP_LIST_COLUMN_PERSON_TRIP_ID,</span>
+                                <span class="n">Passenger</span><span class="o">.</span><span class="n">get_id_columns</span><span class="p">(</span><span class="n">is_skimming</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span>
                                 <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TRIP_LIST_ID_NUM</span><span class="p">,</span>
                                 <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TRACE</span><span class="p">,</span>
                                 <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_PATH_NUM</span><span class="p">,</span>
                                 <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_LINK_NUM</span><span class="p">,</span>
                                 <span class="n">Assignment</span><span class="o">.</span><span class="n">SIM_COL_PAX_COST</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span>
-                                   <span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TRIP_LIST_ID_NUM</span><span class="p">,</span> <span class="c1"># sort by this first</span>
-                                    <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_ID</span><span class="p">,</span>
-                                    <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_TRIP_ID</span><span class="p">,</span>
+
+                                   <span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TRIP_LIST_ID_NUM</span><span class="p">]</span> <span class="o">+</span> <span class="c1"># sort by this first</span>
+                                   <span class="n">Passenger</span><span class="o">.</span><span class="n">get_id_columns</span><span class="p">(</span><span class="n">is_skimming</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span>
+                                   <span class="c1"># Passenger.TRIP_LIST_COLUMN_PERSON_ID,</span>
+                                   <span class="c1"># Passenger.TRIP_LIST_COLUMN_PERSON_TRIP_ID,</span>
                                     <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TRACE</span><span class="p">,</span>
                                     <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_PATH_NUM</span><span class="p">,</span>
                                     <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_LINK_NUM</span><span class="p">])</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="s1">&#39;sum&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
@@ -1400,8 +1319,9 @@
         <span class="n">pathset_links_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">left</span> <span class="o">=</span><span class="n">pathset_links_df</span><span class="p">,</span>
                                         <span class="n">right</span><span class="o">=</span><span class="n">cost_link_df</span><span class="p">,</span>
                                         <span class="n">how</span>  <span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span>
-                                        <span class="n">on</span>   <span class="o">=</span><span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_ID</span><span class="p">,</span>
-                                               <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_TRIP_ID</span><span class="p">,</span>
+                                        <span class="n">on</span>   <span class="o">=</span><span class="n">Passenger</span><span class="o">.</span><span class="n">get_id_columns</span><span class="p">(</span><span class="n">is_skimming</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span>
+                                              <span class="c1">#[Passenger.TRIP_LIST_COLUMN_PERSON_ID,</span>
+                                              <span class="c1"># Passenger.TRIP_LIST_COLUMN_PERSON_TRIP_ID,</span>
                                                <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TRIP_LIST_ID_NUM</span><span class="p">,</span>
                                                <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TRACE</span><span class="p">,</span>
                                                <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_PATH_NUM</span><span class="p">,</span>
@@ -1411,14 +1331,15 @@
 
         <span class="c1">###################### overlap calcs</span>
         <span class="n">full_overlap_df</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="n">PathSet</span><span class="o">.</span><span class="n">OVERLAP_VARIABLE</span> <span class="o">!=</span> <span class="n">PathSet</span><span class="o">.</span><span class="n">OVERLAP_NONE</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">PathSet</span><span class="o">.</span><span class="n">OVERLAP_VARIABLE</span> <span class="o">!=</span> <span class="n">PathSet</span><span class="o">.</span><span class="n">OVERLAP_NONE</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_skimming</span><span class="p">:</span>
             <span class="n">full_overlap_df</span> <span class="o">=</span> <span class="n">PathSet</span><span class="o">.</span><span class="n">calculate_overlap</span><span class="p">(</span><span class="n">pathset_links_to_use</span><span class="p">)</span>
 
         <span class="c1">###################### sum linkcost to paths</span>
         <span class="n">cost_link_df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_LINK_NUM</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">cost_path_df</span> <span class="o">=</span> <span class="n">cost_link_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TRIP_LIST_ID_NUM</span><span class="p">,</span> <span class="c1"># order by this</span>
-                                             <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_ID</span><span class="p">,</span>
-                                             <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_TRIP_ID</span><span class="p">,</span>
+        <span class="n">cost_path_df</span> <span class="o">=</span> <span class="n">cost_link_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TRIP_LIST_ID_NUM</span><span class="p">]</span> <span class="o">+</span> <span class="c1"># order by this</span>
+                                             <span class="c1">#Passenger.TRIP_LIST_COLUMN_PERSON_ID,</span>
+                                             <span class="c1">#Passenger.TRIP_LIST_COLUMN_PERSON_TRIP_ID,</span>
+                                             <span class="n">Passenger</span><span class="o">.</span><span class="n">get_id_columns</span><span class="p">(</span><span class="n">is_skimming</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span>
                                              <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TRACE</span><span class="p">,</span>
                                              <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_PATH_NUM</span><span class="p">])</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="s1">&#39;sum&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">Assignment</span><span class="o">.</span><span class="n">TRACE_IDS</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -1427,20 +1348,22 @@
         <span class="n">pathset_paths_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">left</span> <span class="o">=</span><span class="n">pathset_paths_df</span><span class="p">,</span>
                                         <span class="n">right</span><span class="o">=</span><span class="n">cost_path_df</span><span class="p">,</span>
                                         <span class="n">how</span>  <span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span>
-                                        <span class="n">on</span>   <span class="o">=</span><span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_ID</span><span class="p">,</span>
-                                               <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_TRIP_ID</span><span class="p">,</span>
+                                        <span class="n">on</span>   <span class="o">=</span><span class="n">Passenger</span><span class="o">.</span><span class="n">get_id_columns</span><span class="p">(</span><span class="n">is_skimming</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span>
+                                              <span class="c1">#[Passenger.TRIP_LIST_COLUMN_PERSON_ID,</span>
+                                              <span class="c1"># Passenger.TRIP_LIST_COLUMN_PERSON_TRIP_ID,</span>
                                                <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TRIP_LIST_ID_NUM</span><span class="p">,</span>
                                                <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TRACE</span><span class="p">,</span>
                                                <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_PATH_NUM</span><span class="p">])</span>
 
-        <span class="k">if</span> <span class="n">PathSet</span><span class="o">.</span><span class="n">OVERLAP_VARIABLE</span> <span class="o">==</span> <span class="n">PathSet</span><span class="o">.</span><span class="n">OVERLAP_NONE</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">PathSet</span><span class="o">.</span><span class="n">OVERLAP_VARIABLE</span> <span class="o">==</span> <span class="n">PathSet</span><span class="o">.</span><span class="n">OVERLAP_NONE</span><span class="p">)</span> <span class="ow">or</span> <span class="n">is_skimming</span><span class="p">:</span>
             <span class="n">pathset_paths_df</span><span class="p">[</span><span class="n">Assignment</span><span class="o">.</span><span class="n">SIM_COL_PAX_LNPS</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">pathset_paths_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">left</span> <span class="o">=</span><span class="n">pathset_paths_df</span><span class="p">,</span>
                                             <span class="n">right</span><span class="o">=</span><span class="n">full_overlap_df</span><span class="p">,</span>
                                             <span class="n">how</span>  <span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span>
-                                            <span class="n">on</span>   <span class="o">=</span><span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_ID</span><span class="p">,</span>
-                                                   <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_TRIP_ID</span><span class="p">,</span>
+                                            <span class="n">on</span>   <span class="o">=</span><span class="n">Passenger</span><span class="o">.</span><span class="n">get_id_columns</span><span class="p">(</span><span class="n">is_skimming</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span>
+                                                  <span class="c1">#[Passenger.TRIP_LIST_COLUMN_PERSON_ID,</span>
+                                                  <span class="c1"># Passenger.TRIP_LIST_COLUMN_PERSON_TRIP_ID,</span>
                                                    <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TRIP_LIST_ID_NUM</span><span class="p">,</span>
                                                    <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TRACE</span><span class="p">,</span>
                                                    <span class="n">Passenger</span><span class="o">.</span><span class="n">PF_COL_PATH_NUM</span><span class="p">])</span>
@@ -1458,12 +1381,14 @@
         <span class="n">pathset_paths_df</span><span class="p">[</span><span class="s2">&quot;logsum_component&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="o">-</span><span class="mf">1.0</span><span class="o">*</span><span class="n">pathset_paths_df</span><span class="p">[</span><span class="n">Assignment</span><span class="o">.</span><span class="n">SIM_COL_PAX_COST</span><span class="p">]</span> <span class="o">+</span> <span class="n">pathset_paths_df</span><span class="p">[</span><span class="n">Assignment</span><span class="o">.</span><span class="n">SIM_COL_PAX_LNPS</span><span class="p">])</span><span class="o">/</span><span class="n">STOCH_DISPERSION</span><span class="p">)</span>
 
         <span class="c1"># sum across all paths</span>
-        <span class="n">pathset_logsum_df</span> <span class="o">=</span> <span class="n">pathset_paths_df</span><span class="p">[[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_ID</span><span class="p">,</span>
-                                              <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_TRIP_ID</span><span class="p">,</span>
+        <span class="n">pathset_logsum_df</span> <span class="o">=</span> <span class="n">pathset_paths_df</span><span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">get_id_columns</span><span class="p">(</span><span class="n">is_skimming</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span>
+                                              <span class="c1">#[Passenger.TRIP_LIST_COLUMN_PERSON_ID,</span>
+                                              <span class="c1">#Passenger.TRIP_LIST_COLUMN_PERSON_TRIP_ID,</span>
                                               <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TRIP_LIST_ID_NUM</span><span class="p">,</span><span class="s2">&quot;logsum_component&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span>
-                                <span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TRIP_LIST_ID_NUM</span><span class="p">,</span> <span class="c1"># sort by this</span>
-                                 <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_ID</span><span class="p">,</span>
-                                 <span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_PERSON_TRIP_ID</span><span class="p">])</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="s1">&#39;sum&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+                                <span class="p">[</span><span class="n">Passenger</span><span class="o">.</span><span class="n">TRIP_LIST_COLUMN_TRIP_LIST_ID_NUM</span><span class="p">]</span> <span class="o">+</span>  <span class="c1"># sort by this</span>
+                                 <span class="n">Passenger</span><span class="o">.</span><span class="n">get_id_columns</span><span class="p">(</span><span class="n">is_skimming</span><span class="p">))</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="s1">&#39;sum&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+                                 <span class="c1">#Passenger.TRIP_LIST_COLUMN_PERSON_ID,</span>
+                                 <span class="c1">#Passenger.TRIP_LIST_COLUMN_PERSON_TRIP_ID]</span>
         <span class="n">pathset_logsum_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;logsum_component&quot;</span><span class="p">:</span><span class="s2">&quot;logsum&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">pathset_paths_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="n">pathset_paths_df</span><span class="p">,</span>
                                         <span class="n">right</span><span class="o">=</span><span class="n">pathset_logsum_df</span><span class="p">,</span>
@@ -1629,46 +1554,30 @@
 </pre></div>
 
            </div>
-           
           </div>
           <footer>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2015-2018, Lisa Zorn.
-
-    </p>
+    <p>&#169; Copyright 2015-2018, Lisa Zorn.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

@@ -1,78 +1,38 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>fasttrips.Util &mdash; fasttrips Development Branch Commit 5e504cb3319b58faac3aca1310cb4ad08dc44ed8 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="fasttrips C++ Extension" href="../fasttrips_c_extension.html" />
     <link rel="prev" title="fasttrips.Trip" href="fasttrips.Trip.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> fasttrips
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 0.0
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -80,18 +40,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../usecases.html">Use Cases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../gettingstarted.html">Getting Started</a></li>
@@ -109,6 +58,7 @@
 <li class="toctree-l3"><a class="reference internal" href="fasttrips.Performance.html">fasttrips.Performance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="fasttrips.Route.html">fasttrips.Route</a></li>
 <li class="toctree-l3"><a class="reference internal" href="fasttrips.Run.html">fasttrips.Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fasttrips.Skimming.html">fasttrips.Skimming</a></li>
 <li class="toctree-l3"><a class="reference internal" href="fasttrips.Stop.html">fasttrips.Stop</a></li>
 <li class="toctree-l3"><a class="reference internal" href="fasttrips.TAZ.html">fasttrips.TAZ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="fasttrips.Transfer.html">fasttrips.Transfer</a></li>
@@ -124,83 +74,41 @@
 <li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">fasttrips</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../api.html">Fast-Trips Classes and Functions</a> &raquo;</li>
-        
       <li>fasttrips.Util</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../_sources/_generated/fasttrips.Util.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="fasttrips-util">
-<h1>fasttrips.Util<a class="headerlink" href="#fasttrips-util" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="fasttrips-util">
+<h1>fasttrips.Util<a class="headerlink" href="#fasttrips-util" title="Permalink to this headline"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="fasttrips.Util">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">fasttrips.</span></span><span class="sig-name descname"><span class="pre">Util</span></span><a class="reference internal" href="../_modules/fasttrips/Util.html#Util"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fasttrips.Util" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fasttrips.</span></span><span class="sig-name descname"><span class="pre">Util</span></span><a class="reference internal" href="../_modules/fasttrips/Util.html#Util"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fasttrips.Util" title="Permalink to this definition"></a></dt>
 <dd><p>Util class.</p>
 <p>Collect useful stuff here that doesn’t belong in any particular existing class.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="fasttrips.Util.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fasttrips.Util.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fasttrips.Util.__init__" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <p class="rubric">Methods</p>
@@ -213,17 +121,17 @@
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_new_id</span></code>(input_df, id_colname, …[, …])</p></td>
-<td><p>Passing a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> <em>input_df</em> with an ID column called <em>id_colname</em>, adds the numeric id as a column named <em>newid_colname</em> and returns it.</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_new_id</span></code>(input_df, id_colname, ...[, ...])</p></td>
+<td><p>Passing a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> <em>input_df</em> with an ID column called <em>id_colname</em>, adds the numeric id as a column named <em>newid_colname</em> and returns it.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_numeric_column</span></code>(input_df, id_colname, …)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_numeric_column</span></code>(input_df, id_colname, ...)</p></td>
 <td><p>Method to create numerical ID to map to an existing ID.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">calculate_distance_miles</span></code>(dataframe, …)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">calculate_distance_miles</span></code>(dataframe, ...)</p></td>
 <td><p>Given a dataframe with columns origin_lat, origin_lon, destination_lat, destination_lon, calculates the distance in miles between origin and destination based on Haversine.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">calculate_pathweight_costs</span></code>(df, result_col)</p></td>
-<td><p>Calculates the weighted cost for a given <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> given a impedance function and value.</p></td>
+<td><p>Calculates the weighted cost for a given <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> given a impedance function and value.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">datetime64_formatter</span></code>(x)</p></td>
 <td><p>Formatter to convert <code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.datetime64</span></code> to string that looks like <cite>HH:MM:SS</cite></p></td>
@@ -246,11 +154,11 @@
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">logarithmic_integration</span></code>(penalty_min, growth_rate)</p></td>
 <td><p>Returns the integrated value of an logarithmic function.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">logistic_integration</span></code>(penalty_minute, …)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">logistic_integration</span></code>(penalty_minute, ...)</p></td>
 <td><p>Returns the integrated value of an logistic function.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_two_dicts</span></code>(x, y)</p></td>
-<td><p>A helper method for Python 2.7 to ‘zip’ two dictionary objects</p></td>
+<td><p>A helper method for Python 2.7 to 'zip' two dictionary objects</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_boolean</span></code>(val)</p></td>
 <td><p></p></td>
@@ -268,12 +176,12 @@
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_null_columns</span></code>(input_df[, inplace])</p></td>
-<td><p>Remove columns from the dataframe if they’re <em>all</em> null since they’re not useful and make thinks harder to look at.</p></td>
+<td><p>Remove columns from the dataframe if they're <em>all</em> null since they're not useful and make thinks harder to look at.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">timedelta_formatter</span></code>(x)</p></td>
 <td><p>Formatter to convert <code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.timedelta64</span></code> to string that looks like <cite>4m 35.6s</cite></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_dataframe</span></code>(df, name, output_file[, …])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_dataframe</span></code>(df, name, output_file[, ...])</p></td>
 <td><p>Convenience method to write a dataframe but make some of the fields more usable.</p></td>
 </tr>
 </tbody>
@@ -298,54 +206,37 @@
 </table>
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../fasttrips_c_extension.html" class="btn btn-neutral float-right" title="fasttrips C++ Extension" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="fasttrips.Trip.html" class="btn btn-neutral float-left" title="fasttrips.Trip" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../fasttrips_c_extension.html" class="btn btn-neutral float-right" title="fasttrips C++ Extension" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2015-2018, Lisa Zorn.
-
-    </p>
+    <p>&#169; Copyright 2015-2018, Lisa Zorn.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

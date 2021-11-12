@@ -1,0 +1,34 @@
+﻿fasttrips.Skimming
+==================
+
+.. automodule:: fasttrips.Skimming
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      Skim
+      SkimConfig
+      Skimming
+      SkimmingQueueInputData
+      SkimmingQueueOutputData
+      SkimmingWorkerTask
+   
+   
+
+   
+   
+   
+
+
+

@@ -106,8 +106,6 @@
       ~Assignment.SIM_COL_PAX_OVERCAP_FRAC
       ~Assignment.SIM_COL_PAX_PROBABILITY
       ~Assignment.SIM_COL_PAX_WAIT_TIME
-      ~Assignment.SKIM_END_TIME
-      ~Assignment.SKIM_START_TIME
       ~Assignment.SKIP_PERSON_IDS
       ~Assignment.STOCH_DISPERSION
       ~Assignment.STOCH_MAX_STOP_PROCESS_COUNT

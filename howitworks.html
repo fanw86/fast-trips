@@ -1,78 +1,38 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>How Fast-Trips Works &mdash; fasttrips Development Branch Commit 5e504cb3319b58faac3aca1310cb4ad08dc44ed8 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Input/Output Files" href="io.html" />
     <link rel="prev" title="Getting Started" href="gettingstarted.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="index.html" class="icon icon-home"> fasttrips
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 0.0
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -80,24 +40,23 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="usecases.html">Use Cases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">Getting Started</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">How Fast-Trips Works</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#dynamic-passenger-assignment-dpa-algorithms">Dynamic Passenger Assignment(DPA) Algorithms</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#system-design">System Design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#skimming">Skimming</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#running-skimming">Running skimming</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#skimming-parameters">Skimming parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#implemented-components">Implemented components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pathfinding-details">Pathfinding details</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#output-format-and-location">Output format and location</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="io.html">Input/Output Files</a></li>
@@ -108,75 +67,34 @@
 <li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">fasttrips</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>How Fast-Trips Works</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="_sources/howitworks.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="how-fast-trips-works">
-<h1>How Fast-Trips Works<a class="headerlink" href="#how-fast-trips-works" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="dynamic-passenger-assignment-dpa-algorithms">
-<h2>Dynamic Passenger Assignment(DPA) Algorithms<a class="headerlink" href="#dynamic-passenger-assignment-dpa-algorithms" title="Permalink to this headline">¶</a></h2>
+             
+  <section id="how-fast-trips-works">
+<h1>How Fast-Trips Works<a class="headerlink" href="#how-fast-trips-works" title="Permalink to this headline"></a></h1>
+<section id="dynamic-passenger-assignment-dpa-algorithms">
+<h2>Dynamic Passenger Assignment(DPA) Algorithms<a class="headerlink" href="#dynamic-passenger-assignment-dpa-algorithms" title="Permalink to this headline"></a></h2>
 <p>Fast-Trips is based on the work of Alireza Khani, Mark Hickman, and others while at University of Arizona.  Associated
 academic papers include:</p>
 <blockquote>
@@ -194,61 +112,116 @@ the Fast-Trips algorithm.</p></li>
 developed collaboratively)</p></li>
 </ul>
 </div></blockquote>
-</div>
-<div class="section" id="system-design">
-<h2>System Design<a class="headerlink" href="#system-design" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="system-design">
+<h2>System Design<a class="headerlink" href="#system-design" title="Permalink to this headline"></a></h2>
 <p>One of the best ways to understand what is happening internally in Fast-Trips is to trace a single passenger through a
 simulation.  This can be done by using the <code class="code docutils literal notranslate"><span class="pre">run_trace.py</span></code> script found in the <code class="code docutils literal notranslate"><span class="pre">/scripts</span></code> directory.</p>
 <p>You can also review the following <a class="reference external" href="https://docs.google.com/presentation/d/1ReNqDJP4O_2m882G3NI-4xjnsd6ORjOcDCxOQNGZN4c/edit#slide=id.p">code flow chart</a> (which is a work in progress)</p>
-</div>
-</div>
+</section>
+<section id="skimming">
+<h2>Skimming<a class="headerlink" href="#skimming" title="Permalink to this headline"></a></h2>
+<p>Skims are average level-of-service indicators. Given that fasttrips is trip-based and dynamic, we need to define an
+averaging scheme. Since fasttrips is zone-based, we do not need to worry about spatial aggregation. We are
+therefore left with the following dimensions:
+1) temporal
+2) personal attributes:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>value of time</p></li>
+<li><p>user class</p></li>
+<li><p>purpose</p></li>
+<li><p>access/egress mode</p></li>
+</ul>
+</div></blockquote>
+<p>Regarding 1), the user has to specify a skimming start time, a skimming end time, and a sample interval. For each
+sampling interval, we build a shortest path from each origin to all destinations, calculate common skims,
+and then average over time sampling points by taking the mean.</p>
+<p>Regarding 2), …
+If you only want one user_class - purpose combination per access/egress combination, you can specify these in the
+<code class="docutils literal notranslate"><span class="pre">pathweight_ft.csv</span></code> file. Note that at the moment you will probably want this due to the caveat mentioned in
+<span class="xref std std-ref">Pathfinding details</span>.</p>
+<section id="running-skimming">
+<h3>Running skimming<a class="headerlink" href="#running-skimming" title="Permalink to this headline"></a></h3>
+<p>Either post-assignment via parameter in config_ft.txt in the fasttrips section: “create_skims = True”; or on the
+unassigned network (i.e. on the service schedule as per input files) via running Run.run_fasttrips_skimming().</p>
+<p>In both cases, fasttrips needs the the options listed in the following subsection.</p>
+<section id="skimming-parameters">
+<h4>Skimming parameters<a class="headerlink" href="#skimming-parameters" title="Permalink to this headline"></a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">time_period_start</span></code>: Start of skimming period in minutes after midnight.
+<code class="docutils literal notranslate"><span class="pre">time_period_end</span></code>: End of skimming period in minutes after midnight.
+<code class="docutils literal notranslate"><span class="pre">time_period_sampling_interval</span></code>: Sample frequency for skim path building</p>
+<p>user_class
+purpose
+access, pt, egress mode</p>
+<p>user_class,purpose,demand_mode_type</p>
+</section>
+</section>
+<section id="implemented-components">
+<h3>Implemented components<a class="headerlink" href="#implemented-components" title="Permalink to this headline"></a></h3>
+<blockquote>
+<div><p>‘fare’,
+‘num_transfers’,
+‘invehicle_time’,
+‘access_time’,
+‘egress_time’,
+‘transfer_time’,
+‘wait_time’,
+‘adaption_time’,
+‘gen_cost’</p>
+</div></blockquote>
+</section>
+<section id="pathfinding-details">
+<h3>Pathfinding details<a class="headerlink" href="#pathfinding-details" title="Permalink to this headline"></a></h3>
+<p>FastTrips runs skimming as a post-processing step to assignment. Skimming uses deterministic pathfinding, with the only
+difference to the point-to-point implementation of the assignment being the built of a shortest path tree per origin
+(i.e. one origin to all destinations). This means the deterministic pathfinder as currently implemented determines
+what constitutes a shortest path and at the moment this is always with respect to time, not generalised cost.</p>
+<p>This also means that currently, running skimming with different value of time, user class, and purpose will not generate
+different paths.</p>
+</section>
+<section id="output-format-and-location">
+<h3>Output format and location<a class="headerlink" href="#output-format-and-location" title="Permalink to this headline"></a></h3>
+<p>Skims are saved to the specified output directory in a sub-directory called skims. Currently, each combination of
+user class, purpose, access_mode, transit_mode, egress_mode for which skims have been requested will have its own
+sub-directory, with each component a separate omx file in that directory. Each omx file contains the data and several
+attributes: Skim start time (start_time), skim end time (end_time), skim sampling period (sample_interval), the name
+of the skim (name), the number of zones (‘num_zones’), and lastly an attribute called ‘index_to_zone_ids’. This array
+encodes the mapping from skim index (0-based numpy indexing) to the zone identifier used in the input data. The
+position in the array corresponds to the index of the zone identifier in the skim matrix.</p>
+</section>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="io.html" class="btn btn-neutral float-right" title="Input/Output Files" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="gettingstarted.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="io.html" class="btn btn-neutral float-right" title="Input/Output Files" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2015-2018, Lisa Zorn.
-
-    </p>
+    <p>&#169; Copyright 2015-2018, Lisa Zorn.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

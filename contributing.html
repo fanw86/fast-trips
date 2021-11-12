@@ -1,78 +1,38 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>Contributing &mdash; fasttrips Development Branch Commit 5e504cb3319b58faac3aca1310cb4ad08dc44ed8 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="FAQ" href="faq.html" />
     <link rel="prev" title="fasttrips C++ Extension" href="fasttrips_c_extension.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="index.html" class="icon icon-home"> fasttrips
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 0.0
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -80,18 +40,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="usecases.html">Use Cases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">Getting Started</a></li>
@@ -121,84 +70,43 @@
 <li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">fasttrips</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>Contributing</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="_sources/contributing.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="contributing">
-<h1>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="style">
-<h2>Style<a class="headerlink" href="#style" title="Permalink to this headline">¶</a></h2>
+             
+  <section id="contributing">
+<h1>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline"></a></h1>
+<section id="style">
+<h2>Style<a class="headerlink" href="#style" title="Permalink to this headline"></a></h2>
 <p>We attempt as much as possible to adhere to <a class="reference external" href="https://www.python.org/dev/peps/pep-0008/">PEP8</a>. Adherence to PEP8
 standards can be checked using the <a class="reference external" href="https://pypi.python.org/pypi/pycodestyle">pycodestyle</a> package from your
 fast-trips directory:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pycodestyle</span> <span class="n">fasttrips</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="development-workflow">
-<h2>Development Workflow<a class="headerlink" href="#development-workflow" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="development-workflow">
+<h2>Development Workflow<a class="headerlink" href="#development-workflow" title="Permalink to this headline"></a></h2>
 <p>Aside from the core developer team, we use a
 <a class="reference external" href="https://gist.github.com/Chaser324/ce0505fbed06b947d962">fork-and-pull workflow</a>.</p>
 <p>We use the <a class="reference external" href="http://nvie.com/posts/a-successful-git-branching-model/">Git Flow</a> branching model whereby there is always
@@ -209,20 +117,20 @@ that your approach can be discussed with the team.   When possible, issues shoul
 .`user stories &lt;<a class="reference external" href="https://en.wikipedia.org/wiki/User_story">https://en.wikipedia.org/wiki/User_story</a>&gt;`_.</p>
 <p>When possible, the team strives to adhere to
 <a class="reference external" href="https://en.wikipedia.org/wiki/Agile_software_development#Agile_software_development_principles">agile software development principles</a>.</p>
-</div>
-<div class="section" id="roadmap">
-<h2>Roadmap<a class="headerlink" href="#roadmap" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="testing">
-<h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="roadmap">
+<h2>Roadmap<a class="headerlink" href="#roadmap" title="Permalink to this headline"></a></h2>
+</section>
+<section id="testing">
+<h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline"></a></h2>
 <p>There are a few dozen tests that are stored in <code class="docutils literal notranslate"><span class="pre">\tests</span></code>.  They can be run by installing the
 <a class="reference external" href="https://docs.pytest.org/en/latest/">PyTest</a> library ( <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pytest</span></code> and executing the command <code class="docutils literal notranslate"><span class="pre">pytest</span></code>
 from the command line within your <code class="docutils literal notranslate"><span class="pre">&lt;fast-trips-dir&gt;</span></code>.</p>
 <p>Most of the tests use test scenarios that can be found in the <code class="docutils literal notranslate"><span class="pre">fasttrips/Examples</span></code> directory.</p>
 <p>Many (but not all) of the tests can be individually run by giving the command <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">tests/test_&lt;TESTNAME&gt;.py</span></code>.</p>
 <p>Test output defaults to the folder <code class="docutils literal notranslate"><span class="pre">fasttrips/Examples/output</span></code></p>
-<div class="section" id="continuous-integration">
-<h3>Continuous Integration<a class="headerlink" href="#continuous-integration" title="Permalink to this headline">¶</a></h3>
+<section id="continuous-integration">
+<h3>Continuous Integration<a class="headerlink" href="#continuous-integration" title="Permalink to this headline"></a></h3>
 <p>We use the <strong>GitHub Actions</strong> continuous integration that runs the following at each and every pull request:</p>
 <blockquote>
 <div><ul class="simple">
@@ -238,9 +146,9 @@ results so much as they make sure the system runs without an error.</p>
 <p>For documentation-only commits, put “skip ci” somewhere in your commit message to not trigger the Travis testing.</p>
 <p>Some regression tests have regression output that needs to be refreshed an thus have a function decorator
 <code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.skip</span></code> so that they are skipped.</p>
-</div>
-<div class="section" id="test-descriptions">
-<h3>Test Descriptions<a class="headerlink" href="#test-descriptions" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="test-descriptions">
+<h3>Test Descriptions<a class="headerlink" href="#test-descriptions" title="Permalink to this headline"></a></h3>
 <p>To run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">tests</span><span class="o">/&lt;</span><span class="n">Test</span> <span class="n">File</span><span class="o">&gt;</span>
 </pre></div>
@@ -345,10 +253,10 @@ up into parts.  Tests:
 <p class="admonition-title">Note</p>
 <p>Multiprocessing is not tested because it is <a class="reference external" href="https://github.com/pytest-dev/pytest/issues/958">incompatible with PyTest</a></p>
 </div>
-</div>
-</div>
-<div class="section" id="documentation">
-<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline"></a></h2>
 <p>Functions, classes and methods should be documented using
 <a class="reference external" href="https://thomas-cokelaer.info/tutorials/sphinx/docstring_python.html">restructured text docstrings</a>
 to be compiled in SPHINX using autodoc functionality, doxygen for c++, and breathe to link them.</p>
@@ -370,8 +278,8 @@ installed on a mac, use the command:</p>
 </pre></div>
 </div>
 <p>Make sure the file <code class="docutils literal notranslate"><span class="pre">doc\doxygen.conf</span></code> adds the breathe package location to your path using <code class="docutils literal notranslate"><span class="pre">sys.path.append</span></code>.</p>
-<div class="section" id="building-documentation">
-<h3>Building documentation<a class="headerlink" href="#building-documentation" title="Permalink to this headline">¶</a></h3>
+<section id="building-documentation">
+<h3>Building documentation<a class="headerlink" href="#building-documentation" title="Permalink to this headline"></a></h3>
 <p>If you have updated the c++ module, you should first update its documentation by running the following command from the
 <code class="docutils literal notranslate"><span class="pre">\doc</span></code> directory:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">doxygen</span> <span class="n">doxygen</span><span class="o">.</span><span class="n">conf</span>
@@ -382,9 +290,9 @@ installed on a mac, use the command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sphinx</span><span class="o">-</span><span class="n">build</span> <span class="o">-</span><span class="n">b</span> <span class="n">html</span> <span class="n">source</span> <span class="n">build</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="push-documentation-to-gh-pages-branch">
-<h3>Push documentation to gh-pages branch<a class="headerlink" href="#push-documentation-to-gh-pages-branch" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="push-documentation-to-gh-pages-branch">
+<h3>Push documentation to gh-pages branch<a class="headerlink" href="#push-documentation-to-gh-pages-branch" title="Permalink to this headline"></a></h3>
 <p>In case there is a need to manually upload the compiled documentation to GitHub, it can be done via a GUI or by using
 the following commands from the root fast-trips directory:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="n">czf</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">html</span><span class="o">.</span><span class="n">tgz</span> <span class="n">doc</span><span class="o">/</span><span class="n">build</span><span class="o">/**</span> <span class="c1">## zips and copies files to temp directory</span>
@@ -400,10 +308,10 @@ the following commands from the root fast-trips directory:</p>
 <p class="admonition-title">Note</p>
 <p>make sure you have made any commits to the code you wanted to keep before checking out the gh-pages branch!</p>
 </div>
-</div>
-</div>
-<div class="section" id="todo-list">
-<h2>Todo List<a class="headerlink" href="#todo-list" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="todo-list">
+<h2>Todo List<a class="headerlink" href="#todo-list" title="Permalink to this headline"></a></h2>
 <p>Please see the <a class="reference external" href="https://github.com/BayAreaMetro/fast-trips/issues">Issues list on Github</a> as well as the in-code todo
 list below.</p>
 <div class="admonition-todo admonition">
@@ -411,61 +319,44 @@ list below.</p>
 <p>This is really about the access and egress links; perhaps it should be renamed?</p>
 </div>
 <p class="todo-source">(The <a class="reference internal" href="_generated/fasttrips.TAZ.html#id1"><em>original entry</em></a> is located in /home/runner/work/fast-trips/fast-trips/fasttrips/TAZ.py:docstring of fasttrips.TAZ.TAZ, line 6.)</p>
-</div>
-<div class="section" id="releases">
-<h2>Releases<a class="headerlink" href="#releases" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="releases">
+<h2>Releases<a class="headerlink" href="#releases" title="Permalink to this headline"></a></h2>
 <p>Whenever a new release is made on GitHub, all wheels for all Python versions and operating systems supported are
 automatically uploaded to the <a class="reference external" href="https://pypi.python.org/pypi/fasttrips">Python Package Index (PyPI)</a>, while all the
 documentation is automatically updated in the github page for the project.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="faq.html" class="btn btn-neutral float-right" title="FAQ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="fasttrips_c_extension.html" class="btn btn-neutral float-left" title="fasttrips C++ Extension" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="faq.html" class="btn btn-neutral float-right" title="FAQ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2015-2018, Lisa Zorn.
-
-    </p>
+    <p>&#169; Copyright 2015-2018, Lisa Zorn.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
