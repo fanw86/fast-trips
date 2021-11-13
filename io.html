@@ -1030,7 +1030,7 @@ the combination of parameters for which skims are sought, like time periods, acc
 The file must be in csv format and for each line, a separate skim is generated. Note that there are no default
 values so each parameter must be specified on each line. The following columns are required.</p>
 <p>Note that the modes are demand modes as defined in <a class="reference internal" href="#passenger-demand"><span class="std std-ref">Passenger Demand</span></a>; see also
-<span class="xref std std-ref">supply_modes_and_weights</span>.</p>
+<a class="reference internal" href="#supply-modes-and-weights"><span class="std std-ref">Determining supply modes and weight values</span></a>.</p>
 </section>
 </section>
 <section id="passenger-path-output">
@@ -1528,10 +1528,11 @@ cannot be cast to integers <a class="reference external" href="https://github.co
 <dt><code class="docutils literal notranslate"><span class="pre">skims/{user_class}_{purpose}_{access}_{transit}_{egress}_{vot}/{skim_name}.omx</span></code></dt><dd><p>For each requested combination of (user_class, purpose, access_mode, transit_mode, egress_mode, vot) there is a
 corresponding sub-directory which contains all skims. All components are saved to individual omx files, with the file
 name a combination of component_name, skim start time, skim end time, and skim sampling interval.
-Each omx file contains the data and several attributes: All attributes listed in <span class="xref std std-ref">skim_class_file</span>, the name
-of the skim (name), the number of zones (num_zones), and lastly an attribute called ‘index_to_zone_ids’. This array
-encodes the mapping from skim index (0-based numpy indexing) to the zone identifier used in the input data. The
-position in the array corresponds to the index of the zone identifier in the skim matrix.</p>
+Each omx file contains the data and several attributes: All attributes listed in
+<a class="reference internal" href="#skim-class-file"><span class="std std-ref">Skim_classes_ft File</span></a>, the name of the skim (name), the number of zones (num_zones), and
+lastly an attribute called ‘index_to_zone_ids’. This array encodes the mapping from skim index (0-based numpy
+indexing) to the zone identifier used in the input data. The position in the array corresponds to the index of the
+zone identifier in the skim matrix.</p>
 </dd>
 </dl>
 </section>
