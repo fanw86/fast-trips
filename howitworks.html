@@ -50,7 +50,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#skimming">Skimming</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#running-skimming">Running skimming</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#implemented-components">Implemented components</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pathfinding-details">Pathfinding details</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Pathfinding details</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#output-format-and-location">Output format and location</a></li>
 </ul>
 </li>
@@ -134,14 +134,14 @@ as long as they are represented in the model (i.e. the access/egress mode need t
 path weight file, and the purpose in the path weight file).</p>
 <p>Regarding 3), one could provide the mean value of time of the population, or several values to create several skims.</p>
 <p>Note that at the moment you will probably want to provide only one combination of (user_class, purpose, VoT) because
-of the pathfinding details mentioned in <span class="xref std std-ref">Pathfinding details</span>.</p>
+of the pathfinding details mentioned in <span class="xref std std-ref">pathfinding_details</span>.</p>
 <section id="running-skimming">
 <h3>Running skimming<a class="headerlink" href="#running-skimming" title="Permalink to this headline"></a></h3>
 <p>Skimming can be run post-assignment by specifying “create_skims = True” in the fasttrips section of the config file.
 It can also be run on an unassigned network (i.e. on the service schedule as per input files) by running
 Run.run_fasttrips_skimming().</p>
 <p>In both cases, fasttrips requires the user to create a csv file specifying the variables listed in
-<span class="xref std std-ref">io:Skim_classes_ft File</span>.</p>
+<span class="xref std std-ref">skim_class_file</span>.</p>
 </section>
 <section id="implemented-components">
 <h3>Implemented components<a class="headerlink" href="#implemented-components" title="Permalink to this headline"></a></h3>
@@ -174,8 +174,8 @@ purpose, access_mode, transit_mode, egress_mode, value_of_time combination as pr
 </dd>
 </dl>
 </section>
-<section id="pathfinding-details">
-<h3>Pathfinding details<a class="headerlink" href="#pathfinding-details" title="Permalink to this headline"></a></h3>
+<section id="id1">
+<h3>Pathfinding details<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h3>
 <p>FastTrips runs skimming as a post-processing step to assignment. Skimming uses deterministic pathfinding, with the only
 difference to the point-to-point implementation of the assignment being the built of a shortest path tree per origin
 (i.e. one origin to all destinations). This means the deterministic pathfinder as currently implemented determines
@@ -188,7 +188,7 @@ generate different paths.</p>
 <p>Skims are saved to the specified output directory in a sub-directory called skims. Currently, each combination of
 user class, purpose, access_mode, transit_mode, egress_mode, VoT for which skims have been requested will have its own
 sub-directory, with each component a separate omx file in that directory. Each omx file contains the data and several
-attributes: All attributes listed in <span class="xref std std-ref">Skimming parameters</span>, the name of the skim (name), the number of zones
+attributes: All attributes listed in <span class="xref std std-ref">skim_class_file</span>, the name of the skim (name), the number of zones
 (num_zones), and lastly an attribute called ‘index_to_zone_ids’. This array encodes the mapping from skim index
 (0-based numpy indexing) to the zone identifier used in the input data. The position in the array corresponds to the
 index of the zone identifier in the skim matrix.</p>
