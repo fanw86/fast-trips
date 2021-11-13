@@ -979,8 +979,7 @@
         <span class="k">if</span> <span class="n">Assignment</span><span class="o">.</span><span class="n">CREATE_SKIMS</span><span class="p">:</span>
             <span class="kn">from</span> <span class="nn">.Skimming</span> <span class="kn">import</span> <span class="n">Skimming</span>
             <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;STARTING SKIMMING&quot;</span><span class="p">)</span>
-            <span class="n">FastTripsLogger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;STARTING SKIMMING&quot;</span><span class="p">)</span>
-            <span class="n">Skimming</span><span class="o">.</span><span class="n">read_skimming_configuration</span><span class="p">(</span><span class="n">Assignment</span><span class="o">.</span><span class="n">CONFIGURATION_FILE</span><span class="p">,</span> <span class="n">FT</span><span class="p">)</span>
+            <span class="n">Skimming</span><span class="o">.</span><span class="n">read_skimming_configuration</span><span class="p">(</span><span class="n">FT</span><span class="p">)</span>
             <span class="n">skims</span> <span class="o">=</span> <span class="n">Skimming</span><span class="o">.</span><span class="n">generate_skims</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">FT</span><span class="p">,</span> <span class="n">veh_trips_df</span><span class="p">)</span>
             <span class="n">Skimming</span><span class="o">.</span><span class="n">write_skim_matrices</span><span class="p">(</span><span class="n">skims</span><span class="p">)</span>
 

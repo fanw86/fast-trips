@@ -62,11 +62,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#config-ft-file">Config_ft File</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#configuration-options-fasttrips">Configuration Options: fasttrips</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#configuration-options-pathfinding">Configuration Options: pathfinding</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#configuration-options-skimming">Configuration Options: skimming</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#more-on-overlap-path-size-penalties">More on Overlap Path Size Penalties</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#user-class-configuration-config-ft-py">User Class Configuration: config_ft.py</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#skim-classes-ft-file">Skim_classes_ft File</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#passenger-path-output">Passenger Path Output</a><ul>
@@ -639,7 +639,7 @@ If the same options are specified in both, then the version specified in the Tra
 to network inputs.)</p>
 <p>The configuration files are parsed by python’s
 <cite>ConfigParser module</cite> &lt;<a class="reference external" href="https://docs.python.org/2/library/configparser.html#module-ConfigParser">https://docs.python.org/2/library/configparser.html#module-ConfigParser</a>&gt;`_ and therefore
-adhere to that format, with three possible sections: <em>fasttrips</em>, <em>pathfinding</em> and <em>skimming</em>.</p>
+adhere to that format, with two possible sections: <em>fasttrips</em> and <em>pathfinding</em>.</p>
 <section id="configuration-options-fasttrips">
 <h4>Configuration Options: fasttrips<a class="headerlink" href="#configuration-options-fasttrips" title="Permalink to this headline"></a></h4>
 <table class="docutils align-default">
@@ -931,46 +931,6 @@ time target by this many minutes.</p></td>
 </tbody>
 </table>
 </section>
-<section id="configuration-options-skimming">
-<h4>Configuration Options: skimming<a class="headerlink" href="#configuration-options-skimming" title="Permalink to this headline"></a></h4>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 35%" />
-<col style="width: 9%" />
-<col style="width: 10%" />
-<col style="width: 46%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p><em>Option Name</em></p></th>
-<th class="head"><p><em>Type</em></p></th>
-<th class="head"><p><em>Default</em></p></th>
-<th class="head"><p><em>Description</em></p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">time_period_start</span></code></p></td>
-<td><p>int</p></td>
-<td><p>N/A</p></td>
-<td><p>Start of skimming period in minutes after midnight</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">time_period_end</span></code></p></td>
-<td><p>int</p></td>
-<td><p>N/A</p></td>
-<td><p>End of skimming period in minutes after midnight</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">time_period_sampling_interval</span></code></p></td>
-<td><p>int</p></td>
-<td><p>N/A</p></td>
-<td><p>Sample frequency for skim path building</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">user_class</span></code></p></td>
-<td><p>string</p></td>
-<td><p>N/A</p></td>
-<td><p>##TODO Not documented yet.</p></td>
-</tr>
-</tbody>
-</table>
-</section>
 <section id="more-on-overlap-path-size-penalties">
 <h4>More on Overlap Path Size Penalties<a class="headerlink" href="#more-on-overlap-path-size-penalties" title="Permalink to this headline"></a></h4>
 <p>The path size overlap penalty is formulated by Ramming and discussed in Hoogendoorn-Lanser et al. (see
@@ -1062,6 +1022,15 @@ This could be used to programmatically define user classes based on person, hous
 </pre></div>
 </div>
 </section>
+</section>
+<section id="skim-classes-ft-file">
+<h3>Skim_classes_ft File<a class="headerlink" href="#skim-classes-ft-file" title="Permalink to this headline"></a></h3>
+<p>If skimming is turned on in <span class="xref std std-ref">Configuration Options: fasttrips</span>, then fasttrips requires a file which specifies
+the combination of parameters for which skims are sought, like time periods, access/egress modes, etc.
+The file must be in csv format and for each line, a separate skim is generated. Note that there are no default
+values so each parameter must be specified on each line. The following columns are required.</p>
+<p>Note that the modes are demand modes as defined in <span class="xref std std-ref">Passenger Demand</span>; see also
+<span class="xref std std-ref">Determining supply modes and weight values</span>.</p>
 </section>
 </section>
 <section id="passenger-path-output">
@@ -1556,7 +1525,7 @@ column). Note that this information is also stored as an attribute in the omx fi
 omx mapping because the identifiers can be arbitrary strings (like in the Springfield example) and types that
 cannot be cast to integers <a class="reference external" href="https://github.com/osPlanning/omx-python/blob/337ea4deff0c0055a6e792a5bf45aabf3fc82075/openmatrix/File.py#L284">are not supported by omx</a> currently.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">skims/{user_class}_{purpose}_{access}_{transit}_{egress}/{skim_name}.omx</span></code></dt><dd><p>For each requested combination of (user_class, purpose, access_mode, transit_mode, egress_mode) there is a
+<dt><code class="docutils literal notranslate"><span class="pre">skims/{user_class}_{purpose}_{access}_{transit}_{egress}_{vot}/{skim_name}.omx</span></code></dt><dd><p>For each requested combination of (user_class, purpose, access_mode, transit_mode, egress_mode, vot) there is a
 corresponding sub-directory which contains all skims. All components are saved to individual omx files, with the file
 name a combination of component_name, skim start time, skim end time, and skim sampling interval.</p>
 </dd>

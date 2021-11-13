@@ -122,7 +122,7 @@
     <span class="n">DEBUG_LOG</span> <span class="o">=</span> <span class="s2">&quot;ft_debug</span><span class="si">%s</span><span class="s2">.log&quot;</span>
 
 <div class="viewcode-block" id="FastTrips.__init__"><a class="viewcode-back" href="../../_generated/fasttrips.FastTrips.html#fasttrips.FastTrips.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_network_archive</span><span class="p">,</span> <span class="n">input_demand_dir</span><span class="p">,</span> <span class="n">input_weights</span><span class="p">,</span> <span class="n">run_config</span><span class="p">,</span>
-        <span class="n">output_dir</span><span class="p">,</span> <span class="n">input_functions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">logname_append</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">appendLog</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">output_dir</span><span class="p">,</span> <span class="n">input_functions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">logname_append</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">appendLog</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">skim_config_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Constructor.</span>
 
@@ -144,6 +144,8 @@
 <span class="sd">        :param appendLog:         Append to info and debug logs?  When FastTrips assignment iterations (to</span>
 <span class="sd">                                  handle capacity bumps), we&#39;d like to append rather than overwrite.</span>
 <span class="sd">        :type appendLog:          bool</span>
+<span class="sd">        :param skim_config_file: Location of skim config csv files to read</span>
+<span class="sd">        :type skim_config_file:  string</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1">#: :py:class:`collections.OrdederedDict` of :py:class:`fasttrips.Passenger` instances indexed by passenger&#39;s path ID</span>
@@ -178,6 +180,9 @@
 
         <span class="c1">#: string representing directory in which to write our output</span>
         <span class="n">Assignment</span><span class="o">.</span><span class="n">OUTPUT_DIR</span>         <span class="o">=</span> <span class="n">output_dir</span>
+
+        <span class="c1">#: string representing skimming config file</span>
+        <span class="n">Skimming</span><span class="o">.</span><span class="n">SKIMMING_CONFIG_FILE</span>  <span class="o">=</span> <span class="n">skim_config_file</span>
 
         <span class="c1">#: transitfeed schedule instance.  See https://github.com/google/transitfeed</span>
         <span class="c1">#self.gtfs_schedule      = None</span>
@@ -271,7 +276,7 @@
 
         <span class="k">try</span><span class="p">:</span>
             <span class="n">Assignment</span><span class="o">.</span><span class="n">write_configuration</span><span class="p">(</span><span class="n">Assignment</span><span class="o">.</span><span class="n">OUTPUT_DIR</span><span class="p">)</span>
-            <span class="n">Skimming</span><span class="o">.</span><span class="n">read_skimming_configuration</span><span class="p">(</span><span class="n">Assignment</span><span class="o">.</span><span class="n">CONFIGURATION_FILE</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+            <span class="n">Skimming</span><span class="o">.</span><span class="n">read_skimming_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
             <span class="n">r</span> <span class="o">=</span> <span class="n">Skimming</span><span class="o">.</span><span class="n">generate_skims</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
             <span class="n">Skimming</span><span class="o">.</span><span class="n">write_skim_matrices</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
 

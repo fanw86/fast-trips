@@ -48,10 +48,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#dynamic-passenger-assignment-dpa-algorithms">Dynamic Passenger Assignment(DPA) Algorithms</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#system-design">System Design</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#skimming">Skimming</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#running-skimming">Running skimming</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#skimming-parameters">Skimming parameters</a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="#running-skimming">Running skimming</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#implemented-components">Implemented components</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pathfinding-details">Pathfinding details</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#output-format-and-location">Output format and location</a></li>
@@ -124,47 +121,27 @@ simulation.  This can be done by using the <code class="code docutils literal no
 <p>Skims are average level-of-service indicators. Given that fasttrips is trip-based and dynamic, we need to define an
 averaging scheme. Since fasttrips is zone-based, we do not need to worry about spatial aggregation. We are
 therefore left with the following dimensions:</p>
-<ol class="arabic">
-<li><p>temporal</p></li>
-<li><p>personal and trip attributes:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>value of time</p></li>
-<li><p>user class</p></li>
-<li><p>purpose</p></li>
-<li><p>access/egress mode</p></li>
-</ul>
-</div></blockquote>
-</li>
+<ol class="arabic simple">
+<li><p>temporal - which time range do we want to represent</p></li>
+<li><p>trip attributes - which access/egress mode combinations and which trip purposes do we want to represent</p></li>
+<li><p>personal attributes - user_class and value of time</p></li>
 </ol>
 <p>Regarding 1), the user has to specify a skimming start time, a skimming end time, and a sample interval. For each
 sampling interval, we build a shortest path from each origin to all destinations, calculate common skims,
 and then average over time sampling points by taking the mean.</p>
-<p>Regarding 2), the user can provide a list of combinations for which skims are sought. An example would be [(all,
-work, walk, transit, walk, 10)]. The generic form is [(user_class, purpose, access_mode, transit_mode, egress_mode,
-VoT)] and any number of these can be provided. Note that at the moment you will probably want to provide only one
-combination of (user_class, purpose, VoT) because of the pathfinding details mentioned in <span class="xref std std-ref">Pathfinding details</span>.</p>
+<p>Regarding 2), the user has to provide values for which skims are sought. Any number of combinations can be provided
+as long as they are represented in the model (i.e. the access/egress mode need to be defined in the supply and the
+path weight file, and the purpose in the path weight file).</p>
+<p>Regarding 3), one could provide the mean value of time of the population, or several values to create several skims.</p>
+<p>Note that at the moment you will probably want to provide only one combination of (user_class, purpose, VoT) because
+of the pathfinding details mentioned in <span class="xref std std-ref">Pathfinding details</span>.</p>
 <section id="running-skimming">
 <h3>Running skimming<a class="headerlink" href="#running-skimming" title="Permalink to this headline"></a></h3>
-<p>Either post-assignment via parameter in config_ft.txt in the fasttrips section: “create_skims = True”; or on the
-unassigned network (i.e. on the service schedule as per input files) via running Run.run_fasttrips_skimming().</p>
-<p>In both cases, fasttrips needs the the options listed in the following subsection.</p>
-<section id="skimming-parameters">
-<h4>Skimming parameters<a class="headerlink" href="#skimming-parameters" title="Permalink to this headline"></a></h4>
-<dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">time_period_start</span></code></dt><dd><p>Start of skimming period in minutes after midnight.</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">time_period_end</span></code></dt><dd><p>End of skimming period in minutes after midnight.</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">time_period_sampling_interval</span></code></dt><dd><p>Sample frequency for skim path building in minutes. This means the number of skim path building runs is
-(time_period_end - time_period_start) / time_period_sampling_interval.</p>
-</dd>
-</dl>
-<p><code class="docutils literal notranslate"><span class="pre">find_a_good_name_here</span></code>
-[(user_class, purpose, access_mode, transit_mode, demand_mode, vot)]
-TODO Jan: this is not implemented yet, currently it uses configobj with indented syntax and mean vot (across the
-entire provided demand)</p>
-</section>
+<p>Skimming can be run post-assignment by specifying “create_skims = True” in the fasttrips section of the config file.
+It can also be run on an unassigned network (i.e. on the service schedule as per input files) by running
+Run.run_fasttrips_skimming().</p>
+<p>In both cases, fasttrips requires the user to create a csv file specifying the variables listed in
+<span class="xref std std-ref">io:Skim_classes_ft File</span>.</p>
 </section>
 <section id="implemented-components">
 <h3>Implemented components<a class="headerlink" href="#implemented-components" title="Permalink to this headline"></a></h3>
@@ -209,12 +186,12 @@ generate different paths.</p>
 <section id="output-format-and-location">
 <h3>Output format and location<a class="headerlink" href="#output-format-and-location" title="Permalink to this headline"></a></h3>
 <p>Skims are saved to the specified output directory in a sub-directory called skims. Currently, each combination of
-user class, purpose, access_mode, transit_mode, egress_mode for which skims have been requested will have its own
+user class, purpose, access_mode, transit_mode, egress_mode, VoT for which skims have been requested will have its own
 sub-directory, with each component a separate omx file in that directory. Each omx file contains the data and several
-attributes: Skim start time (start_time), skim end time (end_time), skim sampling period (sample_interval), the name
-of the skim (name), the number of zones (‘num_zones’), and lastly an attribute called ‘index_to_zone_ids’. This array
-encodes the mapping from skim index (0-based numpy indexing) to the zone identifier used in the input data. The
-position in the array corresponds to the index of the zone identifier in the skim matrix.</p>
+attributes: All attributes listed in <span class="xref std std-ref">Skimming parameters</span>, the name of the skim (name), the number of zones
+(num_zones), and lastly an attribute called ‘index_to_zone_ids’. This array encodes the mapping from skim index
+(0-based numpy indexing) to the zone identifier used in the input data. The position in the array corresponds to the
+index of the zone identifier in the skim matrix.</p>
 </section>
 </section>
 </section>
