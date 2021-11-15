@@ -1029,6 +1029,55 @@ This could be used to programmatically define user classes based on person, hous
 the combination of parameters for which skims are sought, like time periods, access/egress modes, etc.
 The file must be in csv format and for each line, a separate skim is generated. Note that there are no default
 values so each parameter must be specified on each line. The following columns are required.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 8%" />
+<col style="width: 70%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Column name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">start_time</span></code></p></td>
+<td><p>int</p></td>
+<td><p>Start of skimming period in minutes after midnight</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">end_time</span></code></p></td>
+<td><p>int</p></td>
+<td><p>End of skimming period in minutes after midnight</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sampling_interval</span></code></p></td>
+<td><p>int</p></td>
+<td><p>Sample frequency for skim path building in minutes. This means the
+number of skim path building runs is
+(time_period_end - time_period_start) / time_period_sampling_interval.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">vot</span></code></p></td>
+<td><p>float</p></td>
+<td><p>Value of time for skim calculation.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">purpose</span></code></p></td>
+<td><p>float</p></td>
+<td><p>Trip purpose.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">access_mode</span></code></p></td>
+<td><p>float</p></td>
+<td><p>Access mode used to access PT services.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">transit_mode</span></code></p></td>
+<td><p>float</p></td>
+<td><p>Transit demand mode (see below table).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">egress_mode</span></code></p></td>
+<td><p>float</p></td>
+<td><p>Egress mode used to reach destination from final PT stop.</p></td>
+</tr>
+</tbody>
+</table>
 <p>Note that the modes are demand modes as defined in <a class="reference internal" href="#passenger-demand"><span class="std std-ref">Passenger Demand</span></a>; see also
 <a class="reference internal" href="#supply-modes-and-weights"><span class="std std-ref">Determining supply modes and weight values</span></a>.</p>
 </section>
