@@ -1,4 +1,4 @@
-name: py3-ft
+name: ft-ad
 dependencies:
 - python=3.8
 - pip
@@ -6,8 +6,9 @@ dependencies:
 - configparser
 - future
 - numpy
-- pandas
-- partridge
+- pandas<2.0.0
+- pip:
+  - partridge
 - psutil
 - pytest
 - notebook
