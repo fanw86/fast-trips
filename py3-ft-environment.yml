@@ -9,7 +9,9 @@ dependencies:
 - pandas<2.0.0
 - pip:
   - partridge
+  - -e .
 - psutil
 - pytest
 - notebook
 - jupyter
+- openmatrix
