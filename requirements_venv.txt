@@ -1,0 +1,19 @@
+# Fast-Trips requirements for Python venv
+# Converted from py3-ft-environment.yml
+
+# Core dependencies
+configparser
+future
+numpy>=1.15
+pandas>=1.2,<2.0.0
+partridge
+psutil
+pytest
+
+# Development and analysis tools
+notebook
+jupyter
+openmatrix
+
+# Install the package in editable mode
+-e .

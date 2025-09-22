@@ -1,0 +1,46 @@
+[project]
+name = "fast-trips"
+version = "1.0b2"
+description = "Dynamic Transit Passenger Assignment tooling"
+readme = { file = "README.md", content-type = "text/markdown" }
+requires-python = ">=3.7"
+license = { text = "Apache-2.0" }
+authors = [ { name = "MTC, SFCTA & PSRC" } ]
+keywords = [
+    "transit",
+    "model",
+    "dynamic",
+    "passenger",
+    "assignment",
+    "simulation",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Other Audience",
+    "Topic :: Scientific/Engineering",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+]
+dependencies = [
+    "configparser",
+    "future",
+    "numpy>=1.15",
+    "pandas>=1.2,<2.0.0",
+    "partridge",
+    "psutil",
+    "pytest",
+    "notebook",
+    "jupyter",
+    "openmatrix",
+]
+
+[project.scripts]
+run_fasttrips = "fasttrips.Run:main"
+
+[build-system]
+requires = ["setuptools>=61", "wheel", "numpy>=1.15"]
+build-backend = "setuptools.build_meta"
