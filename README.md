@@ -229,3 +229,31 @@ Many (but not all) of the tests can be individually run by giving the command `p
 
 Test output defaults to the folder `fasttrips/Examples/output`
 
+
+## Installing with uv
+
+To bootstrap the project with the [uv](https://github.com/astral-sh/uv) package manager:
+
+1. Install uv (skip this step if it is already available):
+
+   ```bash
+   curl -Ls https://astral.sh/uv/install.sh | sh
+   # or
+   pip install uv
+   ```
+
+2. Create and activate a virtual environment in the repository root:
+
+   ```bash
+   cd /fast-trips
+   uv venv .venv
+   source .venv/bin/activate
+   ```
+
+3. Install the project dependencies:
+
+   ```bash
+   uv pip install -r requirements_dev.txt  # optional tooling and tests
+   ```
+
+After activation the environment behaves like any other Python virtual environment, so you can run commands such as `pytest` or `python fasttrips/FastTrips.py` as needed.
