@@ -242,17 +242,19 @@ To bootstrap the project with the [uv](https://github.com/astral-sh/uv) package 
    pip install uv
    ```
 
-2. Create and activate a virtual environment in the repository root:
+2. Create and activate a Python 3.11 virtual environment in the repository root (install 3.11 first if it is not already available):
 
    ```bash
    cd /fast-trips
-   uv venv .venv
+   uv venv --python 3.11 .venv
    source .venv/bin/activate
+   python --version  # should report 3.11.x
    ```
 
-3. Install the project dependencies:
+3. Install the project dependencies pinned for the runtime environment:
 
    ```bash
+   uv pip sync requirements_venv.txt
    uv pip install -r requirements_dev.txt  # optional tooling and tests
    ```
 

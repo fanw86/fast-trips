@@ -4,7 +4,7 @@
 # Core dependencies
 configparser
 future
-numpy>=1.15
+numpy>=1.15,<2.0.0
 pandas>=1.2,<2.0.0
 partridge
 psutil
