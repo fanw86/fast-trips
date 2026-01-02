@@ -17,3 +17,9 @@ openmatrix
 
 # Install the package in editable mode
 -e .
+
+pytz
+python-dateutil
+charset_normalizer
+networkx
+isoweek
