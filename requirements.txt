@@ -1,7 +1,7 @@
 ###### Requirements without Version Specifiers ######
 configparser
 future
-numpy
+numpy<2.0.0
 pandas>=1.2
 partridge
 psutil

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import datetime
+import json
 import os
 import threading
 import uuid
@@ -16,6 +17,13 @@ from fasttrips.Run import run_fasttrips
 
 
 app = FastAPI(title="Transit Assignment API", version="0.2.0")
+
+
+@app.on_event("startup")
+def startup_event():
+    """Load past runs from disk on server startup"""
+    print("Loading past runs from disk...")
+    _load_all_past_runs()
 
 
 class RunRequest(BaseModel):
@@ -108,15 +116,181 @@ def _tail_file(path: str, max_lines: int) -> str:
     return "".join(lines[-max_lines:])
 
 
+def _get_metadata_path(run_id: str, scenario_id: Optional[str] = None) -> str:
+    """Get the path to the metadata file for a run"""
+    if scenario_id:
+        # For scenario uploads, store in scenario directory
+        scenario_dir = os.path.join(_BASE_RUN_DIR, scenario_id)
+        return os.path.join(scenario_dir, "run_metadata.json")
+    else:
+        # For direct runs, store in .jobs directory
+        jobs_dir = os.path.join(_BASE_RUN_DIR, ".jobs")
+        os.makedirs(jobs_dir, exist_ok=True)
+        return os.path.join(jobs_dir, f"{run_id}.json")
+
+
+def _save_job_metadata(run_id: str, job_data: Dict[str, object]) -> None:
+    """Save job metadata to disk for persistence"""
+    scenario_id = job_data.get("scenario_id")
+    metadata_path = _get_metadata_path(run_id, scenario_id)
+
+    # Ensure parent directory exists
+    os.makedirs(os.path.dirname(metadata_path), exist_ok=True)
+
+    # Prepare serializable metadata (exclude non-JSON objects)
+    metadata = {
+        "run_id": run_id,
+        "scenario_id": scenario_id,
+        "started_at": job_data["started_at"],
+        "finished_at": job_data.get("finished_at"),
+        "output_dir": job_data["output_dir"],
+        "info_log": job_data["info_log"],
+        "debug_log": job_data["debug_log"],
+        "performance_csv": job_data["performance_csv"],
+        "error": job_data.get("error"),
+        "exit_code": job_data.get("exit_code"),
+        "pid": job_data.get("pid"),
+    }
+
+    with open(metadata_path, "w", encoding="utf-8") as f:
+        json.dump(metadata, f, indent=2)
+
+
+def _load_job_metadata(run_id: str, scenario_id: Optional[str] = None) -> Optional[Dict[str, object]]:
+    """Load job metadata from disk"""
+    metadata_path = _get_metadata_path(run_id, scenario_id)
+
+    if not os.path.exists(metadata_path):
+        return None
+
+    try:
+        with open(metadata_path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except (json.JSONDecodeError, IOError):
+        return None
+
+
+def _load_all_past_runs() -> None:
+    """Load all past runs from disk on server startup"""
+    if not os.path.exists(_BASE_RUN_DIR):
+        return
+
+    loaded_count = 0
+
+    # Load scenario runs
+    for item in os.listdir(_BASE_RUN_DIR):
+        item_path = os.path.join(_BASE_RUN_DIR, item)
+        if os.path.isdir(item_path) and item != ".jobs":
+            metadata_path = os.path.join(item_path, "run_metadata.json")
+            if os.path.exists(metadata_path):
+                try:
+                    with open(metadata_path, "r", encoding="utf-8") as f:
+                        metadata = json.load(f)
+
+                    run_id = metadata["run_id"]
+                    scenario_id = metadata.get("scenario_id")
+
+                    # Create a job entry with metadata (no process object)
+                    with _jobs_lock:
+                        _jobs[run_id] = {
+                            "process": None,  # Past run, no active process
+                            "error_queue": None,
+                            "started_at": metadata["started_at"],
+                            "finished_at": metadata.get("finished_at"),
+                            "output_dir": metadata["output_dir"],
+                            "info_log": metadata["info_log"],
+                            "debug_log": metadata["debug_log"],
+                            "performance_csv": metadata["performance_csv"],
+                            "error": metadata.get("error"),
+                            "exit_code": metadata.get("exit_code"),
+                            "pid": metadata.get("pid"),
+                            "scenario_id": scenario_id,
+                        }
+                        if scenario_id:
+                            _scenario_index[scenario_id] = run_id
+
+                    loaded_count += 1
+                except (json.JSONDecodeError, IOError, KeyError):
+                    continue
+
+    # Load direct runs from .jobs directory
+    jobs_dir = os.path.join(_BASE_RUN_DIR, ".jobs")
+    if os.path.exists(jobs_dir):
+        for filename in os.listdir(jobs_dir):
+            if filename.endswith(".json"):
+                metadata_path = os.path.join(jobs_dir, filename)
+                try:
+                    with open(metadata_path, "r", encoding="utf-8") as f:
+                        metadata = json.load(f)
+
+                    run_id = metadata["run_id"]
+
+                    with _jobs_lock:
+                        _jobs[run_id] = {
+                            "process": None,
+                            "error_queue": None,
+                            "started_at": metadata["started_at"],
+                            "finished_at": metadata.get("finished_at"),
+                            "output_dir": metadata["output_dir"],
+                            "info_log": metadata["info_log"],
+                            "debug_log": metadata["debug_log"],
+                            "performance_csv": metadata["performance_csv"],
+                            "error": metadata.get("error"),
+                            "exit_code": metadata.get("exit_code"),
+                            "pid": metadata.get("pid"),
+                            "scenario_id": None,
+                        }
+
+                    loaded_count += 1
+                except (json.JSONDecodeError, IOError, KeyError):
+                    continue
+
+    if loaded_count > 0:
+        print(f"Loaded {loaded_count} past run(s) from disk")
+
+
 def _job_status(run_id: str) -> RunStatus:
     with _jobs_lock:
         job = _jobs.get(run_id)
     if not job:
         raise HTTPException(status_code=404, detail="run_id not found")
 
-    process: multiprocessing.Process = job["process"]  # type: ignore[assignment]
-    error_queue: multiprocessing.Queue = job["error_queue"]  # type: ignore[assignment]
+    process: Optional[multiprocessing.Process] = job.get("process")  # type: ignore[assignment]
+    error_queue: Optional[multiprocessing.Queue] = job.get("error_queue")  # type: ignore[assignment]
 
+    # Handle past runs (process is None)
+    if process is None:
+        # This is a past run loaded from disk
+        exit_code = job.get("exit_code")
+        finished_at = job.get("finished_at")
+
+        # Infer status from exit_code if available
+        if exit_code is not None:
+            status = "succeeded" if exit_code == 0 else "failed"
+        elif finished_at:
+            # Has finished_at but no exit_code - assume succeeded if logs exist
+            status = "succeeded" if os.path.exists(job["info_log"]) else "failed"
+        else:
+            # No exit code or finished_at - treat as failed (incomplete)
+            status = "failed"
+            if not finished_at:
+                finished_at = job.get("started_at")  # Use start time as fallback
+
+        return RunStatus(
+            run_id=run_id,
+            status=status,
+            pid=job.get("pid") or 0,  # Handle None pid
+            started_at=job["started_at"],
+            finished_at=finished_at,
+            exit_code=exit_code,
+            output_dir=job["output_dir"],
+            info_log=job["info_log"],
+            debug_log=job["debug_log"],
+            performance_csv=job["performance_csv"],
+            error=job.get("error"),
+        )
+
+    # Handle active runs (process is not None)
     exit_code = process.exitcode
     finished_at = None
     status = "running"
@@ -126,12 +300,19 @@ def _job_status(run_id: str) -> RunStatus:
         if not finished_at:
             finished_at = datetime.datetime.utcnow().isoformat() + "Z"
             job["finished_at"] = finished_at
+            job["exit_code"] = exit_code
+            job["pid"] = process.pid
+
+            # Save updated metadata to disk
+            _save_job_metadata(run_id, job)
 
     error = job.get("error")
-    if error is None and not error_queue.empty():
+    if error is None and error_queue and not error_queue.empty():
         try:
             error = error_queue.get_nowait()
             job["error"] = error
+            # Save error to metadata
+            _save_job_metadata(run_id, job)
         except Exception:
             error = None
 
@@ -175,7 +356,13 @@ def create_run(req: RunRequest) -> RunStatus:
             "performance_csv": performance_csv,
             "finished_at": None,
             "error": None,
+            "exit_code": None,
+            "pid": process.pid,
+            "scenario_id": None,
         }
+
+        # Save metadata to disk for persistence
+        _save_job_metadata(run_id, _jobs[run_id])
 
     return _job_status(run_id)
 
@@ -252,25 +439,41 @@ def _start_scenario_run(scenario_id: str, run_kwargs: Dict[str, object]) -> str:
     process = multiprocessing.Process(target=_run_fasttrips_target, args=(run_kwargs, error_queue))
     process.start()
 
-    output_dir = run_kwargs["output_dir"]
-    info_log = os.path.join(output_dir, "ft_info.log")
-    debug_log = os.path.join(output_dir, "ft_debug.log")
-    performance_csv = os.path.join(output_dir, "ft_output_performance.csv")
+    # Calculate the expected output folder name that Fast-Trips will create
+    pathfinding_type = run_kwargs.get("pathfinding_type", "stochastic")
+    iters = run_kwargs.get("iters", 1)
+    capacity = run_kwargs.get("capacity", False)
+    output_folder = run_kwargs.get("output_folder")
+
+    if not output_folder:
+        cap_suffix = "cap" if capacity else "nocap"
+        output_folder = f"output_{pathfinding_type}_iter{iters}_{cap_suffix}"
+
+    base_output_dir = run_kwargs["output_dir"]
+    full_output_dir = os.path.join(base_output_dir, output_folder)
+    info_log = os.path.join(full_output_dir, "ft_info.log")
+    debug_log = os.path.join(full_output_dir, "ft_debug.log")
+    performance_csv = os.path.join(full_output_dir, "ft_output_performance.csv")
 
     with _jobs_lock:
         _jobs[run_id] = {
             "process": process,
             "error_queue": error_queue,
             "started_at": datetime.datetime.utcnow().isoformat() + "Z",
-            "output_dir": output_dir,
+            "output_dir": full_output_dir,
             "info_log": info_log,
             "debug_log": debug_log,
             "performance_csv": performance_csv,
             "finished_at": None,
             "error": None,
+            "exit_code": None,
+            "pid": process.pid,
             "scenario_id": scenario_id,
         }
         _scenario_index[scenario_id] = run_id
+
+        # Save metadata to disk for persistence
+        _save_job_metadata(run_id, _jobs[run_id])
 
     return run_id
 
