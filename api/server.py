@@ -3,6 +3,7 @@ from __future__ import annotations
 import datetime
 import json
 import os
+import sys
 import threading
 import uuid
 import zipfile
@@ -62,6 +63,7 @@ class RunStatus(BaseModel):
     output_dir: str
     info_log: str
     debug_log: str
+    terminal_log: str
     performance_csv: str
     error: Optional[str] = None
 
@@ -100,12 +102,40 @@ def _build_run_kwargs(req: RunRequest) -> Dict[str, object]:
     return kwargs
 
 
-def _run_fasttrips_target(kwargs: Dict[str, object], error_queue: multiprocessing.Queue) -> None:
+def _run_fasttrips_target(kwargs: Dict[str, object], error_queue: multiprocessing.Queue, terminal_log_path: str) -> None:
+    # Ensure output directory exists before creating terminal log
+    os.makedirs(os.path.dirname(terminal_log_path), exist_ok=True)
+
+    # Save original file descriptors
+    original_stdout_fd = os.dup(1)
+    original_stderr_fd = os.dup(2)
+
+    # Open terminal log file
+    terminal_log_fd = os.open(terminal_log_path, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o644)
+
     try:
-        run_fasttrips(**kwargs)
-    except Exception as exc:  # noqa: BLE001 - surface fast-trips errors to API
-        error_queue.put(str(exc))
-        raise
+        # Redirect file descriptors (captures C++ output too)
+        os.dup2(terminal_log_fd, 1)  # stdout
+        os.dup2(terminal_log_fd, 2)  # stderr
+
+        # Also redirect Python's sys.stdout and sys.stderr
+        sys.stdout = os.fdopen(os.dup(terminal_log_fd), "w", encoding="utf-8")
+        sys.stderr = sys.stdout
+
+        try:
+            run_fasttrips(**kwargs)
+        except Exception as exc:  # noqa: BLE001 - surface fast-trips errors to API
+            error_queue.put(str(exc))
+            raise
+    finally:
+        # Restore original file descriptors
+        sys.stdout.flush()
+        sys.stderr.flush()
+        os.dup2(original_stdout_fd, 1)
+        os.dup2(original_stderr_fd, 2)
+        os.close(original_stdout_fd)
+        os.close(original_stderr_fd)
+        os.close(terminal_log_fd)
 
 
 def _tail_file(path: str, max_lines: int) -> str:
@@ -146,6 +176,7 @@ def _save_job_metadata(run_id: str, job_data: Dict[str, object]) -> None:
         "output_dir": job_data["output_dir"],
         "info_log": job_data["info_log"],
         "debug_log": job_data["debug_log"],
+        "terminal_log": job_data["terminal_log"],
         "performance_csv": job_data["performance_csv"],
         "error": job_data.get("error"),
         "exit_code": job_data.get("exit_code"),
@@ -200,6 +231,7 @@ def _load_all_past_runs() -> None:
                             "output_dir": metadata["output_dir"],
                             "info_log": metadata["info_log"],
                             "debug_log": metadata["debug_log"],
+                            "terminal_log": metadata.get("terminal_log", ""),
                             "performance_csv": metadata["performance_csv"],
                             "error": metadata.get("error"),
                             "exit_code": metadata.get("exit_code"),
@@ -234,6 +266,7 @@ def _load_all_past_runs() -> None:
                             "output_dir": metadata["output_dir"],
                             "info_log": metadata["info_log"],
                             "debug_log": metadata["debug_log"],
+                            "terminal_log": metadata.get("terminal_log", ""),
                             "performance_csv": metadata["performance_csv"],
                             "error": metadata.get("error"),
                             "exit_code": metadata.get("exit_code"),
@@ -286,6 +319,7 @@ def _job_status(run_id: str) -> RunStatus:
             output_dir=job["output_dir"],
             info_log=job["info_log"],
             debug_log=job["debug_log"],
+            terminal_log=job.get("terminal_log", ""),
             performance_csv=job["performance_csv"],
             error=job.get("error"),
         )
@@ -326,6 +360,7 @@ def _job_status(run_id: str) -> RunStatus:
         output_dir=job["output_dir"],
         info_log=job["info_log"],
         debug_log=job["debug_log"],
+        terminal_log=job.get("terminal_log", ""),
         performance_csv=job["performance_csv"],
         error=error,
     )
@@ -338,11 +373,12 @@ def create_run(req: RunRequest) -> RunStatus:
     full_output_dir = os.path.join(req.output_dir, output_folder)
     info_log = os.path.join(full_output_dir, "ft_info.log")
     debug_log = os.path.join(full_output_dir, "ft_debug.log")
+    terminal_log = os.path.join(full_output_dir, "ft_terminal.log")
     performance_csv = os.path.join(full_output_dir, "ft_output_performance.csv")
 
     kwargs = _build_run_kwargs(req)
     error_queue: multiprocessing.Queue = multiprocessing.Queue()
-    process = multiprocessing.Process(target=_run_fasttrips_target, args=(kwargs, error_queue))
+    process = multiprocessing.Process(target=_run_fasttrips_target, args=(kwargs, error_queue, terminal_log))
     process.start()
 
     with _jobs_lock:
@@ -353,6 +389,7 @@ def create_run(req: RunRequest) -> RunStatus:
             "output_dir": full_output_dir,
             "info_log": info_log,
             "debug_log": debug_log,
+            "terminal_log": terminal_log,
             "performance_csv": performance_csv,
             "finished_at": None,
             "error": None,
@@ -382,11 +419,16 @@ def get_run(run_id: str) -> RunStatus:
 @app.get("/runs/{run_id}/log", response_class=PlainTextResponse)
 def get_run_log(
     run_id: str,
-    log_type: Literal["info", "debug"] = Query(default="info"),
+    log_type: Literal["info", "debug", "terminal"] = Query(default="info"),
     lines: int = Query(default=200, ge=1, le=2000),
 ) -> str:
     status = _job_status(run_id)
-    path = status.info_log if log_type == "info" else status.debug_log
+    if log_type == "info":
+        path = status.info_log
+    elif log_type == "debug":
+        path = status.debug_log
+    else:  # terminal
+        path = status.terminal_log
     return _tail_file(path, lines)
 
 
@@ -435,9 +477,6 @@ def _prepare_input_from_zip(scenario_id: str, zip_path: str) -> Dict[str, str]:
 
 def _start_scenario_run(scenario_id: str, run_kwargs: Dict[str, object]) -> str:
     run_id = uuid.uuid4().hex
-    error_queue: multiprocessing.Queue = multiprocessing.Queue()
-    process = multiprocessing.Process(target=_run_fasttrips_target, args=(run_kwargs, error_queue))
-    process.start()
 
     # Calculate the expected output folder name that Fast-Trips will create
     pathfinding_type = run_kwargs.get("pathfinding_type", "stochastic")
@@ -453,7 +492,12 @@ def _start_scenario_run(scenario_id: str, run_kwargs: Dict[str, object]) -> str:
     full_output_dir = os.path.join(base_output_dir, output_folder)
     info_log = os.path.join(full_output_dir, "ft_info.log")
     debug_log = os.path.join(full_output_dir, "ft_debug.log")
+    terminal_log = os.path.join(full_output_dir, "ft_terminal.log")
     performance_csv = os.path.join(full_output_dir, "ft_output_performance.csv")
+
+    error_queue: multiprocessing.Queue = multiprocessing.Queue()
+    process = multiprocessing.Process(target=_run_fasttrips_target, args=(run_kwargs, error_queue, terminal_log))
+    process.start()
 
     with _jobs_lock:
         _jobs[run_id] = {
@@ -463,6 +507,7 @@ def _start_scenario_run(scenario_id: str, run_kwargs: Dict[str, object]) -> str:
             "output_dir": full_output_dir,
             "info_log": info_log,
             "debug_log": debug_log,
+            "terminal_log": terminal_log,
             "performance_csv": performance_csv,
             "finished_at": None,
             "error": None,
