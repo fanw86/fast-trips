@@ -1,8 +1,10 @@
 from __future__ import annotations
 
+import configparser
 import datetime
 import json
 import os
+import re
 import sys
 import threading
 import uuid
@@ -11,6 +13,7 @@ from typing import Dict, List, Literal, Optional
 
 import multiprocessing
 from fastapi import FastAPI, File, Form, HTTPException, Query, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import PlainTextResponse
 from pydantic import BaseModel, Field
 
@@ -18,6 +21,14 @@ from fasttrips.Run import run_fasttrips
 
 
 app = FastAPI(title="Transit Assignment API", version="0.2.0")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.on_event("startup")
@@ -55,7 +66,7 @@ class RunRequest(BaseModel):
 
 class RunStatus(BaseModel):
     run_id: str
-    status: Literal["running", "succeeded", "failed"]
+    status: Literal["running", "succeeded", "failed", "stopped"]
     pid: int
     started_at: str
     finished_at: Optional[str]
@@ -66,6 +77,18 @@ class RunStatus(BaseModel):
     terminal_log: str
     performance_csv: str
     error: Optional[str] = None
+    progress: int = 0
+    current_iteration: Optional[int] = None
+    max_iterations: Optional[int] = None
+    pathfinding_iteration: Optional[int] = None
+    paths_sought: Optional[int] = None
+    total_paths: Optional[int] = None
+    num_passengers_arrived: Optional[int] = None
+    num_bumped_passengers: Optional[int] = None
+    converged: Optional[bool] = None
+    convergence_gap: Optional[float] = None
+    convergence_threshold: Optional[float] = None
+    termination_reason: Optional[Literal["converged", "max_iterations", "failed", "stopped"]] = None
 
 
 _jobs_lock = threading.Lock()
@@ -81,7 +104,12 @@ def _model_to_dict(model: BaseModel) -> Dict[str, object]:
 
 
 def _default_output_folder(req: RunRequest) -> str:
-    cap_suffix = "cap" if req.capacity else "nocap"
+    # Determine capacity: if explicitly True use it, otherwise check config file
+    if req.capacity:
+        capacity = True
+    else:
+        capacity = _parse_capacity_constraint(req.run_config) if req.run_config else False
+    cap_suffix = "cap" if capacity else "nocap"
     folder = f"output_{req.pathfinding_type}_iter{req.iters}_{cap_suffix}"
     if req.trace_only:
         folder = f"{folder}_trace"
@@ -102,7 +130,14 @@ def _build_run_kwargs(req: RunRequest) -> Dict[str, object]:
     return kwargs
 
 
-def _run_fasttrips_target(kwargs: Dict[str, object], error_queue: multiprocessing.Queue, terminal_log_path: str) -> None:
+def _run_fasttrips_target(
+    kwargs: Dict[str, object],
+    error_queue: multiprocessing.Queue,
+    terminal_log_path: str
+) -> None:
+    # Enable progress reporting for API runs
+    os.environ['FASTTRIPS_PROGRESS_ENABLED'] = '1'
+
     # Ensure output directory exists before creating terminal log
     os.makedirs(os.path.dirname(terminal_log_path), exist_ok=True)
 
@@ -146,6 +181,200 @@ def _tail_file(path: str, max_lines: int) -> str:
     return "".join(lines[-max_lines:])
 
 
+def _parse_convergence_threshold(config_path: str) -> Optional[float]:
+    """Parse convergence_gap from config_ft.txt file. Returns None if not set."""
+    if not config_path or not os.path.exists(config_path):
+        return None
+    try:
+        config = configparser.ConfigParser()
+        config.read(config_path)
+        if config.has_option("fasttrips", "convergence_gap"):
+            return config.getfloat("fasttrips", "convergence_gap")
+    except (configparser.Error, ValueError):
+        pass
+    return None
+
+
+def _parse_capacity_constraint(config_path: str) -> bool:
+    """Parse capacity_constraint from config_ft.txt file. Returns False if not set."""
+    if not config_path or not os.path.exists(config_path):
+        return False
+    try:
+        config = configparser.ConfigParser()
+        config.read(config_path)
+        if config.has_option("fasttrips", "capacity_constraint"):
+            return config.getboolean("fasttrips", "capacity_constraint")
+    except (configparser.Error, ValueError):
+        pass
+    return False
+
+
+def _parse_max_iterations(config_path: str) -> int:
+    """Parse max_iterations from config_ft.txt file. Returns 1 if not set."""
+    if not config_path or not os.path.exists(config_path):
+        return 1
+    try:
+        config = configparser.ConfigParser()
+        config.read(config_path)
+        if config.has_option("fasttrips", "max_iterations"):
+            return config.getint("fasttrips", "max_iterations")
+    except (configparser.Error, ValueError):
+        pass
+    return 1
+
+
+def _parse_pathfinding_type(config_path: str) -> str:
+    """Parse pathfinding_type from config_ft.txt file. Returns 'stochastic' if not set."""
+    if not config_path or not os.path.exists(config_path):
+        return "stochastic"
+    try:
+        config = configparser.ConfigParser()
+        config.read(config_path)
+        if config.has_option("pathfinding", "pathfinding_type"):
+            return config.get("pathfinding", "pathfinding_type")
+    except (configparser.Error, ValueError):
+        pass
+    return "stochastic"
+
+
+def _estimate_progress(job: Dict[str, object]) -> Dict[str, object]:
+    """Estimate run progress from progress file or info log.
+
+    First tries to read the structured progress file (ft_progress.json).
+    Falls back to parsing info log if progress file is unavailable.
+    """
+    output_dir = job.get("output_dir", "")
+    max_iterations = job.get("max_iterations", 10)
+    convergence_threshold = job.get("convergence_threshold")
+
+    # Try progress file first (preferred method)
+    progress_path = os.path.join(output_dir, "ft_progress.json") if output_dir else ""
+    if progress_path and os.path.exists(progress_path):
+        try:
+            with open(progress_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+
+            phase = data.get("phase", "")
+            iteration = data.get("iteration", 1)
+            file_max_iterations = data.get("max_iterations", max_iterations)
+            paths_sought = data.get("paths_sought", 0)
+            total_paths = data.get("total_paths", 0)
+            num_passengers_arrived = data.get("num_passengers_arrived")
+            num_bumped_passengers = data.get("num_bumped_passengers")
+            capacity_gap = data.get("capacity_gap")
+            converged = data.get("converged")
+
+            # Calculate progress based on outer iteration + phase
+            if phase == "completed":
+                progress = 100
+                termination_reason = "converged" if converged else "max_iterations"
+            else:
+                # Base progress from completed iterations
+                base = ((iteration - 1) / file_max_iterations) * 100 if file_max_iterations > 0 else 0
+
+                # Add phase weight within current iteration
+                if phase == "pathfinding" and total_paths > 0:
+                    phase_weight = 0.8 * (paths_sought / total_paths)
+                elif phase == "simulation_complete":
+                    phase_weight = 0.9
+                elif phase == "iteration_complete":
+                    phase_weight = 1.0
+                else:  # iteration_start
+                    phase_weight = 0.0
+
+                progress = int(base + (phase_weight / file_max_iterations) * 100) if file_max_iterations > 0 else 0
+                progress = min(99, max(0, progress))
+                termination_reason = None
+
+            return {
+                "progress": progress,
+                "current_iteration": iteration,
+                "max_iterations": file_max_iterations,
+                "pathfinding_iteration": data.get("pathfinding_iteration"),
+                "paths_sought": paths_sought,
+                "total_paths": total_paths,
+                "num_passengers_arrived": num_passengers_arrived,
+                "num_bumped_passengers": num_bumped_passengers,
+                "converged": converged,
+                "convergence_gap": capacity_gap,
+                "convergence_threshold": convergence_threshold,
+                "termination_reason": termination_reason,
+            }
+        except (json.JSONDecodeError, IOError, KeyError):
+            pass  # Fall back to log parsing
+
+    # Fall back to log parsing
+    info_log = job.get("info_log", "")
+    if not info_log or not os.path.exists(info_log):
+        return {
+            "progress": 0,
+            "current_iteration": 0,
+            "max_iterations": max_iterations,
+            "paths_sought": 0,
+            "total_paths": 0,
+            "convergence_threshold": convergence_threshold,
+        }
+
+    # Read more lines to ensure we capture iteration markers
+    # (simulation phases can produce many log lines)
+    content = _tail_file(info_log, 2000)
+
+    # Find iteration markers: ***** ITERATION X PATHFINDING ITERATION Y *****
+    iteration_matches = re.findall(r'\*+ ITERATION (\d+)', content)
+    current_iteration = int(iteration_matches[-1]) if iteration_matches else 0
+
+    # Find pathfinding progress: X paths sought, Y paths found of Z paths total
+    pf_matches = re.findall(r'(\d+) paths sought.*?of (\d+) paths total', content)
+    paths_sought, total_paths = (int(pf_matches[-1][0]), int(pf_matches[-1][1])) if pf_matches else (0, 0)
+
+    # Parse CAPACITY GAP values from log
+    gap_matches = re.findall(r'CAPACITY GAP:\s+([\d.]+)', content)
+    convergence_gap = float(gap_matches[-1]) if gap_matches else None
+
+    # Check for successful completion
+    completed = "Successfully completed!" in content
+
+    # Determine convergence status and termination reason
+    converged = None
+    termination_reason = None
+
+    if completed:
+        if convergence_threshold is not None and convergence_gap is not None:
+            # Can determine convergence only if both threshold and gap are available
+            if convergence_gap < convergence_threshold:
+                converged = True
+                termination_reason = "converged"
+            else:
+                converged = False
+                termination_reason = "max_iterations"
+        else:
+            # Completed but can't determine convergence - assume max_iterations
+            converged = False
+            termination_reason = "max_iterations"
+
+    # Calculate progress percentage
+    if max_iterations > 0 and total_paths > 0:
+        pf_progress = paths_sought / total_paths  # 0 to 1
+        progress = int(((current_iteration - 1 + pf_progress) / max_iterations) * 100)
+        progress = max(0, min(100, progress))
+    elif current_iteration > 0:
+        progress = int((current_iteration / max_iterations) * 100)
+    else:
+        progress = 0
+
+    return {
+        "progress": progress,
+        "current_iteration": current_iteration,
+        "max_iterations": max_iterations,
+        "paths_sought": paths_sought,
+        "total_paths": total_paths,
+        "converged": converged,
+        "convergence_gap": convergence_gap,
+        "convergence_threshold": convergence_threshold,
+        "termination_reason": termination_reason,
+    }
+
+
 def _get_metadata_path(run_id: str, scenario_id: Optional[str] = None) -> str:
     """Get the path to the metadata file for a run"""
     if scenario_id:
@@ -181,6 +410,11 @@ def _save_job_metadata(run_id: str, job_data: Dict[str, object]) -> None:
         "error": job_data.get("error"),
         "exit_code": job_data.get("exit_code"),
         "pid": job_data.get("pid"),
+        "max_iterations": job_data.get("max_iterations"),
+        "convergence_threshold": job_data.get("convergence_threshold"),
+        "converged": job_data.get("converged"),
+        "convergence_gap": job_data.get("convergence_gap"),
+        "termination_reason": job_data.get("termination_reason"),
     }
 
     with open(metadata_path, "w", encoding="utf-8") as f:
@@ -199,6 +433,31 @@ def _load_job_metadata(run_id: str, scenario_id: Optional[str] = None) -> Option
             return json.load(f)
     except (json.JSONDecodeError, IOError):
         return None
+
+
+def _detect_completion_from_files(output_dir: str) -> Optional[Dict[str, object]]:
+    """Detect completion from ft_progress.json.
+
+    This is the primary method for detecting completion status, since ft_progress.json
+    is written by the FastTrips process and reliably captures the final state.
+    """
+    progress_path = os.path.join(output_dir, "ft_progress.json")
+    if os.path.exists(progress_path):
+        try:
+            with open(progress_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            if data.get("phase") == "completed":
+                return {
+                    "capacity_gap": data.get("capacity_gap"),
+                    "converged": data.get("converged"),
+                    "num_passengers_arrived": data.get("num_passengers_arrived"),
+                    "num_bumped_passengers": data.get("num_bumped_passengers"),
+                    "total_demand": data.get("total_demand"),
+                    "timestamp": data.get("timestamp"),
+                }
+        except (json.JSONDecodeError, IOError):
+            pass
+    return None
 
 
 def _load_all_past_runs() -> None:
@@ -220,6 +479,34 @@ def _load_all_past_runs() -> None:
 
                     run_id = metadata["run_id"]
                     scenario_id = metadata.get("scenario_id")
+                    output_dir = metadata["output_dir"]
+
+                    # Get completion data from ft_progress.json (primary source)
+                    progress_data = _detect_completion_from_files(output_dir)
+
+                    # Start with metadata values
+                    converged = metadata.get("converged")
+                    convergence_gap = metadata.get("convergence_gap")
+                    termination_reason = metadata.get("termination_reason")
+                    finished_at = metadata.get("finished_at")
+                    exit_code = metadata.get("exit_code")
+
+                    # Override with progress data if available (more reliable)
+                    if progress_data:
+                        if converged is None:
+                            converged = progress_data.get("converged")
+                        if convergence_gap is None:
+                            convergence_gap = progress_data.get("capacity_gap")
+                        # If metadata doesn't have finished_at, infer from progress file
+                        if finished_at is None:
+                            finished_at = progress_data.get("timestamp") or metadata["started_at"]
+                            exit_code = 0  # Completed successfully
+                        # Determine termination_reason
+                        if termination_reason is None:
+                            if converged:
+                                termination_reason = "converged"
+                            else:
+                                termination_reason = "max_iterations"
 
                     # Create a job entry with metadata (no process object)
                     with _jobs_lock:
@@ -227,16 +514,21 @@ def _load_all_past_runs() -> None:
                             "process": None,  # Past run, no active process
                             "error_queue": None,
                             "started_at": metadata["started_at"],
-                            "finished_at": metadata.get("finished_at"),
-                            "output_dir": metadata["output_dir"],
+                            "finished_at": finished_at,
+                            "output_dir": output_dir,
                             "info_log": metadata["info_log"],
                             "debug_log": metadata["debug_log"],
                             "terminal_log": metadata.get("terminal_log", ""),
                             "performance_csv": metadata["performance_csv"],
                             "error": metadata.get("error"),
-                            "exit_code": metadata.get("exit_code"),
+                            "exit_code": exit_code,
                             "pid": metadata.get("pid"),
                             "scenario_id": scenario_id,
+                            "max_iterations": metadata.get("max_iterations", 10),
+                            "convergence_threshold": metadata.get("convergence_threshold"),
+                            "converged": converged,
+                            "convergence_gap": convergence_gap,
+                            "termination_reason": termination_reason,
                         }
                         if scenario_id:
                             _scenario_index[scenario_id] = run_id
@@ -256,22 +548,55 @@ def _load_all_past_runs() -> None:
                         metadata = json.load(f)
 
                     run_id = metadata["run_id"]
+                    output_dir = metadata["output_dir"]
+
+                    # Get completion data from ft_progress.json (primary source)
+                    progress_data = _detect_completion_from_files(output_dir)
+
+                    # Start with metadata values
+                    converged = metadata.get("converged")
+                    convergence_gap = metadata.get("convergence_gap")
+                    termination_reason = metadata.get("termination_reason")
+                    finished_at = metadata.get("finished_at")
+                    exit_code = metadata.get("exit_code")
+
+                    # Override with progress data if available (more reliable)
+                    if progress_data:
+                        if converged is None:
+                            converged = progress_data.get("converged")
+                        if convergence_gap is None:
+                            convergence_gap = progress_data.get("capacity_gap")
+                        # If metadata doesn't have finished_at, infer from progress file
+                        if finished_at is None:
+                            finished_at = progress_data.get("timestamp") or metadata["started_at"]
+                            exit_code = 0  # Completed successfully
+                        # Determine termination_reason
+                        if termination_reason is None:
+                            if converged:
+                                termination_reason = "converged"
+                            else:
+                                termination_reason = "max_iterations"
 
                     with _jobs_lock:
                         _jobs[run_id] = {
                             "process": None,
                             "error_queue": None,
                             "started_at": metadata["started_at"],
-                            "finished_at": metadata.get("finished_at"),
-                            "output_dir": metadata["output_dir"],
+                            "finished_at": finished_at,
+                            "output_dir": output_dir,
                             "info_log": metadata["info_log"],
                             "debug_log": metadata["debug_log"],
                             "terminal_log": metadata.get("terminal_log", ""),
                             "performance_csv": metadata["performance_csv"],
                             "error": metadata.get("error"),
-                            "exit_code": metadata.get("exit_code"),
+                            "exit_code": exit_code,
                             "pid": metadata.get("pid"),
                             "scenario_id": None,
+                            "max_iterations": metadata.get("max_iterations", 10),
+                            "convergence_threshold": metadata.get("convergence_threshold"),
+                            "converged": converged,
+                            "convergence_gap": convergence_gap,
+                            "termination_reason": termination_reason,
                         }
 
                     loaded_count += 1
@@ -296,9 +621,12 @@ def _job_status(run_id: str) -> RunStatus:
         # This is a past run loaded from disk
         exit_code = job.get("exit_code")
         finished_at = job.get("finished_at")
+        stored_termination_reason = job.get("termination_reason")
 
-        # Infer status from exit_code if available
-        if exit_code is not None:
+        # Infer status from termination_reason or exit_code
+        if stored_termination_reason == "stopped":
+            status = "stopped"
+        elif exit_code is not None:
             status = "succeeded" if exit_code == 0 else "failed"
         elif finished_at:
             # Has finished_at but no exit_code - assume succeeded if logs exist
@@ -308,6 +636,20 @@ def _job_status(run_id: str) -> RunStatus:
             status = "failed"
             if not finished_at:
                 finished_at = job.get("started_at")  # Use start time as fallback
+
+        # Calculate progress for past runs
+        if status == "succeeded":
+            progress_info = _estimate_progress(job)
+            progress_info["progress"] = 100
+        else:
+            progress_info = _estimate_progress(job)
+
+        # Determine termination reason for past runs
+        termination_reason = stored_termination_reason or progress_info.get("termination_reason")
+        if status == "stopped":
+            termination_reason = "stopped"
+        elif status == "failed" and termination_reason is None:
+            termination_reason = "failed"
 
         return RunStatus(
             run_id=run_id,
@@ -322,6 +664,18 @@ def _job_status(run_id: str) -> RunStatus:
             terminal_log=job.get("terminal_log", ""),
             performance_csv=job["performance_csv"],
             error=job.get("error"),
+            progress=progress_info.get("progress", 0),
+            current_iteration=progress_info.get("current_iteration"),
+            max_iterations=progress_info.get("max_iterations"),
+            pathfinding_iteration=progress_info.get("pathfinding_iteration"),
+            paths_sought=progress_info.get("paths_sought"),
+            total_paths=progress_info.get("total_paths"),
+            num_passengers_arrived=progress_info.get("num_passengers_arrived"),
+            num_bumped_passengers=progress_info.get("num_bumped_passengers"),
+            converged=progress_info.get("converged"),
+            convergence_gap=progress_info.get("convergence_gap"),
+            convergence_threshold=progress_info.get("convergence_threshold"),
+            termination_reason=termination_reason,
         )
 
     # Handle active runs (process is not None)
@@ -329,7 +683,11 @@ def _job_status(run_id: str) -> RunStatus:
     finished_at = None
     status = "running"
     if exit_code is not None:
-        status = "succeeded" if exit_code == 0 else "failed"
+        # Check if this was a user-initiated stop
+        if job.get("termination_reason") == "stopped":
+            status = "stopped"
+        else:
+            status = "succeeded" if exit_code == 0 else "failed"
         finished_at = job.get("finished_at")
         if not finished_at:
             finished_at = datetime.datetime.utcnow().isoformat() + "Z"
@@ -350,6 +708,37 @@ def _job_status(run_id: str) -> RunStatus:
         except Exception:
             error = None
 
+    # Check for completion data from ft_progress.json when run finishes
+    if exit_code is not None and job.get("converged") is None:
+        progress_data = _detect_completion_from_files(job["output_dir"])
+        if progress_data:
+            job["convergence_gap"] = progress_data.get("capacity_gap")
+            job["converged"] = progress_data.get("converged")
+            if job.get("converged"):
+                job["termination_reason"] = "converged"
+            else:
+                job["termination_reason"] = "max_iterations"
+            # Save updated metadata
+            _save_job_metadata(run_id, job)
+
+    # Calculate progress for active runs
+    if status == "succeeded":
+        progress_info = _estimate_progress(job)
+        progress_info["progress"] = 100
+    elif status == "failed":
+        progress_info = _estimate_progress(job)
+    else:  # running
+        progress_info = _estimate_progress(job)
+
+    # Determine termination reason
+    termination_reason = job.get("termination_reason") or progress_info.get("termination_reason")
+    if status == "stopped":
+        termination_reason = "stopped"
+    elif status == "failed" and termination_reason is None:
+        termination_reason = "failed"
+    elif status == "running":
+        termination_reason = None
+
     return RunStatus(
         run_id=run_id,
         status=status,
@@ -363,6 +752,18 @@ def _job_status(run_id: str) -> RunStatus:
         terminal_log=job.get("terminal_log", ""),
         performance_csv=job["performance_csv"],
         error=error,
+        progress=progress_info.get("progress", 0),
+        current_iteration=progress_info.get("current_iteration"),
+        max_iterations=progress_info.get("max_iterations"),
+        pathfinding_iteration=progress_info.get("pathfinding_iteration"),
+        paths_sought=progress_info.get("paths_sought"),
+        total_paths=progress_info.get("total_paths"),
+        num_passengers_arrived=progress_info.get("num_passengers_arrived"),
+        num_bumped_passengers=progress_info.get("num_bumped_passengers"),
+        converged=progress_info.get("converged"),
+        convergence_gap=progress_info.get("convergence_gap"),
+        convergence_threshold=progress_info.get("convergence_threshold"),
+        termination_reason=termination_reason,
     )
 
 
@@ -376,9 +777,15 @@ def create_run(req: RunRequest) -> RunStatus:
     terminal_log = os.path.join(full_output_dir, "ft_terminal.log")
     performance_csv = os.path.join(full_output_dir, "ft_output_performance.csv")
 
+    # Parse convergence_gap from config file (None if not set)
+    convergence_threshold = _parse_convergence_threshold(req.run_config)
+
     kwargs = _build_run_kwargs(req)
     error_queue: multiprocessing.Queue = multiprocessing.Queue()
-    process = multiprocessing.Process(target=_run_fasttrips_target, args=(kwargs, error_queue, terminal_log))
+    process = multiprocessing.Process(
+        target=_run_fasttrips_target,
+        args=(kwargs, error_queue, terminal_log)
+    )
     process.start()
 
     with _jobs_lock:
@@ -396,6 +803,8 @@ def create_run(req: RunRequest) -> RunStatus:
             "exit_code": None,
             "pid": process.pid,
             "scenario_id": None,
+            "max_iterations": req.iters,
+            "convergence_threshold": convergence_threshold,
         }
 
         # Save metadata to disk for persistence
@@ -434,15 +843,39 @@ def get_run_log(
 
 @app.post("/runs/{run_id}/stop", response_model=RunStatus)
 def stop_run(run_id: str) -> RunStatus:
+    """Stop a running simulation.
+
+    Terminates the process and marks the run with termination_reason='stopped'.
+    """
     with _jobs_lock:
         job = _jobs.get(run_id)
     if not job:
         raise HTTPException(status_code=404, detail="run_id not found")
 
-    process: multiprocessing.Process = job["process"]  # type: ignore[assignment]
+    process: Optional[multiprocessing.Process] = job.get("process")  # type: ignore[assignment]
+    if process is None:
+        # Past run loaded from disk - can't stop
+        raise HTTPException(status_code=400, detail="Run already finished (past run)")
+
     if process.is_alive():
         process.terminate()
         process.join(timeout=5)
+
+        # If still alive after terminate, force kill
+        if process.is_alive():
+            process.kill()
+            process.join(timeout=2)
+
+        # Mark as stopped by user
+        with _jobs_lock:
+            job["termination_reason"] = "stopped"
+            job["finished_at"] = datetime.datetime.utcnow().isoformat() + "Z"
+            job["exit_code"] = process.exitcode
+            _save_job_metadata(run_id, job)
+    else:
+        # Process already finished
+        pass
+
     return _job_status(run_id)
 
 
@@ -481,8 +914,14 @@ def _start_scenario_run(scenario_id: str, run_kwargs: Dict[str, object]) -> str:
     # Calculate the expected output folder name that Fast-Trips will create
     pathfinding_type = run_kwargs.get("pathfinding_type", "stochastic")
     iters = run_kwargs.get("iters", 1)
-    capacity = run_kwargs.get("capacity", False)
     output_folder = run_kwargs.get("output_folder")
+
+    # Determine capacity setting: use explicit kwarg if set, otherwise read from config file
+    if "capacity" in run_kwargs:
+        capacity = run_kwargs["capacity"]
+    else:
+        run_config = run_kwargs.get("run_config")
+        capacity = _parse_capacity_constraint(run_config) if run_config else False
 
     if not output_folder:
         cap_suffix = "cap" if capacity else "nocap"
@@ -495,8 +934,15 @@ def _start_scenario_run(scenario_id: str, run_kwargs: Dict[str, object]) -> str:
     terminal_log = os.path.join(full_output_dir, "ft_terminal.log")
     performance_csv = os.path.join(full_output_dir, "ft_output_performance.csv")
 
+    # Parse convergence_gap from config file (None if not set)
+    run_config = run_kwargs.get("run_config")
+    convergence_threshold = _parse_convergence_threshold(run_config) if run_config else None
+
     error_queue: multiprocessing.Queue = multiprocessing.Queue()
-    process = multiprocessing.Process(target=_run_fasttrips_target, args=(run_kwargs, error_queue, terminal_log))
+    process = multiprocessing.Process(
+        target=_run_fasttrips_target,
+        args=(run_kwargs, error_queue, terminal_log)
+    )
     process.start()
 
     with _jobs_lock:
@@ -514,6 +960,8 @@ def _start_scenario_run(scenario_id: str, run_kwargs: Dict[str, object]) -> str:
             "exit_code": None,
             "pid": process.pid,
             "scenario_id": scenario_id,
+            "max_iterations": iters,
+            "convergence_threshold": convergence_threshold,
         }
         _scenario_index[scenario_id] = run_id
 
@@ -539,10 +987,12 @@ def upload_input(
         handle.write(needFile.file.read())
 
     inputs = _prepare_input_from_zip(scenarioId, zip_path)
+    run_config = inputs["run_config"]
     run_kwargs = {
-        "pathfinding_type": "stochastic",
-        "iters": 10,
-        "run_config": inputs["run_config"],
+        "pathfinding_type": _parse_pathfinding_type(run_config),
+        "iters": _parse_max_iterations(run_config),
+        "capacity": _parse_capacity_constraint(run_config),  # Pass explicitly so Run.py uses same folder name
+        "run_config": run_config,
         "input_network_dir": inputs["input_network_dir"],
         "input_demand_dir": inputs["input_demand_dir"],
         "input_weights": inputs["input_weights"],

@@ -778,6 +778,15 @@ class Assignment(object):
 
         for iteration in range(1, Assignment.MAX_ITERATIONS+1):
 
+            # Progress update: iteration start
+            FT.progress.update(
+                phase="iteration_start",
+                iteration=iteration,
+                max_iterations=Assignment.MAX_ITERATIONS,
+                pathfinding_iteration=0,
+                total_demand=len(FT.passengers.trip_list_df)
+            )
+
             for pathfinding_iteration in range(1, Assignment.MAX_PF_ITERATIONS + 1):
 
                 # First pathfinding_iteration, find paths for everyone
@@ -863,6 +872,16 @@ class Assignment(object):
                 FastTripsLogger.info("  ARRIVED PASSENGERS:        %10d" % num_passengers_arrived)
                 FastTripsLogger.info("  MISSED PASSENGERS:         %10d" % num_bumped_passengers)
 
+                # Progress update: simulation complete
+                FT.progress.update(
+                    phase="simulation_complete",
+                    iteration=iteration,
+                    max_iterations=Assignment.MAX_ITERATIONS,
+                    pathfinding_iteration=pathfinding_iteration,
+                    num_passengers_arrived=num_passengers_arrived,
+                    num_bumped_passengers=num_bumped_passengers,
+                    total_demand=len(FT.passengers.trip_list_df)
+                )
 
                 FT.performance.record_step_end(iteration, pathfinding_iteration, -1)
 
@@ -898,8 +917,49 @@ class Assignment(object):
 
 
             # end condition for iterations loop
-            if capacity_gap < Assignment.CONVERGENCE_GAP:
+            converged = capacity_gap < Assignment.CONVERGENCE_GAP
+            if converged:
+                # Progress update: completed (converged)
+                FT.progress.update(
+                    phase="completed",
+                    iteration=iteration,
+                    max_iterations=Assignment.MAX_ITERATIONS,
+                    pathfinding_iteration=pathfinding_iteration,
+                    num_passengers_arrived=num_passengers_arrived,
+                    num_bumped_passengers=num_bumped_passengers,
+                    total_demand=len(FT.passengers.trip_list_df),
+                    capacity_gap=capacity_gap,
+                    converged=True
+                )
                 break
+
+            # Progress update: iteration complete (not converged)
+            if iteration == Assignment.MAX_ITERATIONS:
+                # Last iteration - mark as completed
+                FT.progress.update(
+                    phase="completed",
+                    iteration=iteration,
+                    max_iterations=Assignment.MAX_ITERATIONS,
+                    pathfinding_iteration=pathfinding_iteration,
+                    num_passengers_arrived=num_passengers_arrived,
+                    num_bumped_passengers=num_bumped_passengers,
+                    total_demand=len(FT.passengers.trip_list_df),
+                    capacity_gap=capacity_gap,
+                    converged=False
+                )
+            else:
+                # More iterations to come
+                FT.progress.update(
+                    phase="iteration_complete",
+                    iteration=iteration,
+                    max_iterations=Assignment.MAX_ITERATIONS,
+                    pathfinding_iteration=pathfinding_iteration,
+                    num_passengers_arrived=num_passengers_arrived,
+                    num_bumped_passengers=num_bumped_passengers,
+                    total_demand=len(FT.passengers.trip_list_df),
+                    capacity_gap=capacity_gap,
+                    converged=False
+                )
 
             # end for loop
 
@@ -1177,6 +1237,15 @@ class Assignment(object):
                                              int( time_elapsed.total_seconds()/ 3600),
                                              int( (time_elapsed.total_seconds() % 3600)/ 60),
                                              time_elapsed.total_seconds() % 60))
+                        # Progress update: pathfinding
+                        FT.progress.update(
+                            phase="pathfinding",
+                            iteration=iteration,
+                            max_iterations=Assignment.MAX_ITERATIONS,
+                            pathfinding_iteration=pathfinding_iteration,
+                            paths_sought=num_paths_sought,
+                            total_paths=est_paths_to_find
+                        )
 
             # multiprocessing follow-up
             if num_processes > 1:
@@ -1217,6 +1286,15 @@ class Assignment(object):
                                                      int( time_elapsed.total_seconds()/ 3600),
                                                      int( (time_elapsed.total_seconds() % 3600)/ 60),
                                                      time_elapsed.total_seconds() % 60))
+                                # Progress update: pathfinding (multiprocessing)
+                                FT.progress.update(
+                                    phase="pathfinding",
+                                    iteration=iteration,
+                                    max_iterations=Assignment.MAX_ITERATIONS,
+                                    pathfinding_iteration=pathfinding_iteration,
+                                    paths_sought=num_paths_sought,
+                                    total_paths=est_paths_to_find
+                                )
 
                             del process_dict[worker_num]["working_on"]
                         else:

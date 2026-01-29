@@ -24,6 +24,7 @@ from .Assignment  import Assignment
 from .Logger      import FastTripsLogger, setupLogging
 from .Passenger   import Passenger
 from .Performance import Performance
+from .Progress    import ProgressReporter
 from .Route       import Route
 from .Skimming import Skimming
 from .Stop        import Stop
@@ -117,6 +118,12 @@ class FastTrips(object):
 
         # Initialize performance results
         self.performance = Performance()
+
+        # Initialize progress reporter (enabled via environment variable)
+        self.progress = ProgressReporter(
+            output_dir=Assignment.OUTPUT_DIR,
+            enabled=os.environ.get('FASTTRIPS_PROGRESS_ENABLED', '0') == '1'
+        )
 
     def read_configuration(self):
         """
