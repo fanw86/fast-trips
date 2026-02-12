@@ -14,7 +14,7 @@ from typing import Dict, List, Literal, Optional
 import multiprocessing
 from fastapi import FastAPI, File, Form, HTTPException, Query, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import PlainTextResponse
+from fastapi.responses import FileResponse, PlainTextResponse, StreamingResponse
 from pydantic import BaseModel, Field
 
 from fasttrips.Run import run_fasttrips
@@ -1061,6 +1061,120 @@ def receive_result(
     if scenarioId not in _scenario_index:
         return ResultResponse(code=1, success=False, message="scenarioId not exist", timestamp=ts)
     return ResultResponse(code=0, success=success, message=message, timestamp=ts)
+
+
+class FileInfo(BaseModel):
+    name: str
+    path: str
+    size: int
+    is_dir: bool
+
+
+class FileListResponse(BaseModel):
+    run_id: str
+    output_dir: str
+    files: List[FileInfo]
+
+
+@app.get("/runs/{run_id}/files", response_model=FileListResponse)
+def list_run_files(run_id: str) -> FileListResponse:
+    """List all result files in a run's output directory."""
+    status = _job_status(run_id)
+    output_dir = status.output_dir
+
+    if not os.path.exists(output_dir):
+        raise HTTPException(status_code=404, detail="Output directory not found")
+
+    files = []
+    for root, dirs, filenames in os.walk(output_dir):
+        for filename in filenames:
+            full_path = os.path.join(root, filename)
+            rel_path = os.path.relpath(full_path, output_dir)
+            try:
+                size = os.path.getsize(full_path)
+            except OSError:
+                size = 0
+            files.append(FileInfo(
+                name=filename,
+                path=rel_path,
+                size=size,
+                is_dir=False,
+            ))
+        for dirname in dirs:
+            full_path = os.path.join(root, dirname)
+            rel_path = os.path.relpath(full_path, output_dir)
+            files.append(FileInfo(
+                name=dirname,
+                path=rel_path,
+                size=0,
+                is_dir=True,
+            ))
+
+    # Sort: directories first, then files, both alphabetically
+    files.sort(key=lambda f: (not f.is_dir, f.name.lower()))
+
+    return FileListResponse(
+        run_id=run_id,
+        output_dir=output_dir,
+        files=files,
+    )
+
+
+@app.get("/runs/{run_id}/files/{file_path:path}")
+def download_run_file(run_id: str, file_path: str) -> FileResponse:
+    """Download a specific file from a run's output directory."""
+    status = _job_status(run_id)
+    output_dir = status.output_dir
+
+    # Construct full path and ensure it's within output_dir (prevent path traversal)
+    full_path = os.path.normpath(os.path.join(output_dir, file_path))
+    if not full_path.startswith(os.path.normpath(output_dir)):
+        raise HTTPException(status_code=403, detail="Access denied")
+
+    if not os.path.exists(full_path):
+        raise HTTPException(status_code=404, detail="File not found")
+
+    if os.path.isdir(full_path):
+        raise HTTPException(status_code=400, detail="Path is a directory, not a file")
+
+    return FileResponse(
+        path=full_path,
+        filename=os.path.basename(file_path),
+    )
+
+
+@app.get("/runs/{run_id}/download")
+def download_run_results(run_id: str) -> StreamingResponse:
+    """Download all result files as a ZIP archive."""
+    status = _job_status(run_id)
+    output_dir = status.output_dir
+
+    if not os.path.exists(output_dir):
+        raise HTTPException(status_code=404, detail="Output directory not found")
+
+    # Create a temporary zip file
+    import tempfile
+    import io
+
+    # Use in-memory zip creation
+    zip_buffer = io.BytesIO()
+
+    with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zipf:
+        for root, dirs, filenames in os.walk(output_dir):
+            for filename in filenames:
+                full_path = os.path.join(root, filename)
+                arcname = os.path.relpath(full_path, output_dir)
+                zipf.write(full_path, arcname)
+
+    zip_buffer.seek(0)
+
+    return StreamingResponse(
+        zip_buffer,
+        media_type="application/zip",
+        headers={
+            "Content-Disposition": f"attachment; filename=run_{run_id}_results.zip"
+        },
+    )
 
 
 if __name__ == "__main__":

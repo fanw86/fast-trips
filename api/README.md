@@ -99,6 +99,21 @@ GET /runs/{run_id}
 GET /runs/{run_id}/log?log_type=info&lines=200
 ```
 
+**List Result Files**
+```
+GET /runs/{run_id}/files
+```
+
+**Download a Specific Result File**
+```
+GET /runs/{run_id}/files/{file_path}
+```
+
+**Download All Results as ZIP**
+```
+GET /runs/{run_id}/download
+```
+
 **Stop a Run**
 ```
 POST /runs/{run_id}/stop
