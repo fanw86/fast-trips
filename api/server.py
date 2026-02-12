@@ -14,7 +14,7 @@ from typing import Dict, List, Literal, Optional
 import multiprocessing
 from fastapi import FastAPI, File, Form, HTTPException, Query, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse, PlainTextResponse, StreamingResponse
+from fastapi.responses import FileResponse, PlainTextResponse
 from pydantic import BaseModel, Field
 
 from fasttrips.Run import run_fasttrips
@@ -1140,40 +1140,6 @@ def download_run_file(run_id: str, file_path: str) -> FileResponse:
     return FileResponse(
         path=full_path,
         filename=os.path.basename(file_path),
-    )
-
-
-@app.get("/runs/{run_id}/download")
-def download_run_results(run_id: str) -> StreamingResponse:
-    """Download all result files as a ZIP archive."""
-    status = _job_status(run_id)
-    output_dir = status.output_dir
-
-    if not os.path.exists(output_dir):
-        raise HTTPException(status_code=404, detail="Output directory not found")
-
-    # Create a temporary zip file
-    import tempfile
-    import io
-
-    # Use in-memory zip creation
-    zip_buffer = io.BytesIO()
-
-    with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zipf:
-        for root, dirs, filenames in os.walk(output_dir):
-            for filename in filenames:
-                full_path = os.path.join(root, filename)
-                arcname = os.path.relpath(full_path, output_dir)
-                zipf.write(full_path, arcname)
-
-    zip_buffer.seek(0)
-
-    return StreamingResponse(
-        zip_buffer,
-        media_type="application/zip",
-        headers={
-            "Content-Disposition": f"attachment; filename=run_{run_id}_results.zip"
-        },
     )
 
 

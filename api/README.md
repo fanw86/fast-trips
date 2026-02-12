@@ -109,11 +109,6 @@ GET /runs/{run_id}/files
 GET /runs/{run_id}/files/{file_path}
 ```
 
-**Download All Results as ZIP**
-```
-GET /runs/{run_id}/download
-```
-
 **Stop a Run**
 ```
 POST /runs/{run_id}/stop
