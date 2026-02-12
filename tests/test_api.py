@@ -67,7 +67,7 @@ def _build_input_zip():
 
 
 def test_upload_without_file_returns_failure(api_state):
-    resp = server.upload_input(scenarioId="scenario_a", needFile=None)
+    resp = server.upload_input(scenario_id="scenario_a", needFile=None)
     assert resp.code == 1
     assert resp.value == 1
 
@@ -75,28 +75,28 @@ def test_upload_without_file_returns_failure(api_state):
 def test_upload_starts_run_and_status_reports_running(api_state):
     zip_buffer = _build_input_zip()
     upload = UploadFile(filename="input.zip", file=zip_buffer)
-    resp = server.upload_input(scenarioId="scenario_b", needFile=upload)
+    resp = server.upload_input(scenario_id="scenario_b", needFile=upload)
     assert resp.code == 0
     assert resp.value == 0
 
     status = server.get_scenario_status("scenario_b")
     assert status.code == 0
-    assert status.value.scenarioId == "scenario_b"
+    assert status.value.scenario_id == "scenario_b"
     assert status.value.status == "running"
     assert status.value.progress == 0
 
 
 def test_result_endpoint_requires_known_scenario(api_state):
-    resp = server.receive_result(scenarioId="unknown", code=1, message="ok", resultFile=None)
+    resp = server.receive_result(scenario_id="unknown", code=1, message="ok", resultFile=None)
     assert resp.code == 1
     assert resp.success is False
-    assert resp.message == "scenarioId not exist"
+    assert resp.message == "scenario_id not exist"
 
 
 def test_result_endpoint_accepts_result_file(api_state):
     zip_buffer = _build_input_zip()
     upload = UploadFile(filename="input.zip", file=zip_buffer)
-    resp = server.upload_input(scenarioId="scenario_c", needFile=upload)
+    resp = server.upload_input(scenario_id="scenario_c", needFile=upload)
     assert resp.code == 0
 
     result_zip = io.BytesIO()
@@ -107,7 +107,7 @@ def test_result_endpoint_accepts_result_file(api_state):
 
     result_upload = UploadFile(filename="resultFile.zip", file=result_zip)
     resp = server.receive_result(
-        scenarioId="scenario_c",
+        scenario_id="scenario_c",
         code=1,
         message="done",
         resultFile=result_upload,
@@ -115,3 +115,14 @@ def test_result_endpoint_accepts_result_file(api_state):
     assert resp.code == 0
     assert resp.success is True
     assert resp.message == "done"
+
+
+def test_list_runs_includes_scenario_id_for_scenario_runs(api_state):
+    zip_buffer = _build_input_zip()
+    upload = UploadFile(filename="input.zip", file=zip_buffer)
+    resp = server.upload_input(scenario_id="scenario_d", needFile=upload)
+    assert resp.code == 0
+
+    runs = server.list_runs()
+    assert len(runs) == 1
+    assert runs[0].scenario_id == "scenario_d"

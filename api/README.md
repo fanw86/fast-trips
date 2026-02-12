@@ -140,7 +140,7 @@ GET /scenario/{scenario_id}/status
 Upload a scenario:
 ```bash
 curl -X POST "http://localhost:8000/scenario/upload" \
-  -F "scenarioId=test_scenario" \
+  -F "scenario_id=test_scenario" \
   -F "needFile=@/path/to/scenario.zip"
 ```
 

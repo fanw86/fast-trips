@@ -66,6 +66,7 @@ class RunRequest(BaseModel):
 
 class RunStatus(BaseModel):
     run_id: str
+    scenario_id: Optional[str] = None
     status: Literal["running", "succeeded", "failed", "stopped"]
     pid: int
     started_at: str
@@ -653,6 +654,7 @@ def _job_status(run_id: str) -> RunStatus:
 
         return RunStatus(
             run_id=run_id,
+            scenario_id=job.get("scenario_id"),
             status=status,
             pid=job.get("pid") or 0,  # Handle None pid
             started_at=job["started_at"],
@@ -741,6 +743,7 @@ def _job_status(run_id: str) -> RunStatus:
 
     return RunStatus(
         run_id=run_id,
+        scenario_id=job.get("scenario_id"),
         status=status,
         pid=process.pid or 0,
         started_at=job["started_at"],
@@ -973,20 +976,20 @@ def _start_scenario_run(scenario_id: str, run_kwargs: Dict[str, object]) -> str:
 
 @app.post("/scenario/upload", response_model=UploadResponse)
 def upload_input(
-    scenarioId: str = Form(...),
+    scenario_id: str = Form(...),
     needFile: Optional[UploadFile] = File(default=None),
 ) -> UploadResponse:
     if not needFile:
-        if scenarioId in _scenario_index:
+        if scenario_id in _scenario_index:
             return UploadResponse(code=0, value=0)
         return UploadResponse(code=1, value=1)
 
     os.makedirs(_BASE_RUN_DIR, exist_ok=True)
-    zip_path = os.path.join(_BASE_RUN_DIR, f"{scenarioId}.zip")
+    zip_path = os.path.join(_BASE_RUN_DIR, f"{scenario_id}.zip")
     with open(zip_path, "wb") as handle:
         handle.write(needFile.file.read())
 
-    inputs = _prepare_input_from_zip(scenarioId, zip_path)
+    inputs = _prepare_input_from_zip(scenario_id, zip_path)
     run_config = inputs["run_config"]
     run_kwargs = {
         "pathfinding_type": _parse_pathfinding_type(run_config),
@@ -998,12 +1001,12 @@ def upload_input(
         "input_weights": inputs["input_weights"],
         "output_dir": inputs["output_dir"],
     }
-    _start_scenario_run(scenarioId, run_kwargs)
+    _start_scenario_run(scenario_id, run_kwargs)
     return UploadResponse(code=0, value=0)
 
 
 class StatusValue(BaseModel):
-    scenarioId: str
+    scenario_id: str
     status: Literal["running", "succeeded", "failed"]
     progress: int
     message: Optional[str] = None
@@ -1020,12 +1023,12 @@ def get_scenario_status(
 ) -> StatusResponse:
     run_id = _scenario_index.get(scenario_id)
     if not run_id:
-        raise HTTPException(status_code=404, detail="scenarioId not found")
+        raise HTTPException(status_code=404, detail="scenario_id not found")
 
     status = _job_status(run_id)
     progress = 0 if status.status == "running" else 100
     value = StatusValue(
-        scenarioId=scenario_id,
+        scenario_id=scenario_id,
         status=status.status,
         progress=progress,
         message=status.error,
@@ -1042,13 +1045,13 @@ class ResultResponse(BaseModel):
 
 @app.post("/scenario/result", response_model=ResultResponse)
 def receive_result(
-    scenarioId: str = Form(...),
+    scenario_id: str = Form(...),
     code: int = Form(...),
     message: str = Form(...),
     resultFile: Optional[UploadFile] = File(default=None),
 ) -> ResultResponse:
     os.makedirs(_BASE_RUN_DIR, exist_ok=True)
-    scenario_dir = os.path.join(_BASE_RUN_DIR, scenarioId)
+    scenario_dir = os.path.join(_BASE_RUN_DIR, scenario_id)
     os.makedirs(scenario_dir, exist_ok=True)
 
     if resultFile:
@@ -1058,8 +1061,8 @@ def receive_result(
 
     success = bool(code == 1)
     ts = int(datetime.datetime.utcnow().timestamp())
-    if scenarioId not in _scenario_index:
-        return ResultResponse(code=1, success=False, message="scenarioId not exist", timestamp=ts)
+    if scenario_id not in _scenario_index:
+        return ResultResponse(code=1, success=False, message="scenario_id not exist", timestamp=ts)
     return ResultResponse(code=0, success=success, message=message, timestamp=ts)
 
 
